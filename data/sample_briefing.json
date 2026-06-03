@@ -1,0 +1,110 @@
+{
+  "trip": {
+    "days_until_august": 62
+  },
+  "briefing": {
+    "date": "Demo-Briefing · Juni 2026",
+    "intro": "Ein ruhiges Cockpit für deine August-Reise: kompakte Tageslage, Route, Highlights, Gesundheit, Buchungen und To-dos – visuell statt nur als Telegram-Text.",
+    "metrics": [
+      {"label": "Route", "value": "5 Etappen", "hint": "Cape Town bis Kruger"},
+      {"label": "Fokus", "value": "August", "hint": "Mietwagen, Lodges, Malaria-Check"},
+      {"label": "Wetter", "value": "mild", "hint": "Küste wechselhaft, Kruger trocken"},
+      {"label": "Planung", "value": "68%", "hint": "Buchungen & Vorbereitung"}
+    ],
+    "news": [
+      "Demo: Hier landen später aktuelle Reise-/Sicherheits-/Straßenhinweise.",
+      "Für echte Tagesdaten sollte der Bot seine Ausgabe als JSON speichern.",
+      "Links und Quellen können pro Kachel ergänzt werden."
+    ],
+    "health": "Für Kruger im August Malaria-Risiko individuell mit Reisemedizin prüfen; Mückenschutz, lange helle Kleidung und Repellent einplanen.",
+    "mosquito_level": 42
+  },
+  "route": [
+    {
+      "emoji": "🌊",
+      "name": "Cape Town",
+      "summary": "Start mit Tafelberg, Küste, Weinregion und urbanem Food-Fokus.",
+      "detail": "Ideal für Akklimatisierung, Tagesausflüge ans Kap und erste Restaurant-/Weinbuchungen. Im August kann es kühl und regnerisch sein.",
+      "tags": ["City", "Food", "Tafelberg", "Wein"],
+      "risk": "low",
+      "risk_de": "niedrig",
+      "weather": "kühl / wechselhaft",
+      "link": "https://www.google.com/maps/search/Cape+Town"
+    },
+    {
+      "emoji": "🌿",
+      "name": "Garden Route",
+      "summary": "Küstenstraße mit Wäldern, Lagunen, Knysna, Tsitsikamma und kleinen Stopps.",
+      "detail": "Perfekt für langsames Roadtrip-Tempo. Plane Puffer ein, weil Fotostopps und kurze Wanderungen schnell Zeit fressen.",
+      "tags": ["Roadtrip", "Natur", "Knysna", "Tsitsikamma"],
+      "risk": "low",
+      "risk_de": "niedrig",
+      "weather": "mild / frisch",
+      "link": "https://www.google.com/maps/search/Garden+Route+South+Africa"
+    },
+    {
+      "emoji": "🏖️",
+      "name": "Durban",
+      "summary": "Wärmere Küste, indische Küche, Strände und Übergang Richtung Inland.",
+      "detail": "Guter Ort für Pause nach der Küstenfahrt. Restaurant-Fokus: Curry, Seafood und entspannte Strandpromenade.",
+      "tags": ["Beach", "Curry", "Warm", "Pause"],
+      "risk": "medium",
+      "risk_de": "mittel",
+      "weather": "wärmer / feuchter",
+      "link": "https://www.google.com/maps/search/Durban+South+Africa"
+    },
+    {
+      "emoji": "🏙️",
+      "name": "Johannesburg",
+      "summary": "Urbaner Transfer- und Kulturstopp vor dem Safari-Teil.",
+      "detail": "Fokus auf sichere Transfers, gute Unterkunftslage und optional Apartheid Museum / Soweto Tour.",
+      "tags": ["Transfer", "Kultur", "Museum", "City"],
+      "risk": "medium",
+      "risk_de": "mittel",
+      "weather": "trocken / sonnig",
+      "link": "https://www.google.com/maps/search/Johannesburg+South+Africa"
+    },
+    {
+      "emoji": "🦁",
+      "name": "Kruger National Park",
+      "summary": "Safari-Finale mit Trockenzeit, guten Sichtungen und Malaria-Check.",
+      "detail": "August ist oft stark für Tierbeobachtung. Früh buchen, Gate-Zeiten beachten, Fernglas und warme Morgenkleidung einpacken.",
+      "tags": ["Safari", "Big Five", "Trockenzeit", "Lodge"],
+      "risk": "high",
+      "risk_de": "hoch",
+      "weather": "trocken / kühle Morgen",
+      "link": "https://www.sanparks.org/parks/kruger"
+    }
+  ],
+  "magic_place": {
+    "name": "Storms River Mouth, Tsitsikamma",
+    "caption": "Magic Place Demo: Brücken, Brandung und Wald an der Garden Route",
+    "description": "Ein idealer visueller Tagesanker: kurze Wanderung, dramatische Küste, gute Roadtrip-Pause zwischen Knysna und Eastern Cape.",
+    "image": "https://images.unsplash.com/photo-1604513320723-0a15c1c1a962?q=80&w=1400&auto=format&fit=crop",
+    "link": "https://www.google.com/maps/search/Storms+River+Mouth+Tsitsikamma"
+  },
+  "restaurant": {
+    "name": "The Test Kitchen Fledgelings / Cape Town Food Stop",
+    "location": "Cape Town",
+    "why": "Demo-Eintrag für eine kuratierte Restaurant-Kachel mit Buchungs-/Info-Link.",
+    "tip": "Später täglich vom Bot aktualisieren lassen.",
+    "link": "https://www.google.com/maps/search/best+restaurants+Cape+Town"
+  },
+  "stay": {
+    "name": "Safari Lodge nahe Kruger Gate",
+    "location": "Kruger / Greater Kruger",
+    "why": "Demo-Eintrag für eine Unterkunft, die früh gebucht werden sollte.",
+    "tip": "August-Safari-Unterkünfte früh prüfen und stornierbare Optionen sichern.",
+    "link": "https://www.google.com/maps/search/Kruger+National+Park+lodge"
+  },
+  "preparation": [
+    {"task": "Reisemedizinische Beratung / Malaria-Prophylaxe klären", "done": false},
+    {"task": "Internationaler Führerschein / Mietwagenbedingungen prüfen", "done": false},
+    {"task": "Kruger-Unterkunft und Safari-Gates vergleichen", "done": false},
+    {"task": "Warme Safari-Morgenkleidung auf Packliste setzen", "done": true}
+  ],
+  "archive": [
+    {"title": "Briefing 01 · Beispiel", "text": "Kompaktes 10-Zeilen-Briefing wird hier später gespeichert."},
+    {"title": "Briefing 02 · Beispiel", "text": "Archiv kann aus JSON-Dateien oder einer kleinen SQLite-Datenbank gefüllt werden."}
+  ]
+}
