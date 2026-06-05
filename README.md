@@ -1,43 +1,39 @@
 # Südafrika Travel Bot Dashboard
 
-Streamlit-Prototyp für Micheles Travel Bot.
+Kostenlos teilbares Streamlit-Dashboard für die Südafrika-Reise 2026.
 
-## Starten
+Route: Cape Town → Coast → Durban → Johannesburg → Kruger National Park  
+Abreise: 4. August 2026
+
+## Lokal starten
 
 ```bash
-cd /home/michele/travel-dashboard
-uv run --with streamlit streamlit run app.py --server.address 127.0.0.1 --server.port 8501
+streamlit run app.py
 ```
 
-Dann im Browser öffnen:
+## Kostenlos veröffentlichen
 
-http://127.0.0.1:8501
+Empfohlen: Streamlit Community Cloud.
 
-## Datenquelle
+1. Dieses Projekt in ein öffentliches GitHub-Repository hochladen.
+2. https://share.streamlit.io öffnen.
+3. Mit GitHub anmelden.
+4. New app klicken.
+5. Repository auswählen.
+6. Branch: `main`
+7. Main file path: `app.py`
+8. Deploy klicken.
 
-Aktuell nutzt die App Demo-Daten aus:
+Danach bekommst du einen öffentlichen Link wie:
 
-`data/sample_briefing.json`
+```text
+https://dein-app-name.streamlit.app
+```
 
-Der nächste sinnvolle Schritt ist ein Connector, der die echte Travel-Bot-Ausgabe in dieses JSON-Format schreibt, z.B.:
+Der Link funktioniert auch, wenn dein eigener Computer offline ist, weil die App in der Cloud läuft.
 
-- Hermes Cronjob `Daily Travel Africa Update`
-- Telegram-Archiv
-- Markdown/Text-Briefings
-- eine kleine SQLite-Datenbank
+## Dateien
 
-## Struktur
-
-- `app.py` — Streamlit Dashboard
-- `data/sample_briefing.json` — Demo-Datenmodell
-- `README.md` — Start und nächste Schritte
-
-## Richtung Option C
-
-Wenn das visuelle Konzept passt, kann daraus später eine Next.js/React-App werden mit:
-
-- interaktiver Karte
-- persistentem Archiv
-- Login/Share-Link
-- schöneren Cards und Animationen
-- Live-Quellen für Wetter, News und Reisehinweise
+- `app.py` – Streamlit-App
+- `requirements.txt` – Python-Abhängigkeiten für Streamlit Cloud
+- `data/sample_briefing.json` – Beispiel-/Dashboard-Daten
