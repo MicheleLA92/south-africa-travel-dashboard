@@ -3,6 +3,7 @@ from pathlib import Path
 from datetime import date
 
 import streamlit as st
+import streamlit.components.v1 as components
 
 ROOT = Path(__file__).parent
 DATA_PATH = ROOT / "data" / "sample_briefing.json"
@@ -74,6 +75,8 @@ def load_data():
     return json.loads(DATA_PATH.read_text(encoding="utf-8"))
 
 data = load_data()
+TRIP_START = date(2026, 8, 4)
+days_until_trip = max((TRIP_START - date.today()).days, 0)
 
 with st.sidebar:
     st.title("🌍 Travel Bot")
@@ -81,7 +84,7 @@ with st.sidebar:
     current_stop = st.selectbox("Etappe anzeigen", [s["name"] for s in data["route"]], index=0)
     show_archived = st.toggle("Archiv anzeigen", value=True)
     st.divider()
-    st.metric("Tage bis August", data["trip"]["days_until_august"])
+    st.metric("Tage bis Abreise", days_until_trip)
     st.caption("Später: Live-Daten aus Hermes Cronjob, JSON oder Telegram-Archiv.")
 
 st.markdown(f"""
@@ -93,6 +96,97 @@ st.markdown(f"""
   <p>{data['briefing']['intro']}</p>
 </div>
 """, unsafe_allow_html=True)
+
+st.write("")
+
+components.html(f"""
+<style>
+  .countdown-wrap {{
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    margin: 0 0 2px 0;
+    border-radius: 24px;
+    padding: 18px 20px;
+    background: rgba(255, 250, 241, .88);
+    border: 1px solid rgba(49, 92, 69, .12);
+    box-shadow: 0 14px 40px rgba(49,92,69,.08);
+    color: #1f2a24;
+  }}
+  .countdown-head {{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 14px;
+    margin-bottom: 12px;
+  }}
+  .countdown-title {{
+    font-size: 1rem;
+    font-weight: 800;
+    color: #315c45;
+    letter-spacing: .02em;
+  }}
+  .countdown-date {{ color: #6f766f; font-size: .9rem; }}
+  .countdown-grid {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }}
+  .countdown-box {{
+    border-radius: 18px;
+    padding: 14px 10px;
+    text-align: center;
+    background: linear-gradient(180deg, #fffaf1, #f2e4cb);
+    border: 1px solid rgba(49, 92, 69, .10);
+  }}
+  .countdown-box strong {{
+    display: block;
+    font-size: clamp(1.9rem, 5vw, 3.1rem);
+    line-height: 1;
+    letter-spacing: -.06em;
+    font-variant-numeric: tabular-nums;
+  }}
+  .countdown-box span {{
+    display: block;
+    margin-top: 7px;
+    color: #6f766f;
+    font-size: .72rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+  }}
+  @media (max-width: 560px) {{ .countdown-grid {{ grid-template-columns: repeat(2, 1fr); }} }}
+</style>
+<div class="countdown-wrap" role="timer" aria-live="polite">
+  <div class="countdown-head">
+    <div class="countdown-title">🇿🇦 Countdown bis zur Südafrika-Reise</div>
+    <div class="countdown-date">Ziel: 4. August 2026 · noch {days_until_trip} Tage</div>
+  </div>
+  <div class="countdown-grid">
+    <div class="countdown-box"><strong id="cd-days">—</strong><span>Tage</span></div>
+    <div class="countdown-box"><strong id="cd-hours">—</strong><span>Stunden</span></div>
+    <div class="countdown-box"><strong id="cd-minutes">—</strong><span>Minuten</span></div>
+    <div class="countdown-box"><strong id="cd-seconds">—</strong><span>Sekunden</span></div>
+  </div>
+</div>
+<script>
+  const target = new Date('2026-08-04T00:00:00+02:00');
+  const pad = value => String(value).padStart(2, '0');
+  const el = id => document.getElementById(id);
+  function tick() {{
+    const now = new Date();
+    const diff = target - now;
+    if (diff <= 0) {{
+      el('cd-days').textContent = '0';
+      el('cd-hours').textContent = '00';
+      el('cd-minutes').textContent = '00';
+      el('cd-seconds').textContent = '00';
+      return;
+    }}
+    const total = Math.floor(diff / 1000);
+    el('cd-days').textContent = Math.floor(total / 86400);
+    el('cd-hours').textContent = pad(Math.floor((total % 86400) / 3600));
+    el('cd-minutes').textContent = pad(Math.floor((total % 3600) / 60));
+    el('cd-seconds').textContent = pad(total % 60);
+  }}
+  tick();
+  setInterval(tick, 1000);
+</script>
+""", height=178)
 
 st.write("")
 
