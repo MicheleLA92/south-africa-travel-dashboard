@@ -231,8 +231,8 @@ with left:
 
     st.pydeck_chart(
         pdk.Deck(
-            map_style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json",
-            initial_view_state=pdk.ViewState(latitude=-29.7, longitude=25.2, zoom=4.15, pitch=18, bearing=0),
+            map_style="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
+            initial_view_state=pdk.ViewState(latitude=-29.7, longitude=25.2, zoom=4.1, pitch=0),
             layers=[
                 pdk.Layer(
                     "PathLayer",
@@ -250,7 +250,6 @@ with left:
                     get_color=[197, 139, 54, 230],
                     width_min_pixels=5,
                     rounded=True,
-                    dash_justified=True,
                     pickable=True,
                 ),
                 pdk.Layer(
@@ -274,14 +273,13 @@ with left:
                     get_pixel_offset=[0, -18],
                 ),
                 pdk.Layer(
-                    "TextLayer",
+                    "ScatterplotLayer",
                     [car_marker],
                     get_position="position",
-                    get_text="icon",
-                    get_color=[31, 42, 36, 255],
-                    get_size=34,
-                    get_alignment_baseline="center",
-                    get_pixel_offset=[0, 0],
+                    get_fill_color=[197, 139, 54, 245],
+                    get_line_color=[255, 250, 241, 255],
+                    get_radius=36000,
+                    line_width_min_pixels=3,
                     pickable=True,
                 ),
                 pdk.Layer(
@@ -300,7 +298,7 @@ with left:
         use_container_width=True,
         height=470,
     )
-    st.caption("Blau = Küstenfahrt mit dem Auto von Kapstadt bis Durban · Gold = Inland-Etappe Richtung Johannesburg und Kruger.")
+    st.caption("🚗 Goldener Punkt = aktuelles Roadtrip-Gefühl an der Küste · Blau = Küstenfahrt Kapstadt bis Durban · Gold = Inland-Etappe Richtung Johannesburg und Kruger.")
 
     st.markdown('<div class="timeline">', unsafe_allow_html=True)
     for stop in data["route"]:
