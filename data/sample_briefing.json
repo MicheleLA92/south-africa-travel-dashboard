@@ -3,7 +3,7 @@
     "days_until_august": 62
   },
   "briefing": {
-    "date": "Demo-Briefing · Juni 2026",
+    "date": "Juni 2026",
     "intro": "Ein ruhiges Cockpit für deine August-Reise: kompakte Tageslage, Route, Highlights, Gesundheit, Buchungen und To-dos – visuell statt nur als Telegram-Text.",
     "metrics": [
       {
@@ -22,15 +22,15 @@
         "hint": "Küste wechselhaft, Kruger trocken"
       },
       {
-        "label": "Planung",
-        "value": "68%",
-        "hint": "Buchungen & Vorbereitung"
+        "label": "Freunde-Quiz",
+        "value": "6 Fragen",
+        "hint": "Vorhersagen für die Reise"
       }
     ],
     "news": [
-      "Demo: Hier landen später aktuelle Reise-/Sicherheits-/Straßenhinweise.",
-      "Für echte Tagesdaten sollte der Bot seine Ausgabe als JSON speichern.",
-      "Links und Quellen können pro Kachel ergänzt werden."
+      "Reisehinweise vor Abreise prüfen: Auswärtiges Amt, GOV.UK und US Travel Advisories führen weiterhin Hinweise zu Kriminalität, Demonstrationen und regionalen Risiken.",
+      "Für die Route gilt: In Städten wie Cape Town, Durban und Johannesburg Transfers bewusst planen, Wertsachen unauffällig halten und nach Einbruch der Dunkelheit eher Uber/Transfer nutzen.",
+      "Load-Shedding kann je nach Lage kurzfristig wieder Thema sein; Unterkünfte mit Backup-Strom/WLAN sind für Roadtrip-Planung und Navigation praktisch."
     ],
     "health": "Für Kruger im August Malaria-Risiko individuell mit Reisemedizin prüfen; Mückenschutz, lange helle Kleidung und Repellent einplanen.",
     "mosquito_level": 42
@@ -128,25 +128,25 @@
     }
   ],
   "magic_place": {
-    "name": "Storms River Mouth, Tsitsikamma",
-    "caption": "Magic Place Demo: Brücken, Brandung und Wald an der Garden Route",
-    "description": "Ein idealer visueller Tagesanker: kurze Wanderung, dramatische Küste, gute Roadtrip-Pause zwischen Knysna und Eastern Cape.",
-    "image": "https://images.unsplash.com/photo-1604513320723-0a15c1c1a962?q=80&w=1400&auto=format&fit=crop",
-    "link": "https://www.google.com/maps/search/Storms+River+Mouth+Tsitsikamma"
+    "name": "Noordhoek Beach Sunset",
+    "caption": "Weiter Sandstrand, Atlantik und Sonnenuntergang auf der Cape-Town-Etappe",
+    "description": "Ein dramatischer Küstenspot direkt auf der Route rund um Cape Town: langer Strand, offene Atlantik-Wellen und abends dieses goldene Licht, das nach Roadtrip und Freiheit aussieht.",
+    "image": "https://upload.wikimedia.org/wikipedia/commons/7/77/Noordhoek_Sunset.JPG",
+    "link": "https://www.google.com/maps/search/Noordhoek+Beach+Cape+Town"
   },
   "restaurant": {
-    "name": "The Test Kitchen Fledgelings / Cape Town Food Stop",
+    "name": "FYN Restaurant",
     "location": "Cape Town",
-    "why": "Demo-Eintrag für eine kuratierte Restaurant-Kachel mit Buchungs-/Info-Link.",
-    "tip": "Später täglich vom Bot aktualisieren lassen.",
-    "link": "https://www.google.com/maps/search/best+restaurants+Cape+Town"
+    "why": "Modernes Fine-Dining in Cape Town – perfekt als besonderer Start in die Reise.",
+    "tip": "",
+    "link": "https://www.google.com/maps/search/FYN+Restaurant+Cape+Town"
   },
   "stay": {
-    "name": "Safari Lodge nahe Kruger Gate",
-    "location": "Kruger / Greater Kruger",
-    "why": "Demo-Eintrag für eine Unterkunft, die früh gebucht werden sollte.",
-    "tip": "August-Safari-Unterkünfte früh prüfen und stornierbare Optionen sichern.",
-    "link": "https://www.google.com/maps/search/Kruger+National+Park+lodge"
+    "name": "Rhino Post Safari Lodge",
+    "location": "Kruger National Park",
+    "why": "Safari-Unterkunft im Kruger-Gebiet – guter Kandidat für ein besonderes Finale der Route.",
+    "tip": "",
+    "link": "https://www.google.com/maps/search/Rhino+Post+Safari+Lodge+Kruger"
   },
   "preparation": [
     {
@@ -252,5 +252,68 @@
     "lon": 25.2826109,
     "link": "https://www.google.com/maps/search/Addo+Elephant+National+Park",
     "icon_url": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2080%2080%27%3E%0A%20%20%3Cfilter%20id%3D%27shadow%27%20x%3D%27-20%25%27%20y%3D%27-20%25%27%20width%3D%27140%25%27%20height%3D%27140%25%27%3E%0A%20%20%20%20%3CfeDropShadow%20dx%3D%270%27%20dy%3D%273%27%20stdDeviation%3D%273%27%20flood-color%3D%27%231f2a24%27%20flood-opacity%3D%27.28%27/%3E%0A%20%20%3C/filter%3E%0A%20%20%3Ccircle%20cx%3D%2740%27%20cy%3D%2740%27%20r%3D%2734%27%20fill%3D%27%23fffaf1%27%20stroke%3D%27%23315c45%27%20stroke-width%3D%274%27%20filter%3D%27url%28%23shadow%29%27/%3E%0A%20%20%3Ctext%20x%3D%2740%27%20y%3D%2753%27%20text-anchor%3D%27middle%27%20font-size%3D%2743%27%20font-family%3D%27Apple%20Color%20Emoji%2C%20Segoe%20UI%20Emoji%2C%20Noto%20Color%20Emoji%2C%20sans-serif%27%3E%F0%9F%90%98%3C/text%3E%0A%3C/svg%3E"
+  },
+  "quiz": {
+    "title": "Freunde-Quiz: Was passiert auf meiner Südafrika-Reise?",
+    "description": "Keine richtigen oder falschen Antworten – sammle die wildesten Vorhersagen.",
+    "button_label": "Meine Tipps speichern",
+    "questions": [
+      {
+        "question": "Welches Tier werde ich zuerst sehen?",
+        "options": [
+          "Löwe",
+          "Elefant",
+          "Nashorn",
+          "Leopard",
+          "Büffel",
+          "frecher Affe"
+        ]
+      },
+      {
+        "question": "Wie oft werde ich mich verfahren?",
+        "options": [
+          "Nie",
+          "1-mal",
+          "3-mal",
+          "ich nenne es „Abenteuer“"
+        ]
+      },
+      {
+        "question": "Wie oft werde ich sagen: „Okay, DAS ist jetzt wirklich das schönste Foto“?",
+        "options": [
+          "3-mal",
+          "15-mal",
+          "50-mal",
+          "jede Stunde"
+        ]
+      },
+      {
+        "question": "Was wird mein Südafrika-Satz der Reise?",
+        "options": [
+          "„Wow!“",
+          "„Nur noch ein Foto“",
+          "„Sind wir hier richtig?“",
+          "„Es ist sooo schön“"
+        ]
+      },
+      {
+        "question": "Wie viele Fotos werde ich machen, bevor ich merke, dass alle gleich aussehen?",
+        "options": [
+          "10",
+          "80",
+          "300",
+          "Speicher voll"
+        ]
+      },
+      {
+        "question": "Was wird mein dramatischster Satz sein?",
+        "options": [
+          "„Ich ziehe hierher.“",
+          "„Ich wollte nur Ferien machen, jetzt suche ich Wohnungen.“",
+          "„Das ist mein neues Lieblingsland.“",
+          "„Ich brauche keinen Rückflug, ich brauche einen größeren Koffer für den Elefanten.“"
+        ]
+      }
+    ]
   }
 }

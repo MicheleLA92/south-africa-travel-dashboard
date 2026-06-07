@@ -60,3 +60,28 @@ def test_map_has_elephant_marker_near_port_elizabeth():
     assert "Port Elizabeth" in marker["label"] or "Gqeberha" in marker["label"]
     assert -34 <= marker["lat"] <= -32
     assert 24 <= marker["lon"] <= 27
+
+
+def test_friend_quiz_questions_have_options():
+    data = load_data()
+    quiz = data["quiz"]
+    questions = quiz["questions"]
+
+    assert quiz["title"]
+    assert quiz["description"]
+    assert len(questions) == 6
+    for question in questions:
+        assert question["question"]
+        assert len(question["options"]) >= 4
+        assert "correct_index" not in question
+
+
+def test_top_metrics_promote_friend_quiz_instead_of_planning():
+    data = load_data()
+    metrics = data["briefing"]["metrics"]
+    labels = [metric["label"] for metric in metrics]
+    values = [metric["value"] for metric in metrics]
+
+    assert labels[-1] == "Freunde-Quiz"
+    assert "Planung" not in labels
+    assert "68%" not in values

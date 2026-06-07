@@ -1,6 +1,7 @@
 import json
+from collections import Counter
 from pathlib import Path
-from datetime import date
+from datetime import date, datetime
 
 import pydeck as pdk
 import streamlit as st
@@ -8,9 +9,10 @@ import streamlit.components.v1 as components
 
 ROOT = Path(__file__).parent
 DATA_PATH = ROOT / "data" / "sample_briefing.json"
+QUIZ_RESULTS_PATH = ROOT / "data" / "friend_quiz_results.json"
 
 st.set_page_config(
-    page_title="Südafrika Travel Bot Dashboard",
+    page_title="Südafrika Reise",
     page_icon="🌍",
     layout="wide",
     initial_sidebar_state="expanded",
@@ -40,7 +42,7 @@ CSS = """
   color: #fffaf1;
   box-shadow: 0 24px 70px rgba(31,42,36,.18);
 }
-.hero h1 { font-size: 2.5rem; margin: 0 0 .35rem 0; letter-spacing: -0.04em; }
+.hero h1 { font-size: 2.5rem; margin: 0 0 1rem 0; letter-spacing: -0.04em; }
 .hero p { max-width: 780px; color: rgba(255,250,241,.86); font-size: 1.05rem; }
 .badge { display:inline-block; padding:.35rem .7rem; border-radius:999px; background:rgba(255,250,241,.16); border:1px solid rgba(255,250,241,.24); margin-right:.4rem; font-size:.82rem; }
 .card {
@@ -66,6 +68,24 @@ CSS = """
 .risk-low { color:#2d6a4f; font-weight:700; }
 .risk-medium { color:#b7791f; font-weight:700; }
 .risk-high { color:#a44a3f; font-weight:700; }
+.quiz-score { font-size: 1.35rem; font-weight: 800; color: var(--green); margin: .2rem 0 .6rem 0; }
+.quiz-answer { padding: .7rem .85rem; border-radius: 16px; margin: .4rem 0; background: rgba(234,216,183,.34); border: 1px solid rgba(49,92,69,.10); }
+.quiz-answer strong { color: var(--green); }
+.quiz-teaser {
+  background: linear-gradient(120deg, rgba(255,250,241,.92), rgba(242,228,203,.94));
+  border: 1px solid rgba(197,139,54,.26);
+  border-radius: 24px;
+  padding: 22px 24px;
+  box-shadow: 0 16px 42px rgba(49,92,69,.09);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+}
+.quiz-teaser h2 { margin: 0 0 .35rem 0; color: var(--green); letter-spacing: -.03em; }
+.quiz-teaser p { margin: 0; color: var(--muted); max-width: 760px; }
+.quiz-teaser .emoji { font-size: 2.2rem; margin-right: .35rem; }
+@media (max-width: 760px) { .quiz-teaser { align-items:flex-start; flex-direction:column; } }
 a { color: #8a5a16 !important; text-decoration: none; font-weight: 650; }
 </style>
 """
@@ -75,26 +95,68 @@ st.markdown(CSS, unsafe_allow_html=True)
 def load_data():
     return json.loads(DATA_PATH.read_text(encoding="utf-8"))
 
+
+def load_quiz_results():
+    if not QUIZ_RESULTS_PATH.exists():
+        return []
+    try:
+        return json.loads(QUIZ_RESULTS_PATH.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return []
+
+
+def save_quiz_result(friend_name, quiz_questions, answers):
+    QUIZ_RESULTS_PATH.parent.mkdir(parents=True, exist_ok=True)
+    results = load_quiz_results()
+    results.append(
+        {
+            "submitted_at": datetime.now().isoformat(timespec="seconds"),
+            "name": friend_name,
+            "answers": [
+                {"question": question["question"], "answer": answer}
+                for question, answer in zip(quiz_questions, answers)
+            ],
+        }
+    )
+    QUIZ_RESULTS_PATH.write_text(json.dumps(results, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return results
+
+
+def summarize_quiz_results(results, quiz_questions):
+    summary = []
+    for question in quiz_questions:
+        answers = [
+            item["answer"]
+            for result in results
+            for item in result.get("answers", [])
+            if item.get("question") == question["question"]
+        ]
+        counts = Counter(answers)
+        top_answer, top_count = counts.most_common(1)[0] if counts else ("Noch keine Antwort", 0)
+        summary.append(
+            {
+                "question": question["question"],
+                "top_answer": top_answer,
+                "top_count": top_count,
+                "total": len(answers),
+            }
+        )
+    return summary
+
 data = load_data()
 TRIP_START = date(2026, 8, 4)
 days_until_trip = max((TRIP_START - date.today()).days, 0)
 
 with st.sidebar:
-    st.title("🌍 Travel Bot")
-    st.caption("Dashboard-Prototyp B: Streamlit")
+    st.title("🌍 Südafrika")
     current_stop = st.selectbox("Etappe anzeigen", [s["name"] for s in data["route"]], index=0)
-    show_archived = st.toggle("Archiv anzeigen", value=True)
     st.divider()
     st.metric("Tage bis Abreise", days_until_trip)
-    st.caption("Später: Live-Daten aus Hermes Cronjob, JSON oder Telegram-Archiv.")
 
-st.markdown(f"""
+st.markdown("""
 <div class="hero">
-  <span class="badge">{data['briefing']['date']}</span>
   <span class="badge">Cape Town → Durban → Johannesburg → Kruger</span>
-  <span class="badge">Daily Travel Briefing</span>
-  <h1>Südafrika Reise-Dashboard</h1>
-  <p>{data['briefing']['intro']}</p>
+  <h1>Südafrika Reise</h1>
 </div>
 """, unsafe_allow_html=True)
 
@@ -189,21 +251,91 @@ components.html(f"""
 </script>
 """, height=178)
 
-st.write("")
-
-m1, m2, m3, m4 = st.columns(4)
-metrics = data["briefing"]["metrics"]
-for col, item in zip([m1, m2, m3, m4], metrics):
-    with col:
-        st.markdown(f"""
-        <div class="card">
-          <h3>{item['label']}</h3>
-          <div class="metric">{item['value']}</div>
-          <div class="small">{item['hint']}</div>
-        </div>
-        """, unsafe_allow_html=True)
+quiz = data.get("quiz", {})
+quiz_questions = quiz.get("questions", []) if isinstance(quiz, dict) else quiz
+if st.query_params.get("show") == "quiz":
+    st.session_state["show_friend_quiz"] = True
 
 st.write("")
+st.markdown("""
+<div class="quiz-teaser">
+  <div>
+    <h2><span class="emoji">🦁</span>Freunde-Quiz</h2>
+    <p>Was glaubt ihr, was auf meiner Südafrika-Reise passieren wird?</p>
+  </div>
+</div>
+""", unsafe_allow_html=True)
+
+if st.button("Jetzt Vorhersage abgeben", type="primary", key="show_friend_quiz_button"):
+    st.session_state["show_friend_quiz"] = True
+
+if quiz_questions and st.session_state.get("show_friend_quiz", False):
+    st.write("")
+    st.markdown('<div id="freunde-quiz"></div>', unsafe_allow_html=True)
+    st.subheader(f"🧠 {quiz.get('title', 'Südafrika-Quiz') if isinstance(quiz, dict) else 'Südafrika-Quiz'}")
+    st.caption(
+        quiz.get(
+            "description",
+            "Keine richtigen oder falschen Antworten – hier tippen deine Freunde, was unterwegs passiert.",
+        )
+        if isinstance(quiz, dict)
+        else "Keine richtigen oder falschen Antworten – hier tippen deine Freunde, was unterwegs passiert."
+    )
+
+    friend_name = st.text_input("Dein Name", placeholder="z. B. Anna")
+    answers = []
+    answered_count = 0
+    for index, question in enumerate(quiz_questions, start=1):
+        options = ["– bitte wählen –", *question["options"]]
+        answer = st.radio(
+            f"{index}. {question['question']}",
+            options,
+            index=0,
+            key=f"quiz_answer_{index}",
+        )
+        if answer != "– bitte wählen –":
+            answered_count += 1
+        answers.append(answer)
+
+    st.progress(answered_count / len(quiz_questions), text=f"{answered_count} von {len(quiz_questions)} Tipps abgegeben")
+
+    button_label = quiz.get("button_label", "Meine Tipps speichern") if isinstance(quiz, dict) else "Meine Tipps speichern"
+    if st.button(button_label, type="primary", disabled=answered_count < len(quiz_questions) or st.session_state.get("quiz_checked", False)):
+        display_name = friend_name.strip() or "Anonym"
+        results = save_quiz_result(display_name, quiz_questions, answers)
+        st.session_state["quiz_checked"] = True
+        st.session_state["quiz_last_name"] = display_name
+        st.session_state["quiz_last_answers"] = answers
+        st.session_state["quiz_results"] = results
+
+    if st.session_state.get("quiz_checked"):
+        display_name = st.session_state.get("quiz_last_name", friend_name.strip() or "Anonym")
+        submitted_answers = st.session_state.get("quiz_last_answers", answers)
+        results = st.session_state.get("quiz_results", load_quiz_results())
+        st.success("Danke! Deine Vorhersage wurde gespeichert.")
+        st.markdown(
+            f'<div class="card"><div class="quiz-score">{display_name}s Südafrika-Vorhersage</div>'
+            '<div class="small">So hast du getippt:</div></div>',
+            unsafe_allow_html=True,
+        )
+        for answer, question in zip(submitted_answers, quiz_questions):
+            st.markdown(
+                f'<div class="quiz-answer">🦁 <strong>{question["question"]}</strong><br>'
+                f'<span class="small">Tipp: {answer}</span></div>',
+                unsafe_allow_html=True,
+            )
+
+        st.subheader("📊 Auswertung bisher")
+        for item in summarize_quiz_results(results, quiz_questions):
+            st.markdown(
+                f'<div class="quiz-answer">🏆 <strong>{item["question"]}</strong><br>'
+                f'<span class="small">Meiste Antwort: {item["top_answer"]} '
+                f'({item["top_count"]} von {item["total"]} Stimmen)</span></div>',
+                unsafe_allow_html=True,
+            )
+
+st.write("")
+
 left, right = st.columns([1.2, .8], gap="large")
 
 with left:
@@ -321,10 +453,6 @@ with left:
         """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
 
-    selected = next(s for s in data["route"] if s["name"] == current_stop)
-    with st.expander(f"Details zu {current_stop}", expanded=True):
-        st.write(selected["detail"])
-        st.link_button("Info / Karte öffnen", selected["link"])
 
 with right:
     st.subheader("✨ Magic Place des Tages")
@@ -332,29 +460,22 @@ with right:
     st.image(magic["image"], caption=magic["caption"], use_container_width=True)
     st.markdown(f"### {magic['name']}")
     st.write(magic["description"])
-    st.link_button("Mehr Infos", magic["link"])
 
 st.write("")
 
 c1, c2, c3 = st.columns(3)
 with c1:
-    st.markdown('<div class="card">', unsafe_allow_html=True)
     st.subheader("📰 Aktuelle Lage")
     for item in data["briefing"]["news"]:
         st.write(f"• {item}")
-    st.markdown('</div>', unsafe_allow_html=True)
 with c2:
-    st.markdown('<div class="card">', unsafe_allow_html=True)
     st.subheader("🦟 Gesundheit")
     st.write(data["briefing"]["health"])
     st.progress(data["briefing"]["mosquito_level"] / 100, text=f"Mücken-/Malaria-Aufmerksamkeit: {data['briefing']['mosquito_level']}%")
-    st.markdown('</div>', unsafe_allow_html=True)
 with c3:
-    st.markdown('<div class="card">', unsafe_allow_html=True)
     st.subheader("🎒 Vorbereitung")
     for item in data["preparation"]:
         st.checkbox(item["task"], value=item["done"])
-    st.markdown('</div>', unsafe_allow_html=True)
 
 st.write("")
 st.subheader("🍽️ Must-Visit & 🛏️ Must-Book")
@@ -367,7 +488,6 @@ with r1:
       <h3>Restaurant</h3>
       <h2>{restaurant['name']}</h2>
       <p>{restaurant['why']}</p>
-      <p class="small">Ort: {restaurant['location']} · Hinweis: {restaurant['tip']}</p>
     </div>
     """, unsafe_allow_html=True)
     st.link_button("Restaurant öffnen", restaurant["link"])
@@ -377,16 +497,6 @@ with r2:
       <h3>Unterkunft</h3>
       <h2>{stay['name']}</h2>
       <p>{stay['why']}</p>
-      <p class="small">Ort: {stay['location']} · Hinweis: {stay['tip']}</p>
     </div>
     """, unsafe_allow_html=True)
     st.link_button("Unterkunft öffnen", stay["link"])
-
-if show_archived:
-    st.write("")
-    st.subheader("📚 Briefing-Archiv")
-    for entry in data["archive"]:
-        with st.expander(entry["title"]):
-            st.write(entry["text"])
-
-st.caption("Prototyp: Daten kommen aktuell aus data/sample_briefing.json. Nächster Schritt: Live-Connector für Hermes Cronjob-Ausgaben oder Travel-Bot-JSON.")
