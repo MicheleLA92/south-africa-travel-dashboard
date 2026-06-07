@@ -175,5 +175,79 @@
       "title": "Briefing 02 · Beispiel",
       "text": "Archiv kann aus JSON-Dateien oder einer kleinen SQLite-Datenbank gefüllt werden."
     }
-  ]
+  ],
+  "map_route": [
+    {
+      "name": "Cape Town",
+      "lat": -33.9249,
+      "lon": 18.4241,
+      "kind": "coast"
+    },
+    {
+      "name": "Hermanus",
+      "lat": -34.4092,
+      "lon": 19.2504,
+      "kind": "coast"
+    },
+    {
+      "name": "Mossel Bay",
+      "lat": -34.1831,
+      "lon": 22.146,
+      "kind": "coast"
+    },
+    {
+      "name": "Knysna",
+      "lat": -34.0351,
+      "lon": 23.0471,
+      "kind": "coast"
+    },
+    {
+      "name": "Tsitsikamma",
+      "lat": -34.0219,
+      "lon": 23.8958,
+      "kind": "coast"
+    },
+    {
+      "name": "Gqeberha / Port Elizabeth",
+      "lat": -33.9608,
+      "lon": 25.6022,
+      "kind": "coast"
+    },
+    {
+      "name": "East London",
+      "lat": -33.0153,
+      "lon": 27.9116,
+      "kind": "coast"
+    },
+    {
+      "name": "Coffee Bay / Wild Coast",
+      "lat": -31.9869,
+      "lon": 29.1503,
+      "kind": "coast"
+    },
+    {
+      "name": "Durban",
+      "lat": -29.8587,
+      "lon": 31.0218,
+      "kind": "coast"
+    },
+    {
+      "name": "Johannesburg",
+      "lat": -26.2041,
+      "lon": 28.0473,
+      "kind": "inland"
+    },
+    {
+      "name": "Kruger National Park",
+      "lat": -24.0112,
+      "lon": 31.4858,
+      "kind": "safari"
+    }
+  ],
+  "map_car_marker": {
+    "icon": "🚗",
+    "label": "Roadtrip an der Küste",
+    "lat": -34.03,
+    "lon": 23.5
+  }
 }

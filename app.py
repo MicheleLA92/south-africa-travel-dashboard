@@ -209,39 +209,57 @@ left, right = st.columns([1.2, .8], gap="large")
 with left:
     st.subheader("🗺️ Route & Etappen")
 
+    map_route = data["map_route"]
+    coastal_points = [point for point in map_route if point["kind"] == "coast"]
+    inland_points = [point for point in map_route if point["kind"] != "coast"]
     route_points = [
         {
-            "name": stop["name"],
-            "summary": stop["summary"],
-            "lat": stop["lat"],
-            "lon": stop["lon"],
-            "position": [stop["lon"], stop["lat"]],
-            "label": f"{index}. {stop['name']}",
+            **point,
+            "position": [point["lon"], point["lat"]],
+            "label": f"{index}. {point['name']}",
+            "summary": "Küstenfahrt mit Mietwagen" if point["kind"] == "coast" else "Inland-Etappe Richtung Safari",
+            "color": [20, 116, 139, 235] if point["kind"] == "coast" else [49, 92, 69, 235],
         }
-        for index, stop in enumerate(data["route"], start=1)
+        for index, point in enumerate(map_route, start=1)
     ]
-    route_path = [{"name": "Cape Town → Kruger", "path": [point["position"] for point in route_points]}]
+    car_marker = {
+        **data["map_car_marker"],
+        "position": [data["map_car_marker"]["lon"], data["map_car_marker"]["lat"]],
+    }
+    coastal_path = [{"name": "Küstenroute Cape Town → Durban", "path": [[point["lon"], point["lat"]] for point in coastal_points]}]
+    inland_path = [{"name": "Inland & Safari Durban → Johannesburg → Kruger", "path": [[point["lon"], point["lat"]] for point in [coastal_points[-1], *inland_points]]}]
 
     st.pydeck_chart(
         pdk.Deck(
-            map_style="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
-            initial_view_state=pdk.ViewState(latitude=-29.3, longitude=25.1, zoom=4.0, pitch=0),
+            map_style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json",
+            initial_view_state=pdk.ViewState(latitude=-29.7, longitude=25.2, zoom=4.15, pitch=18, bearing=0),
             layers=[
                 pdk.Layer(
                     "PathLayer",
-                    route_path,
+                    coastal_path,
+                    get_path="path",
+                    get_color=[20, 116, 139, 245],
+                    width_min_pixels=7,
+                    rounded=True,
+                    pickable=True,
+                ),
+                pdk.Layer(
+                    "PathLayer",
+                    inland_path,
                     get_path="path",
                     get_color=[197, 139, 54, 230],
                     width_min_pixels=5,
                     rounded=True,
+                    dash_justified=True,
+                    pickable=True,
                 ),
                 pdk.Layer(
                     "ScatterplotLayer",
                     route_points,
                     get_position="position",
-                    get_fill_color=[49, 92, 69, 230],
+                    get_fill_color="color",
                     get_line_color=[255, 250, 241, 255],
-                    get_radius=26000,
+                    get_radius=22000,
                     line_width_min_pixels=2,
                     pickable=True,
                 ),
@@ -251,17 +269,38 @@ with left:
                     get_position="position",
                     get_text="label",
                     get_color=[31, 42, 36, 255],
-                    get_size=16,
+                    get_size=14,
                     get_alignment_baseline="bottom",
                     get_pixel_offset=[0, -18],
+                ),
+                pdk.Layer(
+                    "TextLayer",
+                    [car_marker],
+                    get_position="position",
+                    get_text="icon",
+                    get_color=[31, 42, 36, 255],
+                    get_size=34,
+                    get_alignment_baseline="center",
+                    get_pixel_offset=[0, 0],
+                    pickable=True,
+                ),
+                pdk.Layer(
+                    "TextLayer",
+                    [car_marker],
+                    get_position="position",
+                    get_text="label",
+                    get_color=[138, 90, 22, 255],
+                    get_size=15,
+                    get_alignment_baseline="top",
+                    get_pixel_offset=[0, 24],
                 ),
             ],
             tooltip={"html": "<b>{name}</b><br/>{summary}", "style": {"backgroundColor": "#315c45", "color": "#fffaf1"}},
         ),
         use_container_width=True,
-        height=430,
+        height=470,
     )
-    st.caption("Interaktive Übersicht der geplanten Route: Cape Town → Garden Route → Durban → Johannesburg → Kruger.")
+    st.caption("Blau = Küstenfahrt mit dem Auto von Kapstadt bis Durban · Gold = Inland-Etappe Richtung Johannesburg und Kruger.")
 
     st.markdown('<div class="timeline">', unsafe_allow_html=True)
     for stop in data["route"]:
