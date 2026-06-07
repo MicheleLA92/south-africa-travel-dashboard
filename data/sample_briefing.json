@@ -244,10 +244,12 @@
       "kind": "safari"
     }
   ],
-  "map_car_marker": {
-    "icon": "🚗",
-    "label": "Roadtrip an der Küste",
-    "lat": -34.03,
-    "lon": 23.5
+  "map_elephant_marker": {
+    "icon": "🐘",
+    "name": "Addo Elephant National Park",
+    "label": "🐘 Addo Elephant Park nahe Gqeberha / Port Elizabeth",
+    "lat": -33.1682124,
+    "lon": 25.2826109,
+    "link": "https://www.google.com/maps/search/Addo+Elephant+National+Park"
   }
 }

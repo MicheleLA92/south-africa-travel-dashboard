@@ -50,11 +50,12 @@ def test_map_route_follows_coast_before_turning_inland():
     assert len(route) >= 11
 
 
-def test_map_route_has_car_marker_on_coastal_drive():
+def test_map_has_elephant_marker_near_port_elizabeth():
     data = load_data()
-    car = data["map_car_marker"]
+    marker = data["map_elephant_marker"]
 
-    assert car["icon"] == "🚗"
-    assert "label" in car
-    assert -35 <= car["lat"] <= -29
-    assert 18 <= car["lon"] <= 32
+    assert marker["icon"] == "🐘"
+    assert marker["name"] == "Addo Elephant National Park"
+    assert "Port Elizabeth" in marker["label"] or "Gqeberha" in marker["label"]
+    assert -34 <= marker["lat"] <= -32
+    assert 24 <= marker["lon"] <= 27

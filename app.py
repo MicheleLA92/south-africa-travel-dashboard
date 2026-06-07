@@ -222,9 +222,10 @@ with left:
         }
         for index, point in enumerate(map_route, start=1)
     ]
-    car_marker = {
-        **data["map_car_marker"],
-        "position": [data["map_car_marker"]["lon"], data["map_car_marker"]["lat"]],
+    elephant_marker = {
+        **data["map_elephant_marker"],
+        "position": [data["map_elephant_marker"]["lon"], data["map_elephant_marker"]["lat"]],
+        "summary": "Elefanten-Stop nahe Gqeberha / Port Elizabeth",
     }
     coastal_path = [{"name": "Küstenroute Cape Town → Durban", "path": [[point["lon"], point["lat"]] for point in coastal_points]}]
     inland_path = [{"name": "Inland & Safari Durban → Johannesburg → Kruger", "path": [[point["lon"], point["lat"]] for point in [coastal_points[-1], *inland_points]]}]
@@ -274,23 +275,23 @@ with left:
                 ),
                 pdk.Layer(
                     "ScatterplotLayer",
-                    [car_marker],
+                    [elephant_marker],
                     get_position="position",
-                    get_fill_color=[197, 139, 54, 245],
+                    get_fill_color=[49, 92, 69, 245],
                     get_line_color=[255, 250, 241, 255],
-                    get_radius=36000,
+                    get_radius=42000,
                     line_width_min_pixels=3,
                     pickable=True,
                 ),
                 pdk.Layer(
                     "TextLayer",
-                    [car_marker],
+                    [elephant_marker],
                     get_position="position",
                     get_text="label",
-                    get_color=[138, 90, 22, 255],
+                    get_color=[49, 92, 69, 255],
                     get_size=15,
                     get_alignment_baseline="top",
-                    get_pixel_offset=[0, 24],
+                    get_pixel_offset=[0, 26],
                 ),
             ],
             tooltip={"html": "<b>{name}</b><br/>{summary}", "style": {"backgroundColor": "#315c45", "color": "#fffaf1"}},
@@ -298,7 +299,7 @@ with left:
         use_container_width=True,
         height=470,
     )
-    st.caption("🚗 Goldener Punkt = aktuelles Roadtrip-Gefühl an der Küste · Blau = Küstenfahrt Kapstadt bis Durban · Gold = Inland-Etappe Richtung Johannesburg und Kruger.")
+    st.caption("🐘 Grüner Marker = Addo Elephant National Park nahe Gqeberha / Port Elizabeth · Blau = Küstenfahrt Kapstadt bis Durban · Gold = Inland-Etappe Richtung Johannesburg und Kruger.")
 
     st.markdown('<div class="timeline">', unsafe_allow_html=True)
     for stop in data["route"]:
