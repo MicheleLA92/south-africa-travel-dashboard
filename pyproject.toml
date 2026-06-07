@@ -3,4 +3,4 @@ name = "travel-dashboard"
 version = "0.1.0"
 description = "Streamlit dashboard prototype for a South Africa travel bot"
 requires-python = ">=3.11"
-dependencies = ["streamlit>=1.45"]
+dependencies = ["streamlit>=1.45", "pydeck>=0.9"]

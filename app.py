@@ -2,6 +2,7 @@ import json
 from pathlib import Path
 from datetime import date
 
+import pydeck as pdk
 import streamlit as st
 import streamlit.components.v1 as components
 
@@ -207,6 +208,61 @@ left, right = st.columns([1.2, .8], gap="large")
 
 with left:
     st.subheader("🗺️ Route & Etappen")
+
+    route_points = [
+        {
+            "name": stop["name"],
+            "summary": stop["summary"],
+            "lat": stop["lat"],
+            "lon": stop["lon"],
+            "position": [stop["lon"], stop["lat"]],
+            "label": f"{index}. {stop['name']}",
+        }
+        for index, stop in enumerate(data["route"], start=1)
+    ]
+    route_path = [{"name": "Cape Town → Kruger", "path": [point["position"] for point in route_points]}]
+
+    st.pydeck_chart(
+        pdk.Deck(
+            map_style="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
+            initial_view_state=pdk.ViewState(latitude=-29.3, longitude=25.1, zoom=4.0, pitch=0),
+            layers=[
+                pdk.Layer(
+                    "PathLayer",
+                    route_path,
+                    get_path="path",
+                    get_color=[197, 139, 54, 230],
+                    width_min_pixels=5,
+                    rounded=True,
+                ),
+                pdk.Layer(
+                    "ScatterplotLayer",
+                    route_points,
+                    get_position="position",
+                    get_fill_color=[49, 92, 69, 230],
+                    get_line_color=[255, 250, 241, 255],
+                    get_radius=26000,
+                    line_width_min_pixels=2,
+                    pickable=True,
+                ),
+                pdk.Layer(
+                    "TextLayer",
+                    route_points,
+                    get_position="position",
+                    get_text="label",
+                    get_color=[31, 42, 36, 255],
+                    get_size=16,
+                    get_alignment_baseline="bottom",
+                    get_pixel_offset=[0, -18],
+                ),
+            ],
+            tooltip={"html": "<b>{name}</b><br/>{summary}", "style": {"backgroundColor": "#315c45", "color": "#fffaf1"}},
+        ),
+        use_container_width=True,
+        height=430,
+    )
+    st.caption("Interaktive Übersicht der geplanten Route: Cape Town → Garden Route → Durban → Johannesburg → Kruger.")
+
     st.markdown('<div class="timeline">', unsafe_allow_html=True)
     for stop in data["route"]:
         active = "active" if stop["name"] == current_stop else ""

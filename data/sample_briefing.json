@@ -6,10 +6,26 @@
     "date": "Demo-Briefing · Juni 2026",
     "intro": "Ein ruhiges Cockpit für deine August-Reise: kompakte Tageslage, Route, Highlights, Gesundheit, Buchungen und To-dos – visuell statt nur als Telegram-Text.",
     "metrics": [
-      {"label": "Route", "value": "5 Etappen", "hint": "Cape Town bis Kruger"},
-      {"label": "Fokus", "value": "August", "hint": "Mietwagen, Lodges, Malaria-Check"},
-      {"label": "Wetter", "value": "mild", "hint": "Küste wechselhaft, Kruger trocken"},
-      {"label": "Planung", "value": "68%", "hint": "Buchungen & Vorbereitung"}
+      {
+        "label": "Route",
+        "value": "5 Etappen",
+        "hint": "Cape Town bis Kruger"
+      },
+      {
+        "label": "Fokus",
+        "value": "August",
+        "hint": "Mietwagen, Lodges, Malaria-Check"
+      },
+      {
+        "label": "Wetter",
+        "value": "mild",
+        "hint": "Küste wechselhaft, Kruger trocken"
+      },
+      {
+        "label": "Planung",
+        "value": "68%",
+        "hint": "Buchungen & Vorbereitung"
+      }
     ],
     "news": [
       "Demo: Hier landen später aktuelle Reise-/Sicherheits-/Straßenhinweise.",
@@ -25,55 +41,90 @@
       "name": "Cape Town",
       "summary": "Start mit Tafelberg, Küste, Weinregion und urbanem Food-Fokus.",
       "detail": "Ideal für Akklimatisierung, Tagesausflüge ans Kap und erste Restaurant-/Weinbuchungen. Im August kann es kühl und regnerisch sein.",
-      "tags": ["City", "Food", "Tafelberg", "Wein"],
+      "tags": [
+        "City",
+        "Food",
+        "Tafelberg",
+        "Wein"
+      ],
       "risk": "low",
       "risk_de": "niedrig",
       "weather": "kühl / wechselhaft",
-      "link": "https://www.google.com/maps/search/Cape+Town"
+      "link": "https://www.google.com/maps/search/Cape+Town",
+      "lat": -33.9249,
+      "lon": 18.4241
     },
     {
       "emoji": "🌿",
       "name": "Garden Route",
       "summary": "Küstenstraße mit Wäldern, Lagunen, Knysna, Tsitsikamma und kleinen Stopps.",
       "detail": "Perfekt für langsames Roadtrip-Tempo. Plane Puffer ein, weil Fotostopps und kurze Wanderungen schnell Zeit fressen.",
-      "tags": ["Roadtrip", "Natur", "Knysna", "Tsitsikamma"],
+      "tags": [
+        "Roadtrip",
+        "Natur",
+        "Knysna",
+        "Tsitsikamma"
+      ],
       "risk": "low",
       "risk_de": "niedrig",
       "weather": "mild / frisch",
-      "link": "https://www.google.com/maps/search/Garden+Route+South+Africa"
+      "link": "https://www.google.com/maps/search/Garden+Route+South+Africa",
+      "lat": -34.0363,
+      "lon": 23.0471
     },
     {
       "emoji": "🏖️",
       "name": "Durban",
       "summary": "Wärmere Küste, indische Küche, Strände und Übergang Richtung Inland.",
       "detail": "Guter Ort für Pause nach der Küstenfahrt. Restaurant-Fokus: Curry, Seafood und entspannte Strandpromenade.",
-      "tags": ["Beach", "Curry", "Warm", "Pause"],
+      "tags": [
+        "Beach",
+        "Curry",
+        "Warm",
+        "Pause"
+      ],
       "risk": "medium",
       "risk_de": "mittel",
       "weather": "wärmer / feuchter",
-      "link": "https://www.google.com/maps/search/Durban+South+Africa"
+      "link": "https://www.google.com/maps/search/Durban+South+Africa",
+      "lat": -29.8587,
+      "lon": 31.0218
     },
     {
       "emoji": "🏙️",
       "name": "Johannesburg",
       "summary": "Urbaner Transfer- und Kulturstopp vor dem Safari-Teil.",
       "detail": "Fokus auf sichere Transfers, gute Unterkunftslage und optional Apartheid Museum / Soweto Tour.",
-      "tags": ["Transfer", "Kultur", "Museum", "City"],
+      "tags": [
+        "Transfer",
+        "Kultur",
+        "Museum",
+        "City"
+      ],
       "risk": "medium",
       "risk_de": "mittel",
       "weather": "trocken / sonnig",
-      "link": "https://www.google.com/maps/search/Johannesburg+South+Africa"
+      "link": "https://www.google.com/maps/search/Johannesburg+South+Africa",
+      "lat": -26.2041,
+      "lon": 28.0473
     },
     {
       "emoji": "🦁",
       "name": "Kruger National Park",
       "summary": "Safari-Finale mit Trockenzeit, guten Sichtungen und Malaria-Check.",
       "detail": "August ist oft stark für Tierbeobachtung. Früh buchen, Gate-Zeiten beachten, Fernglas und warme Morgenkleidung einpacken.",
-      "tags": ["Safari", "Big Five", "Trockenzeit", "Lodge"],
+      "tags": [
+        "Safari",
+        "Big Five",
+        "Trockenzeit",
+        "Lodge"
+      ],
       "risk": "high",
       "risk_de": "hoch",
       "weather": "trocken / kühle Morgen",
-      "link": "https://www.sanparks.org/parks/kruger"
+      "link": "https://www.sanparks.org/parks/kruger",
+      "lat": -24.0112,
+      "lon": 31.4858
     }
   ],
   "magic_place": {
@@ -98,13 +149,31 @@
     "link": "https://www.google.com/maps/search/Kruger+National+Park+lodge"
   },
   "preparation": [
-    {"task": "Reisemedizinische Beratung / Malaria-Prophylaxe klären", "done": false},
-    {"task": "Internationaler Führerschein / Mietwagenbedingungen prüfen", "done": false},
-    {"task": "Kruger-Unterkunft und Safari-Gates vergleichen", "done": false},
-    {"task": "Warme Safari-Morgenkleidung auf Packliste setzen", "done": true}
+    {
+      "task": "Reisemedizinische Beratung / Malaria-Prophylaxe klären",
+      "done": false
+    },
+    {
+      "task": "Internationaler Führerschein / Mietwagenbedingungen prüfen",
+      "done": false
+    },
+    {
+      "task": "Kruger-Unterkunft und Safari-Gates vergleichen",
+      "done": false
+    },
+    {
+      "task": "Warme Safari-Morgenkleidung auf Packliste setzen",
+      "done": true
+    }
   ],
   "archive": [
-    {"title": "Briefing 01 · Beispiel", "text": "Kompaktes 10-Zeilen-Briefing wird hier später gespeichert."},
-    {"title": "Briefing 02 · Beispiel", "text": "Archiv kann aus JSON-Dateien oder einer kleinen SQLite-Datenbank gefüllt werden."}
+    {
+      "title": "Briefing 01 · Beispiel",
+      "text": "Kompaktes 10-Zeilen-Briefing wird hier später gespeichert."
+    },
+    {
+      "title": "Briefing 02 · Beispiel",
+      "text": "Archiv kann aus JSON-Dateien oder einer kleinen SQLite-Datenbank gefüllt werden."
+    }
   ]
 }
