@@ -250,6 +250,7 @@
     "label": "🐘 Addo Elephant Park nahe Gqeberha / Port Elizabeth",
     "lat": -33.1682124,
     "lon": 25.2826109,
-    "link": "https://www.google.com/maps/search/Addo+Elephant+National+Park"
+    "link": "https://www.google.com/maps/search/Addo+Elephant+National+Park",
+    "icon_url": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%2080%2080%27%3E%0A%20%20%3Cfilter%20id%3D%27shadow%27%20x%3D%27-20%25%27%20y%3D%27-20%25%27%20width%3D%27140%25%27%20height%3D%27140%25%27%3E%0A%20%20%20%20%3CfeDropShadow%20dx%3D%270%27%20dy%3D%273%27%20stdDeviation%3D%273%27%20flood-color%3D%27%231f2a24%27%20flood-opacity%3D%27.28%27/%3E%0A%20%20%3C/filter%3E%0A%20%20%3Ccircle%20cx%3D%2740%27%20cy%3D%2740%27%20r%3D%2734%27%20fill%3D%27%23fffaf1%27%20stroke%3D%27%23315c45%27%20stroke-width%3D%274%27%20filter%3D%27url%28%23shadow%29%27/%3E%0A%20%20%3Ctext%20x%3D%2740%27%20y%3D%2753%27%20text-anchor%3D%27middle%27%20font-size%3D%2743%27%20font-family%3D%27Apple%20Color%20Emoji%2C%20Segoe%20UI%20Emoji%2C%20Noto%20Color%20Emoji%2C%20sans-serif%27%3E%F0%9F%90%98%3C/text%3E%0A%3C/svg%3E"
   }
 }

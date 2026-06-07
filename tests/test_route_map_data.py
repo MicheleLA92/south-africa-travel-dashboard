@@ -55,6 +55,7 @@ def test_map_has_elephant_marker_near_port_elizabeth():
     marker = data["map_elephant_marker"]
 
     assert marker["icon"] == "🐘"
+    assert marker["icon_url"].startswith("data:image/svg+xml")
     assert marker["name"] == "Addo Elephant National Park"
     assert "Port Elizabeth" in marker["label"] or "Gqeberha" in marker["label"]
     assert -34 <= marker["lat"] <= -32

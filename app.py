@@ -226,6 +226,12 @@ with left:
         **data["map_elephant_marker"],
         "position": [data["map_elephant_marker"]["lon"], data["map_elephant_marker"]["lat"]],
         "summary": "Elefanten-Stop nahe Gqeberha / Port Elizabeth",
+        "icon_data": {
+            "url": data["map_elephant_marker"]["icon_url"],
+            "width": 80,
+            "height": 80,
+            "anchorY": 80,
+        },
     }
     coastal_path = [{"name": "Küstenroute Cape Town → Durban", "path": [[point["lon"], point["lat"]] for point in coastal_points]}]
     inland_path = [{"name": "Inland & Safari Durban → Johannesburg → Kruger", "path": [[point["lon"], point["lat"]] for point in [coastal_points[-1], *inland_points]]}]
@@ -274,13 +280,12 @@ with left:
                     get_pixel_offset=[0, -18],
                 ),
                 pdk.Layer(
-                    "ScatterplotLayer",
+                    "IconLayer",
                     [elephant_marker],
+                    get_icon="icon_data",
                     get_position="position",
-                    get_fill_color=[49, 92, 69, 245],
-                    get_line_color=[255, 250, 241, 255],
-                    get_radius=42000,
-                    line_width_min_pixels=3,
+                    get_size=4,
+                    size_scale=12,
                     pickable=True,
                 ),
                 pdk.Layer(
@@ -299,7 +304,7 @@ with left:
         use_container_width=True,
         height=470,
     )
-    st.caption("🐘 Grüner Marker = Addo Elephant National Park nahe Gqeberha / Port Elizabeth · Blau = Küstenfahrt Kapstadt bis Durban · Gold = Inland-Etappe Richtung Johannesburg und Kruger.")
+    st.caption("🐘 Kleiner Elefant = Addo Elephant National Park nahe Gqeberha / Port Elizabeth · Blau = Küstenfahrt Kapstadt bis Durban · Gold = Inland-Etappe Richtung Johannesburg und Kruger.")
 
     st.markdown('<div class="timeline">', unsafe_allow_html=True)
     for stop in data["route"]:
