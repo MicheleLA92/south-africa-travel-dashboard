@@ -85,3 +85,20 @@ def test_top_metrics_promote_friend_quiz_instead_of_planning():
     assert labels[-1] == "Freunde-Quiz"
     assert "Planung" not in labels
     assert "68%" not in values
+
+
+def test_magic_places_rotate_with_unique_images():
+    data = load_data()
+    places = data["magic_places"]
+    images = [place["image"] for place in places]
+    names = [place["name"] for place in places]
+
+    assert len(places) >= 7
+    assert len(set(images)) == len(images)
+    assert len(set(names)) == len(names)
+    for place in places:
+        assert place["name"]
+        assert place["caption"]
+        assert place["description"]
+        assert place["image"].startswith("https://upload.wikimedia.org/")
+        assert place["link"].startswith("https://")

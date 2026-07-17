@@ -134,6 +134,64 @@
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/77/Noordhoek_Sunset.JPG",
     "link": "https://www.google.com/maps/search/Noordhoek+Beach+Cape+Town"
   },
+  "magic_places": [
+    {
+      "name": "Noordhoek Beach Sunset",
+      "caption": "Weiter Sandstrand, Atlantik und Sonnenuntergang auf der Cape-Town-Etappe",
+      "description": "Ein dramatischer Küstenspot direkt auf der Route rund um Cape Town: langer Strand, offene Atlantik-Wellen und abends dieses goldene Licht, das nach Roadtrip und Freiheit aussieht.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/7/77/Noordhoek_Sunset.JPG",
+      "link": "https://www.google.com/maps/search/Noordhoek+Beach+Cape+Town"
+    },
+    {
+      "name": "Camps Bay & Twelve Apostles",
+      "caption": "Kapstadt-Küste mit Bergkulisse, Palmen und Atlantiklicht",
+      "description": "Ein ikonischer Cape-Town-Stop: Camps Bay wirkt besonders schön am späten Nachmittag, wenn die Twelve Apostles warm leuchten und der Atlantik rau genug für echtes Roadtrip-Gefühl ist.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/6/68/Camps_Bay%2C_Cape_Town%2C_SA1.jpg",
+      "link": "https://www.google.com/maps/search/Camps+Bay+Cape+Town"
+    },
+    {
+      "name": "Llandudno Beach Sunset",
+      "caption": "Kleine Bucht, Granitfelsen und einer der schönsten Sonnenuntergänge bei Cape Town",
+      "description": "Llandudno ist weniger laut als Camps Bay und perfekt für einen kurzen Küstenmoment: barfuss im Sand, Felsen im Abendlicht und das Gefühl, dass die Reise wirklich beginnt.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/b/bc/Llandudno_Calm_%2849849484%29.jpeg",
+      "link": "https://www.google.com/maps/search/Llandudno+Beach+Cape+Town"
+    },
+    {
+      "name": "Hermanus Coastline",
+      "caption": "Walker Bay, Klippenwege und Wal-Feeling entlang der Küste",
+      "description": "Hermanus passt perfekt zwischen Kapstadt und Garden Route: frische Meeresluft, dramatische Klippen und im südafrikanischen Winter gute Chancen auf Wale vor der Küste.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/1/16/Coastline_at_Hermanus%2C_Walker_Bay_%28South_Africa%29.jpg",
+      "link": "https://www.google.com/maps/search/Hermanus+Walker+Bay"
+    },
+    {
+      "name": "Knysna Heads",
+      "caption": "Lagune trifft Ozean: einer der grossen Garden-Route-Blicke",
+      "description": "Die Knysna Heads sind ein perfekter Magic-Place-Stopp auf der Garden Route: Aussicht, Lagune, Küstenluft und genug Fotomotive für eine längere Pause.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/7/78/Knysna_%28ZA%29%2C_Knysna_River%2C_East_and_West_Head_--_2024_--_2456.jpg",
+      "link": "https://www.google.com/maps/search/Knysna+Heads"
+    },
+    {
+      "name": "Tsitsikamma Storms River Mouth",
+      "caption": "Hängebrücken, Wald und wilde Brandung im Tsitsikamma National Park",
+      "description": "Hier wird die Garden Route richtig dramatisch: kurze Wanderwege, Suspension Bridges und dieser Mix aus Urwaldgrün und rauer Küste.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/7/74/Storms_River_Mouth_%28Tsitsikamma%29_Suspension_Bridges_02.jpg",
+      "link": "https://www.google.com/maps/search/Storms+River+Mouth+Tsitsikamma"
+    },
+    {
+      "name": "Hole in the Wall, Coffee Bay",
+      "caption": "Wild Coast pur: Felsbogen, Brandung und ein sehr besonderer Küstenstopp",
+      "description": "Ein wilder, ikonischer Abstecher zwischen Küste und Durban: weniger glatt, dafür mit viel Landschaftsdrama und echtem Südafrika-Roadtrip-Gefühl.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/7/71/Hole_In_The_Wall.jpg",
+      "link": "https://www.google.com/maps/search/Hole+in+the+Wall+Coffee+Bay"
+    },
+    {
+      "name": "Kruger Sunrise",
+      "caption": "Safari-Morgenlicht im Kruger National Park",
+      "description": "Für den Safari-Teil zählt frühes Aufstehen: kühle Luft, goldenes Licht und die beste Chance, Tiere aktiv zu sehen, bevor der Tag warm wird.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Kruger_National_Park_%28ZA%29%2C_Sonnenaufgang_--_2024_--_0038.jpg",
+      "link": "https://www.sanparks.org/parks/kruger"
+    }
+  ],
   "restaurant": {
     "name": "FYN Restaurant",
     "location": "Cape Town",

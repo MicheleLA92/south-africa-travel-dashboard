@@ -96,6 +96,13 @@ def load_data():
     return json.loads(DATA_PATH.read_text(encoding="utf-8"))
 
 
+def select_daily_magic_place(data, current_date=None):
+    """Pick one route-relevant Magic Place per day so the photo rotates."""
+    current_date = current_date or date.today()
+    places = data.get("magic_places") or [data["magic_place"]]
+    return places[current_date.toordinal() % len(places)]
+
+
 def load_quiz_results():
     if not QUIZ_RESULTS_PATH.exists():
         return []
@@ -456,7 +463,7 @@ with left:
 
 with right:
     st.subheader("✨ Magic Place des Tages")
-    magic = data["magic_place"]
+    magic = select_daily_magic_place(data)
     st.image(magic["image"], caption=magic["caption"], use_container_width=True)
     st.markdown(f"### {magic['name']}")
     st.write(magic["description"])
