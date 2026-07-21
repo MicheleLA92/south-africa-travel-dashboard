@@ -122,7 +122,7 @@
       "risk": "high",
       "risk_de": "hoch",
       "weather": "trocken / kühle Morgen",
-      "link": "https://www.sanparks.org/parks/kruger",
+      "link": "https://www.google.com/maps/search/Kruger+National+Park",
       "lat": -24.0112,
       "lon": 31.4858
     }
@@ -185,11 +185,11 @@
       "link": "https://www.google.com/maps/search/Hole+in+the+Wall+Coffee+Bay"
     },
     {
-      "name": "Kruger Sunrise",
-      "caption": "Safari-Morgenlicht im Kruger National Park",
-      "description": "Für den Safari-Teil zählt frühes Aufstehen: kühle Luft, goldenes Licht und die beste Chance, Tiere aktiv zu sehen, bevor der Tag warm wird.",
-      "image": "https://upload.wikimedia.org/wikipedia/commons/6/6d/Kruger_National_Park_%28ZA%29%2C_Sonnenaufgang_--_2024_--_0038.jpg",
-      "link": "https://www.sanparks.org/parks/kruger"
+      "name": "Blyde River Canyon",
+      "caption": "Grüne Schluchten, Lowveld-Blicke und ein starker Stopp vor oder nach dem Kruger",
+      "description": "Blyde River Canyon bringt Safari-Route und Landschaftsdrama zusammen: Aussichtspunkte, Felsformationen und ein ganz anderer Kontrast zur Küste.",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/b/b0/Blyde_River_Canyon_Nature_Reserve_%28ZA%29%2C_Blyde_River%2C_Bourke%27s_Luck_Potholes%2C_Blyde_River_Canyon_--_2024_--_0024.jpg",
+      "link": "https://www.google.com/maps/search/Blyde+River+Canyon"
     }
   ],
   "restaurant": {

@@ -96,6 +96,7 @@ def test_magic_places_rotate_with_unique_images():
     assert len(places) >= 7
     assert len(set(images)) == len(images)
     assert len(set(names)) == len(names)
+    assert all("sanparks" not in place["link"].lower() for place in places)
     for place in places:
         assert place["name"]
         assert place["caption"]
