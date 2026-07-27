@@ -86,7 +86,22 @@ CSS = """
 .quiz-teaser h2 { margin: 0 0 .35rem 0; color: var(--green); letter-spacing: -.03em; }
 .quiz-teaser p { margin: 0; color: var(--muted); max-width: 760px; }
 .quiz-teaser .emoji { font-size: 2.2rem; margin-right: .35rem; }
-@media (max-width: 760px) { .quiz-teaser { align-items:flex-start; flex-direction:column; } }
+/* iOS/Safari can inherit white text for Streamlit radio labels; force quiz widgets back to dark readable text. */
+div[data-testid="stRadio"] label,
+div[data-testid="stRadio"] label p,
+div[data-testid="stRadio"] label span,
+div[role="radiogroup"] label,
+div[role="radiogroup"] label p,
+div[role="radiogroup"] label span,
+div[data-testid="stWidgetLabel"] p {
+  color: var(--ink) !important;
+  opacity: 1 !important;
+  text-shadow: none !important;
+}
+@media (max-width: 760px) {
+  .quiz-teaser { align-items:flex-start; flex-direction:column; }
+  div[data-testid="stRadio"] label p { font-size: 1rem !important; line-height: 1.35 !important; }
+}
 a { color: #8a5a16 !important; text-decoration: none; font-weight: 650; }
 </style>
 """
