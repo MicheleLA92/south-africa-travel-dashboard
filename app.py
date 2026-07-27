@@ -1,5 +1,6 @@
 import json
-from collections import Counter
+import urllib.parse
+import urllib.request
 from pathlib import Path
 from datetime import date, datetime
 
@@ -130,6 +131,40 @@ def save_quiz_result(friend_name, quiz_questions, answers):
     return results
 
 
+def build_quiz_notification_message(friend_name, quiz_questions, answers):
+    lines = ["🦁 Neue Freunde-Quiz Antwort", f"Name: {friend_name}", ""]
+    for index, (question, answer) in enumerate(zip(quiz_questions, answers), start=1):
+        lines.append(f"{index}. {question['question']}")
+        lines.append(f"Antwort: {answer}")
+        lines.append("")
+    return "\n".join(lines).strip()
+
+
+def get_telegram_notification_config():
+    try:
+        telegram = st.secrets.get("telegram", {})
+        token = telegram.get("bot_token") or st.secrets.get("TELEGRAM_BOT_TOKEN")
+        chat_id = telegram.get("chat_id") or st.secrets.get("TELEGRAM_CHAT_ID")
+    except Exception:
+        return None, None
+    return token, chat_id
+
+
+def notify_quiz_submission(friend_name, quiz_questions, answers):
+    token, chat_id = get_telegram_notification_config()
+    if not token or not chat_id:
+        return "not_configured"
+
+    message = build_quiz_notification_message(friend_name, quiz_questions, answers)
+    payload = urllib.parse.urlencode({"chat_id": chat_id, "text": message}).encode("utf-8")
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
+    try:
+        with urllib.request.urlopen(url, data=payload, timeout=8) as response:
+            return "sent" if response.status == 200 else "failed"
+    except Exception:
+        return "failed"
+
+
 def summarize_quiz_results(results, quiz_questions):
     summary = []
     for question in quiz_questions:
@@ -139,14 +174,11 @@ def summarize_quiz_results(results, quiz_questions):
             for item in result.get("answers", [])
             if item.get("question") == question["question"]
         ]
-        counts = Counter(answers)
-        top_answer, top_count = counts.most_common(1)[0] if counts else ("Noch keine Antwort", 0)
+        unique_answers = list(dict.fromkeys(answers))
         summary.append(
             {
                 "question": question["question"],
-                "top_answer": top_answer,
-                "top_count": top_count,
-                "total": len(answers),
+                "answers": unique_answers or ["Noch keine Antwort"],
             }
         )
     return summary
@@ -311,10 +343,12 @@ if quiz_questions and st.session_state.get("show_friend_quiz", False):
     if st.button(button_label, type="primary", disabled=answered_count < len(quiz_questions) or st.session_state.get("quiz_checked", False)):
         display_name = friend_name.strip() or "Anonym"
         results = save_quiz_result(display_name, quiz_questions, answers)
+        notification_status = notify_quiz_submission(display_name, quiz_questions, answers)
         st.session_state["quiz_checked"] = True
         st.session_state["quiz_last_name"] = display_name
         st.session_state["quiz_last_answers"] = answers
         st.session_state["quiz_results"] = results
+        st.session_state["quiz_notification_status"] = notification_status
 
     if st.session_state.get("quiz_checked"):
         display_name = st.session_state.get("quiz_last_name", friend_name.strip() or "Anonym")
@@ -335,10 +369,10 @@ if quiz_questions and st.session_state.get("show_friend_quiz", False):
 
         st.subheader("📊 Auswertung bisher")
         for item in summarize_quiz_results(results, quiz_questions):
+            answer_lines = "<br>".join(f"• {answer}" for answer in item["answers"])
             st.markdown(
-                f'<div class="quiz-answer">🏆 <strong>{item["question"]}</strong><br>'
-                f'<span class="small">Meiste Antwort: {item["top_answer"]} '
-                f'({item["top_count"]} von {item["total"]} Stimmen)</span></div>',
+                f'<div class="quiz-answer">📝 <strong>{item["question"]}</strong><br>'
+                f'<span class="small">{answer_lines}</span></div>',
                 unsafe_allow_html=True,
             )
 

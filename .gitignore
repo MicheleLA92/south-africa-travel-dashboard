@@ -1,7 +1,5 @@
+data/friend_quiz_results.json
 .streamlit/secrets.toml
 __pycache__/
-*.pyc
+.pytest_cache/
 .venv/
-.env
-.DS_Store
-data/friend_quiz_results.json

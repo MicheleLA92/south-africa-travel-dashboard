@@ -23,6 +23,18 @@ Danach bekommst du einen kostenlosen Link in dieser Form:
 
 `https://huggingface.co/spaces/DEIN-NAME/DEIN-SPACE`
 
+## Telegram-Nachricht für Freunde-Quiz
+
+Damit Michele bei jeder gespeicherten Freunde-Quiz-Antwort eine Telegram-Nachricht bekommt, in Streamlit Cloud unter App → Settings → Secrets eintragen:
+
+```toml
+[telegram]
+bot_token = "123456:ABC..."
+chat_id = "DEINE_CHAT_ID"
+```
+
+Ohne diese Secrets speichert die App Antworten weiterhin lokal in `data/friend_quiz_results.json`, versendet aber keine Nachricht.
+
 ## Hinweis
 
 Cloudflare Quick Tunnel ist kostenlos, aber nicht dauerhaft. Für einen dauerhaft teilbaren Link brauchst du einen kostenlosen Hosting-Anbieter mit Account, z.B. Streamlit Community Cloud oder Hugging Face Spaces.
