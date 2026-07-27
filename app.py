@@ -341,7 +341,8 @@ if quiz_questions and st.session_state.get("show_friend_quiz", False):
         else "Keine richtigen oder falschen Antworten – hier tippen deine Freunde, was unterwegs passiert."
     )
 
-    friend_name = st.text_input("Dein Name", placeholder="z. B. Anna")
+    st.markdown("**Dein Name**")
+    friend_name = st.text_input("Dein Name", placeholder="z. B. Anna", label_visibility="collapsed")
     answers = []
     answered_count = 0
     for index, question in enumerate(quiz_questions, start=1):
