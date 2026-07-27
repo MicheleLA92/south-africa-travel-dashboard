@@ -226,7 +226,11 @@ components.html(f"""
     font-weight: 800;
     color: #315c45;
     letter-spacing: .02em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }}
+  .countdown-flag {{ width: 1.35em; height: 1.35em; display: inline-block; }}
   .countdown-date {{ color: #6f766f; font-size: .9rem; }}
   .countdown-grid {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }}
   .countdown-box {{
@@ -256,7 +260,7 @@ components.html(f"""
 </style>
 <div class="countdown-wrap" role="timer" aria-live="polite">
   <div class="countdown-head">
-    <div class="countdown-title">🇿🇦 Countdown bis zur Südafrika-Reise</div>
+    <div class="countdown-title"><img class="countdown-flag" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f1ff-1f1e6.png" alt="Südafrika-Flagge"> Countdown bis zur Südafrika-Reise</div>
     <div class="countdown-date">Ziel: 4. August 2026 · noch {days_until_trip} Tage</div>
   </div>
   <div class="countdown-grid">
