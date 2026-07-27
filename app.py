@@ -357,7 +357,6 @@ with left:
             **point,
             "position": [point["lon"], point["lat"]],
             "label": f"{index}. {point['name']}",
-            "summary": "Küstenfahrt mit Mietwagen" if point["kind"] == "coast" else "Inland-Etappe Richtung Safari",
             "color": [20, 116, 139, 235] if point["kind"] == "coast" else [49, 92, 69, 235],
         }
         for index, point in enumerate(map_route, start=1)
@@ -365,7 +364,6 @@ with left:
     elephant_marker = {
         **data["map_elephant_marker"],
         "position": [data["map_elephant_marker"]["lon"], data["map_elephant_marker"]["lat"]],
-        "summary": "Elefanten-Stop nahe Gqeberha / Port Elizabeth",
         "label_text": "Addo Elephant Park",
         "icon_data": {
             "url": "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f418.png",
@@ -375,7 +373,7 @@ with left:
         },
     }
     coastal_path = [{"name": "Küstenroute Cape Town → East London", "path": [[point["lon"], point["lat"]] for point in coastal_points]}]
-    inland_path = [{"name": "Inland & Safari East London → Johannesburg → Kruger", "path": [[point["lon"], point["lat"]] for point in [coastal_points[-1], *inland_points]]}]
+    inland_path = [{"name": "✈️ Inland & Safari East London → Johannesburg → Kruger", "path": [[point["lon"], point["lat"]] for point in [coastal_points[-1], *inland_points]]}]
 
     st.pydeck_chart(
         pdk.Deck(
@@ -450,12 +448,12 @@ with left:
                     get_pixel_offset=[0, -18],
                 ),
             ],
-            tooltip={"html": "<b>{name}</b><br/>{summary}", "style": {"backgroundColor": "#315c45", "color": "#fffaf1"}},
+            tooltip={"html": "<b>{name}</b>", "style": {"backgroundColor": "#315c45", "color": "#fffaf1"}},
         ),
         use_container_width=True,
         height=470,
     )
-    st.caption("🐘 Kleiner Elefant = Addo Elephant National Park nahe Gqeberha / Port Elizabeth · Blau = Küstenfahrt Kapstadt bis East London · Gold = Inland-Etappe Richtung Johannesburg und Kruger.")
+    st.caption("🐘 Kleiner Elefant = Addo Elephant National Park nahe Gqeberha / Port Elizabeth · Blau = Küstenfahrt Kapstadt bis East London · Gold = ✈️ Flug-/Inland-Etappe Richtung Johannesburg und Kruger.")
 
     st.markdown('<div class="timeline">', unsafe_allow_html=True)
     for stop in data["route"]:
