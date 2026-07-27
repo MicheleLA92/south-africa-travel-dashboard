@@ -29,7 +29,7 @@
     ],
     "news": [
       "Reisehinweise vor Abreise prüfen: Auswärtiges Amt, GOV.UK und US Travel Advisories führen weiterhin Hinweise zu Kriminalität, Demonstrationen und regionalen Risiken.",
-      "Für die Route gilt: In Städten wie Cape Town, Durban und Johannesburg Transfers bewusst planen, Wertsachen unauffällig halten und nach Einbruch der Dunkelheit eher Uber/Transfer nutzen.",
+      "Für die Route gilt: In Städten wie Cape Town, East London und Johannesburg Transfers bewusst planen, Wertsachen unauffällig halten und nach Einbruch der Dunkelheit eher Uber/Transfer nutzen.",
       "Load-Shedding kann je nach Lage kurzfristig wieder Thema sein; Unterkünfte mit Backup-Strom/WLAN sind für Roadtrip-Planung und Navigation praktisch."
     ],
     "health": "Für Kruger im August Malaria-Risiko individuell mit Reisemedizin prüfen; Mückenschutz, lange helle Kleidung und Repellent einplanen.",
@@ -73,22 +73,22 @@
       "lon": 23.0471
     },
     {
-      "emoji": "🏖️",
-      "name": "Durban",
-      "summary": "Wärmere Küste, indische Küche, Strände und Übergang Richtung Inland.",
-      "detail": "Guter Ort für Pause nach der Küstenfahrt. Restaurant-Fokus: Curry, Seafood und entspannte Strandpromenade.",
+      "emoji": "🌊",
+      "name": "East London",
+      "summary": "Küstenstopp am Eastern Cape mit Strand, Flussmündung und ruhigerem Roadtrip-Tempo.",
+      "detail": "Guter Wendepunkt nach der Garden Route/Eastern Cape-Küste, bevor es Richtung Johannesburg und Safari weitergeht. Fokus: Strandspaziergang, sichere Unterkunftslage und entspannte Pause.",
       "tags": [
         "Beach",
-        "Curry",
-        "Warm",
-        "Pause"
+        "Eastern Cape",
+        "Pause",
+        "Küste"
       ],
       "risk": "medium",
       "risk_de": "mittel",
-      "weather": "wärmer / feuchter",
-      "link": "https://www.google.com/maps/search/Durban+South+Africa",
-      "lat": -29.8587,
-      "lon": 31.0218
+      "weather": "mild / windig",
+      "link": "https://www.google.com/maps/search/East+London+South+Africa",
+      "lat": -33.0153,
+      "lon": 27.9116
     },
     {
       "emoji": "🏙️",
@@ -180,7 +180,7 @@
     {
       "name": "Hole in the Wall, Coffee Bay",
       "caption": "Wild Coast pur: Felsbogen, Brandung und ein sehr besonderer Küstenstopp",
-      "description": "Ein wilder, ikonischer Abstecher zwischen Küste und Durban: weniger glatt, dafür mit viel Landschaftsdrama und echtem Südafrika-Roadtrip-Gefühl.",
+      "description": "Ein wilder, ikonischer Abstecher an der Wild Coast: weniger glatt, dafür mit viel Landschaftsdrama und echtem Südafrika-Roadtrip-Gefühl.",
       "image": "https://upload.wikimedia.org/wikipedia/commons/7/71/Hole_In_The_Wall.jpg",
       "link": "https://www.google.com/maps/search/Hole+in+the+Wall+Coffee+Bay"
     },
@@ -275,18 +275,6 @@
       "name": "East London",
       "lat": -33.0153,
       "lon": 27.9116,
-      "kind": "coast"
-    },
-    {
-      "name": "Coffee Bay / Wild Coast",
-      "lat": -31.9869,
-      "lon": 29.1503,
-      "kind": "coast"
-    },
-    {
-      "name": "Durban",
-      "lat": -29.8587,
-      "lon": 31.0218,
       "kind": "coast"
     },
     {

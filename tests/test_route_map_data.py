@@ -24,7 +24,7 @@ def test_route_order_matches_trip_plan():
     assert [stop["name"] for stop in data["route"]] == [
         "Cape Town",
         "Garden Route",
-        "Durban",
+        "East London",
         "Johannesburg",
         "Kruger National Park",
     ]
@@ -35,7 +35,7 @@ def test_map_route_follows_coast_before_turning_inland():
     route = data["map_route"]
     names = [point["name"] for point in route]
 
-    assert names[:9] == [
+    assert names[:7] == [
         "Cape Town",
         "Hermanus",
         "Mossel Bay",
@@ -43,11 +43,11 @@ def test_map_route_follows_coast_before_turning_inland():
         "Tsitsikamma",
         "Gqeberha / Port Elizabeth",
         "East London",
-        "Coffee Bay / Wild Coast",
-        "Durban",
     ]
+    assert "Durban" not in names
+    assert "Coffee Bay / Wild Coast" not in names
     assert names[-2:] == ["Johannesburg", "Kruger National Park"]
-    assert len(route) >= 11
+    assert len(route) >= 9
 
 
 def test_map_has_elephant_marker_near_port_elizabeth():

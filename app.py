@@ -162,7 +162,7 @@ with st.sidebar:
 
 st.markdown("""
 <div class="hero">
-  <span class="badge">Cape Town → Durban → Johannesburg → Kruger</span>
+  <span class="badge">Cape Town → East London → Johannesburg → Kruger</span>
   <h1>Südafrika Reise</h1>
 </div>
 """, unsafe_allow_html=True)
@@ -372,8 +372,8 @@ with left:
             "anchorY": 80,
         },
     }
-    coastal_path = [{"name": "Küstenroute Cape Town → Durban", "path": [[point["lon"], point["lat"]] for point in coastal_points]}]
-    inland_path = [{"name": "Inland & Safari Durban → Johannesburg → Kruger", "path": [[point["lon"], point["lat"]] for point in [coastal_points[-1], *inland_points]]}]
+    coastal_path = [{"name": "Küstenroute Cape Town → East London", "path": [[point["lon"], point["lat"]] for point in coastal_points]}]
+    inland_path = [{"name": "Inland & Safari East London → Johannesburg → Kruger", "path": [[point["lon"], point["lat"]] for point in [coastal_points[-1], *inland_points]]}]
 
     st.pydeck_chart(
         pdk.Deck(
@@ -443,7 +443,7 @@ with left:
         use_container_width=True,
         height=470,
     )
-    st.caption("🐘 Kleiner Elefant = Addo Elephant National Park nahe Gqeberha / Port Elizabeth · Blau = Küstenfahrt Kapstadt bis Durban · Gold = Inland-Etappe Richtung Johannesburg und Kruger.")
+    st.caption("🐘 Kleiner Elefant = Addo Elephant National Park nahe Gqeberha / Port Elizabeth · Blau = Küstenfahrt Kapstadt bis East London · Gold = Inland-Etappe Richtung Johannesburg und Kruger.")
 
     st.markdown('<div class="timeline">', unsafe_allow_html=True)
     for stop in data["route"]:
