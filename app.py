@@ -459,13 +459,11 @@ with left:
     for stop in data["route"]:
         active = "active" if stop["name"] == current_stop else ""
         tags = "".join(f'<span class="pill">{tag}</span>' for tag in stop["tags"])
-        risk_class = f"risk-{stop['risk'].lower()}"
         st.markdown(f"""
         <div class="stop {active}">
           <h4>{stop['emoji']} {stop['name']}</h4>
           <div class="small">{stop['summary']}</div>
           <div>{tags}</div>
-          <div class="small">Risiko/Planung: <span class="{risk_class}">{stop['risk_de']}</span> · Wetter: {stop['weather']}</div>
         </div>
         """, unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
