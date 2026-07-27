@@ -91,8 +91,9 @@ a { color: #8a5a16 !important; text-decoration: none; font-weight: 650; }
 """
 st.markdown(CSS, unsafe_allow_html=True)
 
-@st.cache_data
 def load_data():
+    # Keep JSON edits immediately visible on Streamlit Cloud; route/content changes
+    # are tiny, so caching this file is not worth stale dashboard data.
     return json.loads(DATA_PATH.read_text(encoding="utf-8"))
 
 
