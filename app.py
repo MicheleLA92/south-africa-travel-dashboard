@@ -515,22 +515,6 @@ with right:
     st.write(magic["description"])
 
 st.write("")
-
-c1, c2, c3 = st.columns(3)
-with c1:
-    st.subheader("📰 Aktuelle Lage")
-    for item in data["briefing"]["news"]:
-        st.write(f"• {item}")
-with c2:
-    st.subheader("🦟 Gesundheit")
-    st.write(data["briefing"]["health"])
-    st.progress(data["briefing"]["mosquito_level"] / 100, text=f"Mücken-/Malaria-Aufmerksamkeit: {data['briefing']['mosquito_level']}%")
-with c3:
-    st.subheader("🎒 Vorbereitung")
-    for item in data["preparation"]:
-        st.checkbox(item["task"], value=item["done"])
-
-st.write("")
 st.subheader("🍽️ Must-Visit & 🛏️ Must-Book")
 r1, r2 = st.columns(2)
 restaurant = data["restaurant"]
