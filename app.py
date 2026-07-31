@@ -300,6 +300,9 @@ with st.sidebar:
     st.markdown("[🦁 Freunde-Quiz](#freunde-quiz)")
     st.markdown("[🗺️ Route & Etappen](#route-etappen)")
     st.markdown("[⭐ Top Empfehlungen](#top-empfehlungen)")
+    st.divider()
+    with st.expander("🔒 Privater Ordner", expanded=False):
+        render_private_upload_folder()
 
 st.markdown("""
 <div class="hero">
