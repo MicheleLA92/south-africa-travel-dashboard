@@ -433,24 +433,26 @@ if quiz_questions and st.session_state.get("show_friend_quiz", False):
         st.success("Danke! Deine Vorhersage wurde gespeichert.")
         st.markdown(
             f'<div class="card"><div class="quiz-score">{display_name}s Südafrika-Vorhersage</div>'
-            '<div class="small">So hast du getippt:</div></div>',
+            '<div class="small">Deine Tipps und die bisher gewählten Antworten findest du unten.</div></div>',
             unsafe_allow_html=True,
         )
-        for answer, question in zip(submitted_answers, quiz_questions):
-            st.markdown(
-                f'<div class="quiz-answer">🦁 <strong>{question["question"]}</strong><br>'
-                f'<span class="small">Tipp: {answer}</span></div>',
-                unsafe_allow_html=True,
-            )
 
-        st.subheader("📊 Auswertung bisher")
-        for item in summarize_quiz_results(results, quiz_questions):
-            answer_lines = "<br>".join(f"• {answer}" for answer in item["answers"])
-            st.markdown(
-                f'<div class="quiz-answer">📝 <strong>{item["question"]}</strong><br>'
-                f'<span class="small">{answer_lines}</span></div>',
-                unsafe_allow_html=True,
-            )
+        with st.expander("🦁 Deine Antworten", expanded=True):
+            for answer, question in zip(submitted_answers, quiz_questions):
+                st.markdown(
+                    f'<div class="quiz-answer">🦁 <strong>{question["question"]}</strong><br>'
+                    f'<span class="small">Tipp: {answer}</span></div>',
+                    unsafe_allow_html=True,
+                )
+
+        with st.expander("📊 Bisher gewählte Antworten", expanded=False):
+            for item in summarize_quiz_results(results, quiz_questions):
+                answer_lines = "<br>".join(f"• {answer}" for answer in item["answers"])
+                st.markdown(
+                    f'<div class="quiz-answer">📝 <strong>{item["question"]}</strong><br>'
+                    f'<span class="small">{answer_lines}</span></div>',
+                    unsafe_allow_html=True,
+                )
 
 st.write("")
 
