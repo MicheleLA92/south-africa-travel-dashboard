@@ -115,8 +115,17 @@ components.html("""
   const parentWindow = window.parent;
   const parentDoc = parentWindow.document;
   const isMobile = () => parentWindow.innerWidth <= 760;
-  const introKey = "south_africa_sidebar_intro_collapsed";
-  const listenerKey = "south_africa_sidebar_link_listener";
+  const introKey = "south_africa_sidebar_intro_collapsed_v2";
+  const listenerKey = "south_africa_sidebar_link_listener_v2";
+
+  function openSidebar() {
+    const expandButton = parentDoc.querySelector('button[data-testid="stExpandSidebarButton"]');
+    if (expandButton) {
+      expandButton.click();
+      return true;
+    }
+    return false;
+  }
 
   function closeSidebar() {
     const sidebar = parentDoc.querySelector('section[data-testid="stSidebar"]');
@@ -126,6 +135,8 @@ components.html("""
       sidebar.querySelector('button[aria-label="Close sidebar"]') ||
       sidebar.querySelector('button[title="Close sidebar"]') ||
       sidebar.querySelector('button[data-testid="stSidebarCollapseButton"]') ||
+      sidebar.querySelector('button[data-testid="stBaseButton-headerNoPadding"]') ||
+      sidebar.querySelector('button[kind="headerNoPadding"]') ||
       sidebar.querySelector('button[kind="header"]');
 
     if (closeButton) {
@@ -149,10 +160,11 @@ components.html("""
 
   if (isMobile() && parentWindow.sessionStorage.getItem(introKey) !== "1") {
     parentWindow.sessionStorage.setItem(introKey, "1");
+    setTimeout(openSidebar, 250);
     setTimeout(function () {
       if (closeSidebar()) return;
       setTimeout(closeSidebar, 900);
-    }, 2300);
+    }, 3800);
   }
 })();
 </script>
