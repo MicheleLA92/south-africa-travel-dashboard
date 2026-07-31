@@ -300,7 +300,6 @@ with st.sidebar:
     st.markdown("[🦁 Freunde-Quiz](#freunde-quiz)")
     st.markdown("[🗺️ Route & Etappen](#route-etappen)")
     st.markdown("[⭐ Top Empfehlungen](#top-empfehlungen)")
-    st.markdown("[📸 Privater Upload Ordner](#privater-upload-ordner)")
 
 st.markdown("""
 <div class="hero">
@@ -653,7 +652,3 @@ with r2:
     """, unsafe_allow_html=True)
     st.link_button("Unterkunft öffnen", stay["link"])
 
-st.write("")
-st.markdown('<div id="privater-upload-ordner"></div>', unsafe_allow_html=True)
-st.subheader("📸 Privater Upload Ordner")
-render_private_upload_folder()
