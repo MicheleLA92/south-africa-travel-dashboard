@@ -238,6 +238,10 @@ def render_private_upload_folder():
             st.error("Passwort stimmt nicht.")
 
 
+def route_stop_anchor(stop_name):
+    return "route-" + re.sub(r"[^a-z0-9]+", "-", stop_name.lower()).strip("-")
+
+
 def render_route_stop(stop):
     st.markdown(f"**{stop['emoji']} {stop['name']}**")
     st.caption(stop["summary"])
@@ -300,7 +304,10 @@ with st.sidebar:
     with st.expander("🦁 Freunde-Quiz", expanded=False):
         st.markdown("[Quiz ansehen](#freunde-quiz)")
         st.markdown("[Bisherige Antworten](?show=answers#bisherige-antworten)")
-    st.markdown("[🗺️ Route & Etappen](#route-etappen)")
+    with st.expander("🗺️ Route & Etappen", expanded=False):
+        st.markdown("[Route ansehen](#route-etappen)")
+        for stop in data["route"]:
+            st.markdown(f"[{stop['emoji']} {stop['name']}](#{route_stop_anchor(stop['name'])})")
     st.markdown("[⭐ Top Empfehlungen](#top-empfehlungen)")
     st.divider()
     with st.expander("🔒 Privater Ordner", expanded=False):
@@ -623,7 +630,7 @@ with left:
     for stop in data["route"]:
         tags = "".join(f'<span class="pill">{tag}</span>' for tag in stop["tags"])
         st.markdown(f"""
-        <div class="stop">
+        <div id="{route_stop_anchor(stop['name'])}" class="stop">
           <h4>{stop['emoji']} {stop['name']}</h4>
           <div class="small">{stop['summary']}</div>
           <div>{tags}</div>
