@@ -228,6 +228,42 @@ def render_private_upload_folder():
                 st.error("Passwort stimmt nicht.")
 
 
+def render_route_menu(route):
+    with st.expander("🗺️ Route & Etappen", expanded=False):
+        for stop in route:
+            st.markdown(f"**{stop['emoji']} {stop['name']}**")
+            st.caption(stop["summary"])
+
+
+def render_top_recommendations_menu(data):
+    restaurant = data.get("restaurant", {})
+    stay = data.get("stay", {})
+    activities = data.get("activities", [])
+    with st.expander("⭐ Top Empfehlungen", expanded=False):
+        st.markdown("**Restaurant**")
+        if restaurant:
+            st.markdown(f"[{restaurant['name']}]({restaurant['link']})")
+            st.caption(restaurant["why"])
+        else:
+            st.caption("Noch kein Restaurant hinterlegt.")
+
+        st.markdown("**Unterkunft**")
+        if stay:
+            st.markdown(f"[{stay['name']}]({stay['link']})")
+            st.caption(stay["why"])
+        else:
+            st.caption("Noch keine Unterkunft hinterlegt.")
+
+        st.markdown("**Aktivitäten**")
+        if activities:
+            for activity in activities:
+                st.markdown(f"• [{activity['name']}]({activity['link']})")
+                if activity.get("why"):
+                    st.caption(activity["why"])
+        else:
+            st.caption("Noch keine Aktivitäten hinterlegt.")
+
+
 def summarize_quiz_results(results, quiz_questions):
     summary = []
     for question in quiz_questions:
@@ -265,11 +301,8 @@ with st.sidebar:
                     st.markdown(f"• {answer}")
         else:
             st.caption("Noch keine Antworten gespeichert.")
-    st.markdown("- [🗺️ Route & Etappen](#route-etappen)")
-    st.markdown("- [⭐ Top Empfehlungen](#top-empfehlungen)")
-    st.markdown("- [📸 Privater Upload Ordner](#)")
-    st.divider()
-    current_stop = st.selectbox("Etappe anzeigen", [s["name"] for s in data["route"]], index=0)
+    render_route_menu(data["route"])
+    render_top_recommendations_menu(data)
     st.divider()
     st.metric("Tage bis Abreise", days_until_trip)
     st.divider()
@@ -576,19 +609,6 @@ with left:
         height=470,
     )
     st.caption("🐘 Kleiner Elefant = Addo Elephant National Park nahe Gqeberha / Port Elizabeth · Blau = Küstenfahrt Kapstadt bis East London · Gold = ✈️ Flug-/Inland-Etappe Richtung Johannesburg und Kruger.")
-
-    st.markdown('<div class="timeline">', unsafe_allow_html=True)
-    for stop in data["route"]:
-        active = "active" if stop["name"] == current_stop else ""
-        tags = "".join(f'<span class="pill">{tag}</span>' for tag in stop["tags"])
-        st.markdown(f"""
-        <div class="stop {active}">
-          <h4>{stop['emoji']} {stop['name']}</h4>
-          <div class="small">{stop['summary']}</div>
-          <div>{tags}</div>
-        </div>
-        """, unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
 
 
 with right:
