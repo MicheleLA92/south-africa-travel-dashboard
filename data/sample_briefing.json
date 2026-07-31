@@ -236,12 +236,12 @@
       "why": "Unterkunft in Marloth Park – ideal für den Safari-Teil nahe Kruger.",
       "tip": "Via Airbnb gebucht – Link kann auf Anfrage geteilt werden.",
       "link": "",
-      "image": "assets/marloth-park-pool-zebra.jpg",
+      "image": "assets/marloth-park-unterkunft.jpg",
       "images": [
+        "assets/marloth-park-unterkunft.jpg",
         "assets/marloth-park-pool-zebra.jpg",
         "assets/marloth-park-living-kitchen.jpg",
-        "assets/marloth-park-terrace-dinner.jpg",
-        "assets/marloth-park-unterkunft.jpg"
+        "assets/marloth-park-terrace-dinner.jpg"
       ]
     }
   ],
