@@ -254,15 +254,15 @@ with st.sidebar:
     st.title("🌍 Südafrika")
     st.markdown("### Menü")
     st.markdown("- [🦁 Freunde-Quiz](#freunde-quiz)")
-    st.markdown("- [📸 Privater Upload Ordner](#)")
     st.markdown("- [🗺️ Route & Etappen](#route-etappen)")
     st.markdown("- [⭐ Top Empfehlungen](#top-empfehlungen)")
-    st.divider()
-    render_private_upload_folder()
+    st.markdown("- [📸 Privater Upload Ordner](#)")
     st.divider()
     current_stop = st.selectbox("Etappe anzeigen", [s["name"] for s in data["route"]], index=0)
     st.divider()
     st.metric("Tage bis Abreise", days_until_trip)
+    st.divider()
+    render_private_upload_folder()
 
 st.markdown("""
 <div class="hero">
