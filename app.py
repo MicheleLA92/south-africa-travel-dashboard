@@ -821,17 +821,14 @@ activities = data.get("activities", [])
 with r1:
     st.markdown('<div id="top-restaurant"></div>', unsafe_allow_html=True)
     for index, restaurant_item in enumerate(restaurants):
-        tip_html = f"<p class=\"small\">{restaurant_item['tip']}</p>" if restaurant_item.get("tip") else ""
-        st.markdown(f"""
-        <div class="card">
-          <h3>Restaurant · {restaurant_item.get('location', '')}</h3>
-          <h2>{restaurant_item['name']}</h2>
-          <p>{restaurant_item['why']}</p>
-          {tip_html}
-        </div>
-        """, unsafe_allow_html=True)
-        if restaurant_item.get("link"):
-            st.link_button("Restaurant öffnen", restaurant_item["link"], key=f"restaurant_link_{index}")
+        with st.container(border=True):
+            st.markdown(f"<p class=\"small\"><b>Restaurant · {restaurant_item.get('location', '')}</b></p>", unsafe_allow_html=True)
+            st.markdown(f"### {restaurant_item['name']}")
+            st.write(restaurant_item["why"])
+            if restaurant_item.get("tip"):
+                st.caption(restaurant_item["tip"])
+            if restaurant_item.get("link"):
+                st.link_button("Restaurant öffnen", restaurant_item["link"], key=f"restaurant_link_{index}")
 with r2:
     st.markdown('<div id="top-unterkunft"></div>', unsafe_allow_html=True)
     for index, stay_item in enumerate(stays):
@@ -850,20 +847,17 @@ with r3:
     st.markdown('<div id="top-aktivitaeten"></div>', unsafe_allow_html=True)
     if activities:
         activity = activities[0]
-        st.markdown(f"""
-        <div class="card">
-          <h3>Aktivitäten</h3>
-          <h2>{activity['name']}</h2>
-          <p>{activity.get('why', 'Ausgewählte Aktivität für die Reise.')}</p>
-        </div>
-        """, unsafe_allow_html=True)
-        st.link_button("Aktivität öffnen", activity["link"])
+        with st.container(border=True):
+            st.markdown('<p class="small"><b>Aktivitäten</b></p>', unsafe_allow_html=True)
+            st.markdown(f"### {activity['name']}")
+            st.write(activity.get('why', 'Ausgewählte Aktivität für die Reise.'))
+            if activity.get("tip"):
+                st.caption(activity["tip"])
+            if activity.get("link"):
+                st.link_button("Aktivität öffnen", activity["link"])
     else:
-        st.markdown("""
-        <div class="card">
-          <h3>Aktivitäten</h3>
-          <h2>Noch offen</h2>
-          <p>Hier ergänzen wir schöne Ausflüge, Aussichtspunkte und besondere Stopps.</p>
-        </div>
-        """, unsafe_allow_html=True)
+        with st.container(border=True):
+            st.markdown('<p class="small"><b>Aktivitäten</b></p>', unsafe_allow_html=True)
+            st.markdown("### Noch offen")
+            st.write("Hier ergänzen wir schöne Ausflüge, Aussichtspunkte und besondere Stopps.")
 
