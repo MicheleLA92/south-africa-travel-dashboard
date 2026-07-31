@@ -1,3 +1,4 @@
+import base64
 import json
 import re
 import urllib.parse
@@ -174,6 +175,104 @@ def load_data():
     # Keep JSON edits immediately visible on Streamlit Cloud; route/content changes
     # are tiny, so caching this file is not worth stale dashboard data.
     return json.loads(DATA_PATH.read_text(encoding="utf-8"))
+
+
+def image_source_for_gallery(image_path):
+    if image_path.startswith(("http://", "https://")):
+        return image_path
+    local_path = ROOT / image_path
+    suffix = local_path.suffix.lower()
+    mime = "image/png" if suffix == ".png" else "image/webp" if suffix == ".webp" else "image/jpeg"
+    encoded = base64.b64encode(local_path.read_bytes()).decode("ascii")
+    return f"data:{mime};base64,{encoded}"
+
+
+def render_image_carousel(image_paths, carousel_id):
+    image_sources = [image_source_for_gallery(path) for path in image_paths]
+    if not image_sources:
+        return
+    components.html(f"""
+<div id="{carousel_id}" class="stay-carousel">
+  <img class="stay-carousel-image" alt="Unterkunft Marloth Park" />
+  <button class="stay-carousel-arrow stay-carousel-prev" type="button" aria-label="Vorheriges Bild">‹</button>
+  <button class="stay-carousel-arrow stay-carousel-next" type="button" aria-label="Nächstes Bild">›</button>
+  <div class="stay-carousel-count"></div>
+</div>
+<script>
+(function() {{
+  const images = {json.dumps(image_sources)};
+  const root = document.getElementById({json.dumps(carousel_id)});
+  const img = root.querySelector('.stay-carousel-image');
+  const count = root.querySelector('.stay-carousel-count');
+  let index = 0;
+  function show(nextIndex) {{
+    index = (nextIndex + images.length) % images.length;
+    img.src = images[index];
+    count.textContent = `Bild ${{index + 1}} von ${{images.length}}`;
+  }}
+  root.querySelector('.stay-carousel-prev').addEventListener('click', function() {{ show(index - 1); }});
+  root.querySelector('.stay-carousel-next').addEventListener('click', function() {{ show(index + 1); }});
+  show(0);
+  if (images.length > 1) {{
+    setInterval(function() {{ show(index + 1); }}, 2000);
+  }}
+}})();
+</script>
+<style>
+  .stay-carousel {{
+    position: relative;
+    width: 100%;
+    height: 300px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #ead8b7;
+    box-shadow: 0 12px 30px rgba(31, 42, 36, .16);
+    margin-bottom: 0.8rem;
+  }}
+  .stay-carousel-image {{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }}
+  .stay-carousel-arrow {{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    border: 0;
+    background: rgba(31, 42, 36, .58);
+    color: white;
+    font-size: 34px;
+    line-height: 36px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 4px;
+  }}
+  .stay-carousel-prev {{ left: 12px; }}
+  .stay-carousel-next {{ right: 12px; }}
+  .stay-carousel-count {{
+    position: absolute;
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%);
+    background: rgba(31, 42, 36, .62);
+    color: #fffaf1;
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }}
+  @media (max-width: 760px) {{
+    .stay-carousel {{ height: 230px; border-radius: 16px; }}
+    .stay-carousel-arrow {{ width: 36px; height: 36px; font-size: 30px; }}
+  }}
+</style>
+""", height=325)
 
 
 def select_daily_magic_place(data, current_date=None):
@@ -738,22 +837,7 @@ with r2:
     for index, stay_item in enumerate(stays):
         gallery_images = stay_item.get("images") or ([stay_item["image"]] if stay_item.get("image") else [])
         if gallery_images:
-            gallery_key = f"stay_gallery_index_{index}"
-            st.session_state.setdefault(gallery_key, 0)
-            current_image_index = st.session_state[gallery_key] % len(gallery_images)
-            st.image(gallery_images[current_image_index], use_container_width=True)
-            if len(gallery_images) > 1:
-                prev_col, count_col, next_col = st.columns([1, 2, 1])
-                with prev_col:
-                    if st.button("←", key=f"stay_prev_{index}", help="Vorheriges Bild"):
-                        st.session_state[gallery_key] = (current_image_index - 1) % len(gallery_images)
-                        st.rerun()
-                with count_col:
-                    st.caption(f"Bild {current_image_index + 1} von {len(gallery_images)}")
-                with next_col:
-                    if st.button("→", key=f"stay_next_{index}", help="Nächstes Bild"):
-                        st.session_state[gallery_key] = (current_image_index + 1) % len(gallery_images)
-                        st.rerun()
+            render_image_carousel(gallery_images, f"stay-carousel-{index}")
         tip_html = f"<p class=\"small\">{stay_item['tip']}</p>" if stay_item.get("tip") else ""
         st.markdown(f"""
         <div class="card">
