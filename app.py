@@ -204,57 +204,63 @@ def save_uploaded_file(uploaded_file):
     return destination
 
 
+def render_quiz_answer_summary(quiz_questions):
+    quiz_results = load_quiz_results()
+    if quiz_results and quiz_questions:
+        for item in summarize_quiz_results(quiz_results, quiz_questions):
+            st.markdown(f"**{item['question']}**")
+            for answer in item["answers"]:
+                st.markdown(f"• {answer}")
+    else:
+        st.caption("Noch keine Antworten gespeichert.")
+
+
 def render_private_upload_folder():
-    with st.expander("📸 Privater Upload Ordner", expanded=False):
-        upload_password = get_upload_password()
-        if not upload_password:
-            st.info('Upload ist vorbereitet. Bitte in Streamlit Secrets noch ein Passwort setzen: [upload] password = "..."')
-        else:
-            password = st.text_input("Passwort", type="password", key="private_upload_password")
-            if password == upload_password:
-                st.success("Upload Ordner entsperrt.")
-                uploaded_files = st.file_uploader(
-                    "Bilder auswählen",
-                    type=["jpg", "jpeg", "png", "webp", "heic", "heif"],
-                    accept_multiple_files=True,
-                    key="private_photo_uploads",
-                )
-                if st.button("In Upload Ordner speichern", disabled=not uploaded_files, key="save_private_uploads"):
-                    saved_paths = [save_uploaded_file(file) for file in uploaded_files]
-                    st.success(f"{len(saved_paths)} Bild(er) im Upload Ordner gespeichert.")
-                    for path in saved_paths:
-                        st.write(f"• uploads/{path.name}")
-            elif password:
-                st.error("Passwort stimmt nicht.")
+    upload_password = get_upload_password()
+    if not upload_password:
+        st.info('Upload ist vorbereitet. Bitte in Streamlit Secrets noch ein Passwort setzen: [upload] password = "..."')
+    else:
+        password = st.text_input("Passwort", type="password", key="private_upload_password")
+        if password == upload_password:
+            st.success("Upload Ordner entsperrt.")
+            uploaded_files = st.file_uploader(
+                "Bilder auswählen",
+                type=["jpg", "jpeg", "png", "webp", "heic", "heif"],
+                accept_multiple_files=True,
+                key="private_photo_uploads",
+            )
+            if st.button("In Upload Ordner speichern", disabled=not uploaded_files, key="save_private_uploads"):
+                saved_paths = [save_uploaded_file(file) for file in uploaded_files]
+                st.success(f"{len(saved_paths)} Bild(er) im Upload Ordner gespeichert.")
+                for path in saved_paths:
+                    st.write(f"• uploads/{path.name}")
+        elif password:
+            st.error("Passwort stimmt nicht.")
 
 
-def render_route_menu(route):
-    with st.expander("🗺️ Route & Etappen", expanded=False):
-        for stop in route:
-            st.markdown(f"**{stop['emoji']} {stop['name']}**")
-            st.caption(stop["summary"])
+def render_route_stop(stop):
+    st.markdown(f"**{stop['emoji']} {stop['name']}**")
+    st.caption(stop["summary"])
 
 
-def render_top_recommendations_menu(data):
+def render_top_recommendation(data, category):
     restaurant = data.get("restaurant", {})
     stay = data.get("stay", {})
     activities = data.get("activities", [])
-    with st.expander("⭐ Top Empfehlungen", expanded=False):
-        st.markdown("**Restaurant**")
+
+    if category == "Restaurant":
         if restaurant:
-            st.markdown(f"[{restaurant['name']}]({restaurant['link']})")
+            st.markdown(f"**[{restaurant['name']}]({restaurant['link']})**")
             st.caption(restaurant["why"])
         else:
             st.caption("Noch kein Restaurant hinterlegt.")
-
-        st.markdown("**Unterkunft**")
+    elif category == "Unterkunft":
         if stay:
-            st.markdown(f"[{stay['name']}]({stay['link']})")
+            st.markdown(f"**[{stay['name']}]({stay['link']})**")
             st.caption(stay["why"])
         else:
             st.caption("Noch keine Unterkunft hinterlegt.")
-
-        st.markdown("**Aktivitäten**")
+    else:
         if activities:
             for activity in activities:
                 st.markdown(f"• [{activity['name']}]({activity['link']})")
@@ -291,22 +297,42 @@ quiz_questions = quiz.get("questions", []) if isinstance(quiz, dict) else quiz
 with st.sidebar:
     st.title("🌍 Südafrika")
     st.markdown("### Menü")
-    st.markdown("- [🦁 Freunde-Quiz](#freunde-quiz)")
-    with st.expander("📊 Bisher gewählte Antworten", expanded=False):
-        quiz_results = load_quiz_results()
-        if quiz_results and quiz_questions:
-            for item in summarize_quiz_results(quiz_results, quiz_questions):
-                st.markdown(f"**{item['question']}**")
-                for answer in item["answers"]:
-                    st.markdown(f"• {answer}")
-        else:
-            st.caption("Noch keine Antworten gespeichert.")
-    render_route_menu(data["route"])
-    render_top_recommendations_menu(data)
+
+    friend_menu = st.selectbox(
+        "Freunde-Quiz",
+        ["Quiz ausfüllen", "Bisher gewählte Antworten"],
+        key="friend_quiz_menu",
+    )
+    if friend_menu == "Quiz ausfüllen":
+        st.session_state["show_friend_quiz"] = True
+        st.caption("Quiz ist auf der Seite geöffnet.")
+    else:
+        render_quiz_answer_summary(quiz_questions)
+
+    route_names = [stop["name"] for stop in data["route"]]
+    current_stop = st.selectbox("Route & Etappen", route_names, index=0, key="route_menu")
+    selected_stop = next(stop for stop in data["route"] if stop["name"] == current_stop)
+    render_route_stop(selected_stop)
+
+    top_category = st.selectbox(
+        "Top Empfehlungen",
+        ["Restaurant", "Unterkunft", "Aktivitäten"],
+        key="top_recommendations_menu",
+    )
+    render_top_recommendation(data, top_category)
+
     st.divider()
     st.metric("Tage bis Abreise", days_until_trip)
     st.divider()
-    render_private_upload_folder()
+
+    upload_menu = st.selectbox(
+        "Privater Upload Ordner",
+        ["geschlossen", "Upload öffnen"],
+        index=0,
+        key="private_upload_menu",
+    )
+    if upload_menu == "Upload öffnen":
+        render_private_upload_folder()
 
 st.markdown("""
 <div class="hero">
@@ -479,15 +505,19 @@ if quiz_questions and st.session_state.get("show_friend_quiz", False):
             unsafe_allow_html=True,
         )
 
-        with st.expander("🦁 Deine Antworten", expanded=True):
+        result_view = st.selectbox(
+            "Quiz Ergebnis anzeigen",
+            ["Deine Antworten", "Bisher gewählte Antworten"],
+            key="quiz_result_view",
+        )
+        if result_view == "Deine Antworten":
             for answer, question in zip(submitted_answers, quiz_questions):
                 st.markdown(
                     f'<div class="quiz-answer">🦁 <strong>{question["question"]}</strong><br>'
                     f'<span class="small">Tipp: {answer}</span></div>',
                     unsafe_allow_html=True,
                 )
-
-        with st.expander("📊 Bisher gewählte Antworten", expanded=False):
+        else:
             for item in summarize_quiz_results(results, quiz_questions):
                 answer_lines = "<br>".join(f"• {answer}" for answer in item["answers"])
                 st.markdown(
