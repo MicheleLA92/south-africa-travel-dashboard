@@ -35,9 +35,9 @@ chat_id = "DEINE_CHAT_ID"
 
 Ohne diese Secrets speichert die App Antworten weiterhin lokal in `data/friend_quiz_results.json`, versendet aber keine Nachricht.
 
-## Passwort für privaten Upload-Ordner
+## Passwort für privaten Upload Ordner
 
-Für den Upload-Ordner Michele & Roberto zusätzlich in Streamlit Cloud unter App → Settings → Secrets eintragen:
+Für den Upload Ordner Michele & Roberto zusätzlich in Streamlit Cloud unter App → Settings → Secrets eintragen:
 
 ```toml
 [upload]

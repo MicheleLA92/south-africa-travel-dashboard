@@ -204,6 +204,30 @@ def save_uploaded_file(uploaded_file):
     return destination
 
 
+def render_private_upload_folder():
+    with st.expander("📸 Privater Upload Ordner", expanded=False):
+        upload_password = get_upload_password()
+        if not upload_password:
+            st.info('Upload ist vorbereitet. Bitte in Streamlit Secrets noch ein Passwort setzen: [upload] password = "..."')
+        else:
+            password = st.text_input("Passwort", type="password", key="private_upload_password")
+            if password == upload_password:
+                st.success("Upload Ordner entsperrt.")
+                uploaded_files = st.file_uploader(
+                    "Bilder auswählen",
+                    type=["jpg", "jpeg", "png", "webp", "heic", "heif"],
+                    accept_multiple_files=True,
+                    key="private_photo_uploads",
+                )
+                if st.button("In Upload Ordner speichern", disabled=not uploaded_files, key="save_private_uploads"):
+                    saved_paths = [save_uploaded_file(file) for file in uploaded_files]
+                    st.success(f"{len(saved_paths)} Bild(er) im Upload Ordner gespeichert.")
+                    for path in saved_paths:
+                        st.write(f"• uploads/{path.name}")
+            elif password:
+                st.error("Passwort stimmt nicht.")
+
+
 def summarize_quiz_results(results, quiz_questions):
     summary = []
     for question in quiz_questions:
@@ -228,6 +252,14 @@ days_until_trip = max((TRIP_START - date.today()).days, 0)
 
 with st.sidebar:
     st.title("🌍 Südafrika")
+    st.markdown("### Menü")
+    st.markdown("- [🦁 Freunde-Quiz](#freunde-quiz)")
+    st.markdown("- [📸 Privater Upload Ordner](#)")
+    st.markdown("- [🗺️ Route & Etappen](#route-etappen)")
+    st.markdown("- [⭐ Top Empfehlungen](#top-empfehlungen)")
+    st.divider()
+    render_private_upload_folder()
+    st.divider()
     current_stop = st.selectbox("Etappe anzeigen", [s["name"] for s in data["route"]], index=0)
     st.divider()
     st.metric("Tage bis Abreise", days_until_trip)
@@ -421,33 +453,11 @@ if quiz_questions and st.session_state.get("show_friend_quiz", False):
             )
 
 st.write("")
-with st.expander("📸 Privater Upload-Ordner Michele & Roberto", expanded=False):
-    upload_password = get_upload_password()
-    if not upload_password:
-        st.info("Upload ist vorbereitet. Bitte in Streamlit Secrets noch ein Passwort setzen: [upload] password = \"...\"")
-    else:
-        password = st.text_input("Passwort", type="password", key="private_upload_password")
-        if password == upload_password:
-            st.success("Upload-Ordner entsperrt.")
-            uploaded_files = st.file_uploader(
-                "Bilder auswählen",
-                type=["jpg", "jpeg", "png", "webp", "heic", "heif"],
-                accept_multiple_files=True,
-                key="private_photo_uploads",
-            )
-            if st.button("In Upload-Ordner speichern", disabled=not uploaded_files, key="save_private_uploads"):
-                saved_paths = [save_uploaded_file(file) for file in uploaded_files]
-                st.success(f"{len(saved_paths)} Bild(er) im Upload-Ordner gespeichert.")
-                for path in saved_paths:
-                    st.write(f"• uploads/{path.name}")
-        elif password:
-            st.error("Passwort stimmt nicht.")
-
-st.write("")
 
 left, right = st.columns([1.2, .8], gap="large")
 
 with left:
+    st.markdown('<div id="route-etappen"></div>', unsafe_allow_html=True)
     st.subheader("🗺️ Route & Etappen")
 
     map_route = data["map_route"]
@@ -578,7 +588,8 @@ with right:
     st.write(magic["description"])
 
 st.write("")
-st.subheader("🍽️ Must-Visit & 🛏️ Must-Book")
+st.markdown('<div id="top-empfehlungen"></div>', unsafe_allow_html=True)
+st.subheader("⭐ Top Empfehlungen")
 r1, r2 = st.columns(2)
 restaurant = data["restaurant"]
 stay = data["stay"]
