@@ -308,7 +308,10 @@ with st.sidebar:
         st.markdown("[Route ansehen](#route-etappen)")
         for stop in data["route"]:
             st.markdown(f"[{stop['emoji']} {stop['name']}](#{route_stop_anchor(stop['name'])})")
-    st.markdown("[⭐ Top Empfehlungen](#top-empfehlungen)")
+    with st.expander("⭐ Top Empfehlungen", expanded=False):
+        st.markdown("[Restaurant](#top-restaurant)")
+        st.markdown("[Unterkunft](#top-unterkunft)")
+        st.markdown("[Aktivitäten](#top-aktivitaeten)")
     st.divider()
     with st.expander("🔒 Privater Ordner", expanded=False):
         render_private_upload_folder()
@@ -649,10 +652,12 @@ with right:
 st.write("")
 st.markdown('<div id="top-empfehlungen"></div>', unsafe_allow_html=True)
 st.subheader("⭐ Top Empfehlungen")
-r1, r2 = st.columns(2)
+r1, r2, r3 = st.columns(3)
 restaurant = data["restaurant"]
 stay = data["stay"]
+activities = data.get("activities", [])
 with r1:
+    st.markdown('<div id="top-restaurant"></div>', unsafe_allow_html=True)
     st.markdown(f"""
     <div class="card">
       <h3>Restaurant</h3>
@@ -662,6 +667,7 @@ with r1:
     """, unsafe_allow_html=True)
     st.link_button("Restaurant öffnen", restaurant["link"])
 with r2:
+    st.markdown('<div id="top-unterkunft"></div>', unsafe_allow_html=True)
     st.markdown(f"""
     <div class="card">
       <h3>Unterkunft</h3>
@@ -670,4 +676,24 @@ with r2:
     </div>
     """, unsafe_allow_html=True)
     st.link_button("Unterkunft öffnen", stay["link"])
+with r3:
+    st.markdown('<div id="top-aktivitaeten"></div>', unsafe_allow_html=True)
+    if activities:
+        activity = activities[0]
+        st.markdown(f"""
+        <div class="card">
+          <h3>Aktivitäten</h3>
+          <h2>{activity['name']}</h2>
+          <p>{activity.get('why', 'Ausgewählte Aktivität für die Reise.')}</p>
+        </div>
+        """, unsafe_allow_html=True)
+        st.link_button("Aktivität öffnen", activity["link"])
+    else:
+        st.markdown("""
+        <div class="card">
+          <h3>Aktivitäten</h3>
+          <h2>Noch offen</h2>
+          <p>Hier ergänzen wir schöne Ausflüge, Aussichtspunkte und besondere Stopps.</p>
+        </div>
+        """, unsafe_allow_html=True)
 
