@@ -300,13 +300,13 @@ with st.sidebar:
 
     friend_menu = st.selectbox(
         "Freunde-Quiz",
-        ["Quiz ausfüllen", "Bisher gewählte Antworten"],
+        ["geschlossen", "Vorhersage öffnen", "Bisher gewählte Antworten"],
         key="friend_quiz_menu",
     )
-    if friend_menu == "Quiz ausfüllen":
+    if friend_menu == "Vorhersage öffnen":
         st.session_state["show_friend_quiz"] = True
         st.caption("Quiz ist auf der Seite geöffnet.")
-    else:
+    elif friend_menu == "Bisher gewählte Antworten":
         render_quiz_answer_summary(quiz_questions)
 
     route_names = [stop["name"] for stop in data["route"]]
