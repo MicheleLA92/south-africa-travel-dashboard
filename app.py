@@ -731,6 +731,8 @@ with r1:
 with r2:
     st.markdown('<div id="top-unterkunft"></div>', unsafe_allow_html=True)
     for index, stay_item in enumerate(stays):
+        if stay_item.get("image"):
+            st.image(stay_item["image"], use_container_width=True)
         tip_html = f"<p class=\"small\">{stay_item['tip']}</p>" if stay_item.get("tip") else ""
         st.markdown(f"""
         <div class="card">
@@ -740,7 +742,8 @@ with r2:
           {tip_html}
         </div>
         """, unsafe_allow_html=True)
-        st.link_button("Unterkunft öffnen", stay_item["link"], key=f"stay_link_{index}")
+        if stay_item.get("link"):
+            st.link_button("Unterkunft öffnen", stay_item["link"], key=f"stay_link_{index}")
 with r3:
     st.markdown('<div id="top-aktivitaeten"></div>', unsafe_allow_html=True)
     if activities:
