@@ -18,7 +18,7 @@ st.set_page_config(
     page_title="Südafrika Reise",
     page_icon="🌍",
     layout="wide",
-    initial_sidebar_state="auto",
+    initial_sidebar_state="expanded",
 )
 
 CSS = """
@@ -108,6 +108,41 @@ a { color: #8a5a16 !important; text-decoration: none; font-weight: 650; }
 </style>
 """
 st.markdown(CSS, unsafe_allow_html=True)
+
+components.html("""
+<script>
+(function () {
+  const isMobile = window.parent && window.parent.innerWidth <= 760;
+  const key = "south_africa_sidebar_intro_collapsed";
+  if (!isMobile || window.parent.sessionStorage.getItem(key) === "1") return;
+
+  window.parent.sessionStorage.setItem(key, "1");
+
+  function closeSidebar() {
+    const doc = window.parent.document;
+    const sidebar = doc.querySelector('section[data-testid="stSidebar"]');
+    if (!sidebar) return false;
+
+    const closeButton =
+      sidebar.querySelector('button[aria-label="Close sidebar"]') ||
+      sidebar.querySelector('button[title="Close sidebar"]') ||
+      sidebar.querySelector('button[data-testid="stSidebarCollapseButton"]') ||
+      sidebar.querySelector('button[kind="header"]');
+
+    if (closeButton) {
+      closeButton.click();
+      return true;
+    }
+    return false;
+  }
+
+  setTimeout(function () {
+    if (closeSidebar()) return;
+    setTimeout(closeSidebar, 900);
+  }, 2300);
+})();
+</script>
+""", height=0)
 
 def load_data():
     # Keep JSON edits immediately visible on Streamlit Cloud; route/content changes
