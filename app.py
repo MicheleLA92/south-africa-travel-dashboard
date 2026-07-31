@@ -835,20 +835,17 @@ with r1:
 with r2:
     st.markdown('<div id="top-unterkunft"></div>', unsafe_allow_html=True)
     for index, stay_item in enumerate(stays):
-        gallery_images = stay_item.get("images") or ([stay_item["image"]] if stay_item.get("image") else [])
-        if gallery_images:
-            render_image_carousel(gallery_images, f"stay-carousel-{index}")
-        tip_html = f"<p class=\"small\">{stay_item['tip']}</p>" if stay_item.get("tip") else ""
-        st.markdown(f"""
-        <div class="card">
-          <h3>Unterkunft · {stay_item.get('location', '')}</h3>
-          <h2>{stay_item['name']}</h2>
-          <p>{stay_item['why']}</p>
-          {tip_html}
-        </div>
-        """, unsafe_allow_html=True)
-        if stay_item.get("link"):
-            st.link_button("Unterkunft öffnen", stay_item["link"], key=f"stay_link_{index}")
+        with st.container(border=True):
+            st.markdown(f"<p class=\"small\"><b>Unterkunft · {stay_item.get('location', '')}</b></p>", unsafe_allow_html=True)
+            st.markdown(f"### {stay_item['name']}")
+            gallery_images = stay_item.get("images") or ([stay_item["image"]] if stay_item.get("image") else [])
+            if gallery_images:
+                render_image_carousel(gallery_images, f"stay-carousel-{index}")
+            st.write(stay_item["why"])
+            if stay_item.get("tip"):
+                st.caption(stay_item["tip"])
+            if stay_item.get("link"):
+                st.link_button("Unterkunft öffnen", stay_item["link"], key=f"stay_link_{index}")
 with r3:
     st.markdown('<div id="top-aktivitaeten"></div>', unsafe_allow_html=True)
     if activities:
