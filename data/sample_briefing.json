@@ -197,8 +197,24 @@
     "location": "Cape Town",
     "why": "Modernes Fine-Dining in Cape Town – perfekt als besonderer Start in die Reise.",
     "tip": "",
-    "link": "https://maps.app.goo.gl/xSp3384MMfwmqRwd8"
+    "link": "https://www.google.com/maps/search/FYN+Restaurant+Cape+Town"
   },
+  "restaurants": [
+    {
+      "name": "FYN Restaurant",
+      "location": "Cape Town",
+      "why": "Modernes Fine-Dining in Cape Town – perfekt als besonderer Start in die Reise.",
+      "tip": "",
+      "link": "https://www.google.com/maps/search/FYN+Restaurant+Cape+Town"
+    },
+    {
+      "name": "Chefs Warehouse at Tintswalo Atlantic",
+      "location": "Cape Town / Hout Bay",
+      "why": "Spezielles Restaurant direkt an der Atlantikküste – schöner Kandidat für ein besonderes Dinner mit Meerblick.",
+      "tip": "",
+      "link": "https://maps.app.goo.gl/xSp3384MMfwmqRwd8"
+    }
+  ],
   "stay": {
     "name": "Rhino Post Safari Lodge",
     "location": "Kruger National Park",
