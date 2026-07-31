@@ -249,11 +249,22 @@ def summarize_quiz_results(results, quiz_questions):
 data = load_data()
 TRIP_START = date(2026, 8, 4)
 days_until_trip = max((TRIP_START - date.today()).days, 0)
+quiz = data.get("quiz", {})
+quiz_questions = quiz.get("questions", []) if isinstance(quiz, dict) else quiz
 
 with st.sidebar:
     st.title("🌍 Südafrika")
     st.markdown("### Menü")
     st.markdown("- [🦁 Freunde-Quiz](#freunde-quiz)")
+    with st.expander("📊 Bisher gewählte Antworten", expanded=False):
+        quiz_results = load_quiz_results()
+        if quiz_results and quiz_questions:
+            for item in summarize_quiz_results(quiz_results, quiz_questions):
+                st.markdown(f"**{item['question']}**")
+                for answer in item["answers"]:
+                    st.markdown(f"• {answer}")
+        else:
+            st.caption("Noch keine Antworten gespeichert.")
     st.markdown("- [🗺️ Route & Etappen](#route-etappen)")
     st.markdown("- [⭐ Top Empfehlungen](#top-empfehlungen)")
     st.markdown("- [📸 Privater Upload Ordner](#)")
@@ -366,8 +377,6 @@ components.html(f"""
 </script>
 """, height=178)
 
-quiz = data.get("quiz", {})
-quiz_questions = quiz.get("questions", []) if isinstance(quiz, dict) else quiz
 if st.query_params.get("show") == "quiz":
     st.session_state["show_friend_quiz"] = True
 
