@@ -297,42 +297,10 @@ quiz_questions = quiz.get("questions", []) if isinstance(quiz, dict) else quiz
 with st.sidebar:
     st.title("🌍 Südafrika")
     st.markdown("### Menü")
-
-    friend_menu = st.selectbox(
-        "Freunde-Quiz",
-        ["geschlossen", "Vorhersage öffnen", "Bisher gewählte Antworten"],
-        key="friend_quiz_menu",
-    )
-    if friend_menu == "Vorhersage öffnen":
-        st.session_state["show_friend_quiz"] = True
-        st.caption("Quiz ist auf der Seite geöffnet.")
-    elif friend_menu == "Bisher gewählte Antworten":
-        render_quiz_answer_summary(quiz_questions)
-
-    route_names = [stop["name"] for stop in data["route"]]
-    current_stop = st.selectbox("Route & Etappen", route_names, index=0, key="route_menu")
-    selected_stop = next(stop for stop in data["route"] if stop["name"] == current_stop)
-    render_route_stop(selected_stop)
-
-    top_category = st.selectbox(
-        "Top Empfehlungen",
-        ["Restaurant", "Unterkunft", "Aktivitäten"],
-        key="top_recommendations_menu",
-    )
-    render_top_recommendation(data, top_category)
-
-    st.divider()
-    st.metric("Tage bis Abreise", days_until_trip)
-    st.divider()
-
-    upload_menu = st.selectbox(
-        "Privater Upload Ordner",
-        ["geschlossen", "Upload öffnen"],
-        index=0,
-        key="private_upload_menu",
-    )
-    if upload_menu == "Upload öffnen":
-        render_private_upload_folder()
+    st.markdown("[🦁 Freunde-Quiz](#freunde-quiz)")
+    st.markdown("[🗺️ Route & Etappen](#route-etappen)")
+    st.markdown("[⭐ Top Empfehlungen](#top-empfehlungen)")
+    st.markdown("[📸 Privater Upload Ordner](#privater-upload-ordner)")
 
 st.markdown("""
 <div class="hero">
@@ -440,6 +408,7 @@ if st.query_params.get("show") == "quiz":
     st.session_state["show_friend_quiz"] = True
 
 st.write("")
+st.markdown('<div id="freunde-quiz"></div>', unsafe_allow_html=True)
 st.markdown("""
 <div class="quiz-teaser">
   <div>
@@ -454,7 +423,6 @@ if st.button("Jetzt Vorhersage abgeben", type="primary", key="show_friend_quiz_b
 
 if quiz_questions and st.session_state.get("show_friend_quiz", False):
     st.write("")
-    st.markdown('<div id="freunde-quiz"></div>', unsafe_allow_html=True)
     st.subheader(f"🧠 {quiz.get('title', 'Südafrika-Quiz') if isinstance(quiz, dict) else 'Südafrika-Quiz'}")
     st.caption(
         quiz.get(
@@ -640,6 +608,18 @@ with left:
     )
     st.caption("🐘 Kleiner Elefant = Addo Elephant National Park nahe Gqeberha / Port Elizabeth · Blau = Küstenfahrt Kapstadt bis East London · Gold = ✈️ Flug-/Inland-Etappe Richtung Johannesburg und Kruger.")
 
+    st.markdown('<div class="timeline">', unsafe_allow_html=True)
+    for stop in data["route"]:
+        tags = "".join(f'<span class="pill">{tag}</span>' for tag in stop["tags"])
+        st.markdown(f"""
+        <div class="stop">
+          <h4>{stop['emoji']} {stop['name']}</h4>
+          <div class="small">{stop['summary']}</div>
+          <div>{tags}</div>
+        </div>
+        """, unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+
 
 with right:
     st.subheader("✨ Magic Place des Tages")
@@ -672,3 +652,8 @@ with r2:
     </div>
     """, unsafe_allow_html=True)
     st.link_button("Unterkunft öffnen", stay["link"])
+
+st.write("")
+st.markdown('<div id="privater-upload-ordner"></div>', unsafe_allow_html=True)
+st.subheader("📸 Privater Upload Ordner")
+render_private_upload_folder()
