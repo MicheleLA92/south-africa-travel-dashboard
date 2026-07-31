@@ -35,6 +35,17 @@ chat_id = "DEINE_CHAT_ID"
 
 Ohne diese Secrets speichert die App Antworten weiterhin lokal in `data/friend_quiz_results.json`, versendet aber keine Nachricht.
 
+## Passwort für privaten Upload-Ordner
+
+Für den Upload-Ordner Michele & Roberto zusätzlich in Streamlit Cloud unter App → Settings → Secrets eintragen:
+
+```toml
+[upload]
+password = "DEIN_PRIVATES_PASSWORT"
+```
+
+Hochgeladene Dateien werden im App-Ordner `uploads/` gespeichert und nicht nach GitHub gepusht.
+
 ## Hinweis
 
 Cloudflare Quick Tunnel ist kostenlos, aber nicht dauerhaft. Für einen dauerhaft teilbaren Link brauchst du einen kostenlosen Hosting-Anbieter mit Account, z.B. Streamlit Community Cloud oder Hugging Face Spaces.

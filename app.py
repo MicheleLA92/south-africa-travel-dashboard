@@ -1,4 +1,5 @@
 import json
+import re
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -11,6 +12,7 @@ import streamlit.components.v1 as components
 ROOT = Path(__file__).parent
 DATA_PATH = ROOT / "data" / "sample_briefing.json"
 QUIZ_RESULTS_PATH = ROOT / "data" / "friend_quiz_results.json"
+UPLOAD_DIR = ROOT / "uploads"
 
 st.set_page_config(
     page_title="Südafrika Reise",
@@ -178,6 +180,28 @@ def notify_quiz_submission(friend_name, quiz_questions, answers):
             return "sent" if response.status == 200 else "failed"
     except Exception:
         return "failed"
+
+
+def get_upload_password():
+    try:
+        upload = st.secrets.get("upload", {})
+        return upload.get("password") or st.secrets.get("UPLOAD_PASSWORD")
+    except Exception:
+        return None
+
+
+def safe_upload_filename(filename):
+    cleaned = re.sub(r"[^A-Za-z0-9._-]+", "_", filename or "upload")
+    return cleaned.strip("._") or "upload"
+
+
+def save_uploaded_file(uploaded_file):
+    UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+    safe_name = safe_upload_filename(uploaded_file.name)
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    destination = UPLOAD_DIR / f"{timestamp}_{safe_name}"
+    destination.write_bytes(uploaded_file.getbuffer())
+    return destination
 
 
 def summarize_quiz_results(results, quiz_questions):
@@ -395,6 +419,29 @@ if quiz_questions and st.session_state.get("show_friend_quiz", False):
                 f'<span class="small">{answer_lines}</span></div>',
                 unsafe_allow_html=True,
             )
+
+st.write("")
+with st.expander("📸 Privater Upload-Ordner Michele & Roberto", expanded=False):
+    upload_password = get_upload_password()
+    if not upload_password:
+        st.info("Upload ist vorbereitet. Bitte in Streamlit Secrets noch ein Passwort setzen: [upload] password = \"...\"")
+    else:
+        password = st.text_input("Passwort", type="password", key="private_upload_password")
+        if password == upload_password:
+            st.success("Upload-Ordner entsperrt.")
+            uploaded_files = st.file_uploader(
+                "Bilder auswählen",
+                type=["jpg", "jpeg", "png", "webp", "heic", "heif"],
+                accept_multiple_files=True,
+                key="private_photo_uploads",
+            )
+            if st.button("In Upload-Ordner speichern", disabled=not uploaded_files, key="save_private_uploads"):
+                saved_paths = [save_uploaded_file(file) for file in uploaded_files]
+                st.success(f"{len(saved_paths)} Bild(er) im Upload-Ordner gespeichert.")
+                for path in saved_paths:
+                    st.write(f"• uploads/{path.name}")
+        elif password:
+            st.error("Passwort stimmt nicht.")
 
 st.write("")
 
