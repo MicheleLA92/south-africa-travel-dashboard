@@ -716,6 +716,7 @@ st.subheader("⭐ Top Empfehlungen")
 r1, r2, r3 = st.columns(3)
 restaurant = data["restaurant"]
 stay = data["stay"]
+stays = data.get("stays") or [stay]
 activities = data.get("activities", [])
 with r1:
     st.markdown('<div id="top-restaurant"></div>', unsafe_allow_html=True)
@@ -729,14 +730,17 @@ with r1:
     st.link_button("Restaurant öffnen", restaurant["link"])
 with r2:
     st.markdown('<div id="top-unterkunft"></div>', unsafe_allow_html=True)
-    st.markdown(f"""
-    <div class="card">
-      <h3>Unterkunft</h3>
-      <h2>{stay['name']}</h2>
-      <p>{stay['why']}</p>
-    </div>
-    """, unsafe_allow_html=True)
-    st.link_button("Unterkunft öffnen", stay["link"])
+    for index, stay_item in enumerate(stays):
+        tip_html = f"<p class=\"small\">{stay_item['tip']}</p>" if stay_item.get("tip") else ""
+        st.markdown(f"""
+        <div class="card">
+          <h3>Unterkunft · {stay_item.get('location', '')}</h3>
+          <h2>{stay_item['name']}</h2>
+          <p>{stay_item['why']}</p>
+          {tip_html}
+        </div>
+        """, unsafe_allow_html=True)
+        st.link_button("Unterkunft öffnen", stay_item["link"], key=f"stay_link_{index}")
 with r3:
     st.markdown('<div id="top-aktivitaeten"></div>', unsafe_allow_html=True)
     if activities:

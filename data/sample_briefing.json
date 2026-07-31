@@ -206,6 +206,22 @@
     "tip": "",
     "link": "https://www.google.com/maps/search/Rhino+Post+Safari+Lodge+Kruger"
   },
+  "stays": [
+    {
+      "name": "Rhino Post Safari Lodge",
+      "location": "Kruger National Park",
+      "why": "Safari-Unterkunft im Kruger-Gebiet – guter Kandidat für ein besonderes Finale der Route.",
+      "tip": "",
+      "link": "https://www.google.com/maps/search/Rhino+Post+Safari+Lodge+Kruger"
+    },
+    {
+      "name": "Airbnb Marloth Park",
+      "location": "Marloth Park",
+      "why": "Gebuchte Unterkunft vom 17. Aug. bis 21. Aug. in Marloth Park – ideal für den Safari-Teil nahe Kruger.",
+      "tip": "17. Aug. – 21. Aug.",
+      "link": "https://www.airbnb.com/l/7HwuO2mc"
+    }
+  ],
   "preparation": [
     {
       "task": "Reisemedizinische Beratung / Malaria-Prophylaxe klären",
