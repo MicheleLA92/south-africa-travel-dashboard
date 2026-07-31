@@ -736,8 +736,24 @@ with r1:
 with r2:
     st.markdown('<div id="top-unterkunft"></div>', unsafe_allow_html=True)
     for index, stay_item in enumerate(stays):
-        if stay_item.get("image"):
-            st.image(stay_item["image"], use_container_width=True)
+        gallery_images = stay_item.get("images") or ([stay_item["image"]] if stay_item.get("image") else [])
+        if gallery_images:
+            gallery_key = f"stay_gallery_index_{index}"
+            st.session_state.setdefault(gallery_key, 0)
+            current_image_index = st.session_state[gallery_key] % len(gallery_images)
+            st.image(gallery_images[current_image_index], use_container_width=True)
+            if len(gallery_images) > 1:
+                prev_col, count_col, next_col = st.columns([1, 2, 1])
+                with prev_col:
+                    if st.button("←", key=f"stay_prev_{index}", help="Vorheriges Bild"):
+                        st.session_state[gallery_key] = (current_image_index - 1) % len(gallery_images)
+                        st.rerun()
+                with count_col:
+                    st.caption(f"Bild {current_image_index + 1} von {len(gallery_images)}")
+                with next_col:
+                    if st.button("→", key=f"stay_next_{index}", help="Nächstes Bild"):
+                        st.session_state[gallery_key] = (current_image_index + 1) % len(gallery_images)
+                        st.rerun()
         tip_html = f"<p class=\"small\">{stay_item['tip']}</p>" if stay_item.get("tip") else ""
         st.markdown(f"""
         <div class="card">
