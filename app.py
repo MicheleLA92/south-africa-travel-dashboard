@@ -298,6 +298,7 @@ with st.sidebar:
     st.title("🌍 Südafrika")
     st.markdown("### Menü")
     st.markdown("[🦁 Freunde-Quiz](#freunde-quiz)")
+    st.markdown("&nbsp;&nbsp;&nbsp;↳ [Bisherige Antworten](?show=answers#bisherige-antworten)", unsafe_allow_html=True)
     st.markdown("[🗺️ Route & Etappen](#route-etappen)")
     st.markdown("[⭐ Top Empfehlungen](#top-empfehlungen)")
     st.divider()
@@ -406,6 +407,8 @@ components.html(f"""
 </script>
 """, height=178)
 
+show_quiz_answers = st.query_params.get("show") == "answers"
+
 if st.query_params.get("show") == "quiz":
     st.session_state["show_friend_quiz"] = True
 
@@ -423,8 +426,10 @@ st.markdown("""
 if st.button("Jetzt Vorhersage abgeben", type="primary", key="show_friend_quiz_button"):
     st.session_state["show_friend_quiz"] = True
 
-with st.expander("➜ Bisher gewählte Antworten", expanded=False):
-    render_quiz_answer_summary(quiz_questions)
+if show_quiz_answers:
+    st.markdown('<div id="bisherige-antworten"></div>', unsafe_allow_html=True)
+    with st.expander("➜ Bisherige Antworten", expanded=True):
+        render_quiz_answer_summary(quiz_questions)
 
 if quiz_questions and st.session_state.get("show_friend_quiz", False):
     st.write("")
