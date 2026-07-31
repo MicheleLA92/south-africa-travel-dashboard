@@ -423,6 +423,9 @@ st.markdown("""
 if st.button("Jetzt Vorhersage abgeben", type="primary", key="show_friend_quiz_button"):
     st.session_state["show_friend_quiz"] = True
 
+with st.expander("➜ Bisher gewählte Antworten", expanded=False):
+    render_quiz_answer_summary(quiz_questions)
+
 if quiz_questions and st.session_state.get("show_friend_quiz", False):
     st.write("")
     st.subheader(f"🧠 {quiz.get('title', 'Südafrika-Quiz') if isinstance(quiz, dict) else 'Südafrika-Quiz'}")
