@@ -112,15 +112,14 @@ st.markdown(CSS, unsafe_allow_html=True)
 components.html("""
 <script>
 (function () {
-  const isMobile = window.parent && window.parent.innerWidth <= 760;
-  const key = "south_africa_sidebar_intro_collapsed";
-  if (!isMobile || window.parent.sessionStorage.getItem(key) === "1") return;
-
-  window.parent.sessionStorage.setItem(key, "1");
+  const parentWindow = window.parent;
+  const parentDoc = parentWindow.document;
+  const isMobile = () => parentWindow.innerWidth <= 760;
+  const introKey = "south_africa_sidebar_intro_collapsed";
+  const listenerKey = "south_africa_sidebar_link_listener";
 
   function closeSidebar() {
-    const doc = window.parent.document;
-    const sidebar = doc.querySelector('section[data-testid="stSidebar"]');
+    const sidebar = parentDoc.querySelector('section[data-testid="stSidebar"]');
     if (!sidebar) return false;
 
     const closeButton =
@@ -136,10 +135,25 @@ components.html("""
     return false;
   }
 
-  setTimeout(function () {
-    if (closeSidebar()) return;
-    setTimeout(closeSidebar, 900);
-  }, 2300);
+  if (!parentWindow[listenerKey]) {
+    parentWindow[listenerKey] = true;
+    parentDoc.addEventListener("click", function (event) {
+      const link = event.target.closest('section[data-testid="stSidebar"] a');
+      if (!link || !isMobile()) return;
+      setTimeout(function () {
+        if (closeSidebar()) return;
+        setTimeout(closeSidebar, 350);
+      }, 180);
+    }, true);
+  }
+
+  if (isMobile() && parentWindow.sessionStorage.getItem(introKey) !== "1") {
+    parentWindow.sessionStorage.setItem(introKey, "1");
+    setTimeout(function () {
+      if (closeSidebar()) return;
+      setTimeout(closeSidebar, 900);
+    }, 2300);
+  }
 })();
 </script>
 """, height=0)
