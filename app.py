@@ -297,8 +297,9 @@ quiz_questions = quiz.get("questions", []) if isinstance(quiz, dict) else quiz
 with st.sidebar:
     st.title("🌍 Südafrika")
     st.markdown("### Menü")
-    st.markdown("[🦁 Freunde-Quiz](#freunde-quiz)")
-    st.markdown("&nbsp;&nbsp;&nbsp;↳ [Bisherige Antworten](?show=answers#bisherige-antworten)", unsafe_allow_html=True)
+    with st.expander("🦁 Freunde-Quiz", expanded=False):
+        st.markdown("[Quiz ansehen](#freunde-quiz)")
+        st.markdown("[Bisherige Antworten](?show=answers#bisherige-antworten)")
     st.markdown("[🗺️ Route & Etappen](#route-etappen)")
     st.markdown("[⭐ Top Empfehlungen](#top-empfehlungen)")
     st.divider()
