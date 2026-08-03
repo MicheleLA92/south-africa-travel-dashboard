@@ -192,7 +192,7 @@ def render_image_carousel(image_paths, carousel_id, autoplay_ms=2000, object_fit
     if not image_sources:
         return
     mobile_height_px = 320 if object_fit == "contain" else 230
-    background = "#1f2a24" if object_fit == "contain" else "#ead8b7"
+    background = "linear-gradient(180deg, #fffaf1, #ead8b7)" if object_fit == "contain" else "#ead8b7"
     component_height = height_px + 25
     components.html(f"""
 <div id="{carousel_id}" class="stay-carousel">
