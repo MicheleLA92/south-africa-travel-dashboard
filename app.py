@@ -691,14 +691,26 @@ with left:
             **point,
             "position": [point["lon"], point["lat"]],
             "label": f"{index}. {point['name']}",
+            "photo_count": "",
             "color": [20, 116, 139, 235] if point["kind"] == "coast" else [49, 92, 69, 235],
         }
         for index, point in enumerate(map_route, start=1)
+    ]
+    photo_stops = [
+        {
+            **stop,
+            "position": [stop["lon"], stop["lat"]],
+            "label_text": f"📷 {stop['name']}",
+            "photo_count": len(stop.get("photos", [])),
+        }
+        for stop in data.get("photo_stops", [])
+        if stop.get("photos")
     ]
     elephant_marker = {
         **data["map_elephant_marker"],
         "position": [data["map_elephant_marker"]["lon"], data["map_elephant_marker"]["lat"]],
         "label_text": "Addo Elephant Park",
+        "photo_count": "",
         "icon_data": {
             "url": "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f418.png",
             "width": 72,
@@ -754,6 +766,26 @@ with left:
                 ),
                 pdk.Layer(
                     "ScatterplotLayer",
+                    photo_stops,
+                    get_position="position",
+                    get_fill_color=[197, 139, 54, 245],
+                    get_line_color=[255, 250, 241, 255],
+                    get_radius=26000,
+                    line_width_min_pixels=3,
+                    pickable=True,
+                ),
+                pdk.Layer(
+                    "TextLayer",
+                    photo_stops,
+                    get_position="position",
+                    get_text="label_text",
+                    get_color=[31, 42, 36, 255],
+                    get_size=13,
+                    get_alignment_baseline="bottom",
+                    get_pixel_offset=[0, -22],
+                ),
+                pdk.Layer(
+                    "ScatterplotLayer",
                     [elephant_marker],
                     get_position="position",
                     get_fill_color=[255, 193, 7, 250],
@@ -787,7 +819,31 @@ with left:
         use_container_width=True,
         height=470,
     )
-    st.caption("🐘 Kleiner Elefant = Addo Elephant National Park nahe Gqeberha / Port Elizabeth · Blau = Küstenfahrt Kapstadt bis East London · Gold = ✈️ Flug-/Inland-Etappe Richtung Johannesburg und Kruger.")
+    st.caption("🐘 Kleiner Elefant = Addo Elephant National Park nahe Gqeberha / Port Elizabeth · 📷 Goldener Foto-Punkt = Bildergalerie · Blau = Küstenfahrt Kapstadt bis East London · Gold = ✈️ Flug-/Inland-Etappe Richtung Johannesburg und Kruger.")
+
+    if photo_stops:
+        st.markdown("#### 📷 Foto-Stopps")
+        st.caption("Ruhiger Test: pro Ort ein Foto-Punkt, darunter öffnet sich die passende Galerie.")
+        st.session_state.setdefault("selected_photo_stop", None)
+        photo_cols = st.columns(min(len(photo_stops), 3))
+        for index, photo_stop in enumerate(photo_stops):
+            with photo_cols[index % len(photo_cols)]:
+                if st.button(
+                    f"📷 {photo_stop['name']} · {photo_stop['photo_count']} Fotos",
+                    key=f"photo_stop_{index}",
+                    use_container_width=True,
+                ):
+                    st.session_state["selected_photo_stop"] = photo_stop["name"]
+        selected_photo_stop = next(
+            (stop for stop in photo_stops if stop["name"] == st.session_state.get("selected_photo_stop")),
+            None,
+        )
+        if selected_photo_stop:
+            with st.container(border=True):
+                st.markdown(f"<p class=\"small\"><b>Foto-Stopp · {selected_photo_stop.get('location', selected_photo_stop['name'])}</b></p>", unsafe_allow_html=True)
+                st.markdown(f"### {selected_photo_stop['name']}")
+                st.write(selected_photo_stop.get("summary", "Bilder von diesem Reisestopp."))
+                render_image_carousel(selected_photo_stop["photos"], "route-photo-stop-gallery")
 
     st.markdown('<div class="timeline">', unsafe_allow_html=True)
     for stop in data["route"]:

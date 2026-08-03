@@ -400,5 +400,20 @@
         ]
       }
     ]
-  }
+  },
+  "photo_stops": [
+    {
+      "name": "Marloth Park",
+      "location": "Marloth Park / Kruger",
+      "lat": -25.342,
+      "lon": 31.778,
+      "summary": "Erster ruhiger Test-Fotostopp mit Bildern der Unterkunft.",
+      "photos": [
+        "assets/marloth-park-unterkunft.jpg",
+        "assets/marloth-park-pool-zebra.jpg",
+        "assets/marloth-park-living-kitchen.jpg",
+        "assets/marloth-park-terrace-dinner.jpg"
+      ]
+    }
+  ]
 }
