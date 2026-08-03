@@ -460,26 +460,30 @@ quiz = data.get("quiz", {})
 quiz_questions = quiz.get("questions", []) if isinstance(quiz, dict) else quiz
 photo_stops_data = [stop for stop in data.get("photo_stops", []) if stop.get("photos")]
 selected_photo_stop_name = st.query_params.get("photo_stop")
+selected_page = st.query_params.get("page")
+selected_route_stop_name = st.query_params.get("stop")
+selected_recommendation = st.query_params.get("recommendation")
 
 with st.sidebar:
     st.title("🌍 Südafrika")
     st.markdown("### Menü")
-    with st.expander("🦁 Freunde-Quiz", expanded=False):
-        st.markdown("[Quiz ansehen](#freunde-quiz)")
-        st.markdown("[Bisherige Antworten](?show=answers#bisherige-antworten)")
-    with st.expander("🗺️ Route & Etappen", expanded=False):
-        st.markdown("[Route ansehen](#route-etappen)")
+    with st.expander("🦁 Freunde-Quiz", expanded=selected_page in {"quiz", "answers"}):
+        st.markdown("[Quiz ansehen](?page=quiz)")
+        st.markdown("[Bisherige Antworten](?page=answers)")
+    with st.expander("🗺️ Route & Etappen", expanded=selected_page in {"route", "route_stop"}):
+        st.markdown("[Route ansehen](?page=route)")
         for stop in data["route"]:
-            st.markdown(f"[{stop['emoji']} {stop['name']}](#{route_stop_anchor(stop['name'])})")
+            stop_query = urllib.parse.quote(stop["name"])
+            st.markdown(f"[{stop['emoji']} {stop['name']}](?page=route_stop&stop={stop_query})")
     if photo_stops_data:
         with st.expander("📷 Foto Stopps", expanded=bool(selected_photo_stop_name)):
             for photo_stop in photo_stops_data:
                 photo_stop_query = urllib.parse.quote(photo_stop["name"])
-                st.markdown(f"[📷 {photo_stop['name']}](?photo_stop={photo_stop_query}#foto-stopps)")
-    with st.expander("⭐ Top Empfehlungen", expanded=False):
-        st.markdown("[Restaurant](#top-restaurant)")
-        st.markdown("[Unterkunft](#top-unterkunft)")
-        st.markdown("[Aktivitäten](#top-aktivitaeten)")
+                st.markdown(f"[📷 {photo_stop['name']}](?photo_stop={photo_stop_query})")
+    with st.expander("⭐ Top Empfehlungen", expanded=selected_page == "recommendations"):
+        st.markdown("[Restaurant](?page=recommendations&recommendation=restaurant)")
+        st.markdown("[Unterkunft](?page=recommendations&recommendation=stay)")
+        st.markdown("[Aktivitäten](?page=recommendations&recommendation=activities)")
     st.divider()
     with st.expander("🔒 Privater Ordner", expanded=False):
         render_private_upload_folder()
@@ -503,6 +507,145 @@ if selected_photo_stop_name:
             st.markdown(f"### {selected_photo_page['name']}")
             st.write(selected_photo_page.get("summary", "Bilder von diesem Reisestopp."))
             render_image_carousel(selected_photo_page["photos"], "photo-stop-page-gallery", autoplay_ms=6000)
+        st.markdown("[← Zurück zur Reiseübersicht](./)")
+        st.stop()
+
+if selected_page:
+    restaurants_page = data.get("restaurants") or [data["restaurant"]]
+    stays_page = data.get("stays") or [data["stay"]]
+    activities_page = data.get("activities", [])
+
+    if selected_page == "quiz":
+        st.markdown("""
+        <div class="hero">
+          <span class="badge">🦁 Freunde-Quiz</span>
+          <h1>Vorhersage abgeben</h1>
+        </div>
+        """, unsafe_allow_html=True)
+        st.write("")
+        if quiz_questions:
+            st.subheader(f"🧠 {quiz.get('title', 'Südafrika-Quiz') if isinstance(quiz, dict) else 'Südafrika-Quiz'}")
+            st.caption(quiz.get("description", "Keine richtigen oder falschen Antworten – hier tippen deine Freunde, was unterwegs passiert.") if isinstance(quiz, dict) else "Keine richtigen oder falschen Antworten – hier tippen deine Freunde, was unterwegs passiert.")
+            st.markdown("**Dein Name**")
+            friend_name = st.text_input("Dein Name", placeholder="z. B. Anna", label_visibility="collapsed", key="quiz_page_name")
+            answers = []
+            answered_count = 0
+            for index, question in enumerate(quiz_questions, start=1):
+                options = ["– bitte wählen –", *question["options"]]
+                answer = st.radio(f"{index}. {question['question']}", options, index=0, key=f"quiz_page_answer_{index}")
+                if answer != "– bitte wählen –":
+                    answered_count += 1
+                answers.append(answer)
+            st.progress(answered_count / len(quiz_questions), text=f"{answered_count} von {len(quiz_questions)} Tipps abgegeben")
+            button_label = quiz.get("button_label", "Meine Tipps speichern") if isinstance(quiz, dict) else "Meine Tipps speichern"
+            if st.button(button_label, type="primary", disabled=answered_count < len(quiz_questions) or st.session_state.get("quiz_page_checked", False), key="quiz_page_submit"):
+                display_name = friend_name.strip() or "Anonym"
+                results = save_quiz_result(display_name, quiz_questions, answers)
+                notification_status = notify_quiz_submission(display_name, quiz_questions, answers)
+                st.session_state["quiz_page_checked"] = True
+                st.session_state["quiz_last_name"] = display_name
+                st.session_state["quiz_last_answers"] = answers
+                st.session_state["quiz_results"] = results
+                st.session_state["quiz_notification_status"] = notification_status
+            if st.session_state.get("quiz_page_checked"):
+                display_name = st.session_state.get("quiz_last_name", friend_name.strip() or "Anonym")
+                submitted_answers = st.session_state.get("quiz_last_answers", answers)
+                results = st.session_state.get("quiz_results", load_quiz_results())
+                st.success("Danke! Deine Vorhersage wurde gespeichert.")
+                result_view = st.selectbox("Quiz Ergebnis anzeigen", ["Deine Antworten", "Bisher gewählte Antworten"], key="quiz_page_result_view")
+                if result_view == "Deine Antworten":
+                    for answer, question in zip(submitted_answers, quiz_questions):
+                        st.markdown(f'<div class="quiz-answer">🦁 <strong>{question["question"]}</strong><br><span class="small">Tipp: {answer}</span></div>', unsafe_allow_html=True)
+                else:
+                    for item in summarize_quiz_results(results, quiz_questions):
+                        answer_lines = "<br>".join(f"• {answer}" for answer in item["answers"])
+                        st.markdown(f'<div class="quiz-answer">📝 <strong>{item["question"]}</strong><br><span class="small">{answer_lines}</span></div>', unsafe_allow_html=True)
+        st.markdown("[← Zurück zur Reiseübersicht](./)")
+        st.stop()
+
+    if selected_page == "answers":
+        st.markdown("""
+        <div class="hero">
+          <span class="badge">🦁 Freunde-Quiz</span>
+          <h1>Bisherige Antworten</h1>
+        </div>
+        """, unsafe_allow_html=True)
+        st.write("")
+        render_quiz_answer_summary(quiz_questions)
+        st.markdown("[← Zurück zur Reiseübersicht](./)")
+        st.stop()
+
+    if selected_page in {"route", "route_stop"}:
+        selected_stop = next((stop for stop in data["route"] if stop["name"] == selected_route_stop_name), None)
+        st.markdown("""
+        <div class="hero">
+          <span class="badge">🗺️ Route & Etappen</span>
+          <h1>Reiseroute</h1>
+        </div>
+        """, unsafe_allow_html=True)
+        st.write("")
+        route_items = [selected_stop] if selected_stop else data["route"]
+        for stop in route_items:
+            with st.container(border=True):
+                st.markdown(f"### {stop['emoji']} {stop['name']}")
+                st.caption(stop["summary"])
+                st.write(stop.get("detail", ""))
+                tags = " ".join(f"`{tag}`" for tag in stop.get("tags", []))
+                if tags:
+                    st.markdown(tags)
+                if stop.get("link"):
+                    st.link_button("Ort öffnen", stop["link"], key=f"route_page_{route_stop_anchor(stop['name'])}")
+        st.markdown("[← Zurück zur Reiseübersicht](./)")
+        st.stop()
+
+    if selected_page == "recommendations":
+        titles = {"restaurant": "Restaurant", "stay": "Unterkunft", "activities": "Aktivitäten"}
+        current = selected_recommendation or "restaurant"
+        st.markdown(f"""
+        <div class="hero">
+          <span class="badge">⭐ Top Empfehlungen</span>
+          <h1>{titles.get(current, 'Top Empfehlungen')}</h1>
+        </div>
+        """, unsafe_allow_html=True)
+        st.write("")
+        if current == "restaurant":
+            for index, restaurant_item in enumerate(restaurants_page):
+                with st.container(border=True):
+                    st.markdown(f"<p class=\"small\"><b>Restaurant · {restaurant_item.get('location', '')}</b></p>", unsafe_allow_html=True)
+                    st.markdown(f"### {restaurant_item['name']}")
+                    st.write(restaurant_item["why"])
+                    if restaurant_item.get("tip"):
+                        st.caption(restaurant_item["tip"])
+                    if restaurant_item.get("link"):
+                        st.link_button("Restaurant öffnen", restaurant_item["link"], key=f"restaurant_page_link_{index}")
+        elif current == "stay":
+            for index, stay_item in enumerate(stays_page):
+                with st.container(border=True):
+                    st.markdown(f"<p class=\"small\"><b>Unterkunft · {stay_item.get('location', '')}</b></p>", unsafe_allow_html=True)
+                    st.markdown(f"### {stay_item['name']}")
+                    gallery_images = stay_item.get("images") or ([stay_item["image"]] if stay_item.get("image") else [])
+                    if gallery_images:
+                        render_image_carousel(gallery_images, f"stay-page-carousel-{index}")
+                    st.write(stay_item["why"])
+                    if stay_item.get("tip"):
+                        st.caption(stay_item["tip"])
+                    if stay_item.get("link"):
+                        st.link_button("Unterkunft öffnen", stay_item["link"], key=f"stay_page_link_{index}")
+        else:
+            if activities_page:
+                for index, activity in enumerate(activities_page):
+                    with st.container(border=True):
+                        st.markdown('<p class="small"><b>Aktivitäten</b></p>', unsafe_allow_html=True)
+                        st.markdown(f"### {activity['name']}")
+                        st.write(activity.get('why', 'Ausgewählte Aktivität für die Reise.'))
+                        if activity.get("tip"):
+                            st.caption(activity["tip"])
+                        if activity.get("link"):
+                            st.link_button("Aktivität öffnen", activity["link"], key=f"activity_page_link_{index}")
+            else:
+                with st.container(border=True):
+                    st.markdown("### Noch offen")
+                    st.write("Hier ergänzen wir schöne Ausflüge, Aussichtspunkte und besondere Stopps.")
         st.markdown("[← Zurück zur Reiseübersicht](./)")
         st.stop()
 
