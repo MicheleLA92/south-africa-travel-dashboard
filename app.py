@@ -467,26 +467,51 @@ selected_page = st.query_params.get("page")
 selected_route_stop_name = st.query_params.get("stop")
 selected_recommendation = st.query_params.get("recommendation")
 
+
+def open_section(page=None, *, photo_stop=None, stop=None, recommendation=None):
+    st.query_params.clear()
+    if page:
+        st.query_params["page"] = page
+    if photo_stop:
+        st.query_params["photo_stop"] = photo_stop
+    if stop:
+        st.query_params["stop"] = stop
+    if recommendation:
+        st.query_params["recommendation"] = recommendation
+    st.rerun()
+
+
+def render_back_to_overview():
+    if st.button("← Zurück zur Reiseübersicht", key="back_to_overview", use_container_width=True):
+        open_section()
+
+
 with st.sidebar:
     st.title("🌍 Südafrika")
     st.markdown("### Menü")
     with st.expander("🦁 Freunde-Quiz", expanded=selected_page in {"quiz", "answers"}):
-        st.markdown("[Quiz ansehen](?page=quiz)")
-        st.markdown("[Bisherige Antworten](?page=answers)")
+        if st.button("Quiz ansehen", key="nav_quiz", use_container_width=True):
+            open_section("quiz")
+        if st.button("Bisherige Antworten", key="nav_answers", use_container_width=True):
+            open_section("answers")
     with st.expander("🗺️ Route & Etappen", expanded=selected_page in {"route", "route_stop"}):
-        st.markdown("[Route ansehen](?page=route)")
+        if st.button("Route ansehen", key="nav_route", use_container_width=True):
+            open_section("route")
         for stop in data["route"]:
-            stop_query = urllib.parse.quote(stop["name"])
-            st.markdown(f"[{stop['emoji']} {stop['name']}](?page=route_stop&stop={stop_query})")
+            if st.button(f"{stop['emoji']} {stop['name']}", key=f"nav_route_{route_stop_anchor(stop['name'])}", use_container_width=True):
+                open_section("route_stop", stop=stop["name"])
     if photo_stops_data:
         with st.expander("📷 Foto Stopps", expanded=bool(selected_photo_stop_name)):
             for photo_stop in photo_stops_data:
-                photo_stop_query = urllib.parse.quote(photo_stop["name"])
-                st.markdown(f"[📷 {photo_stop['name']}](?photo_stop={photo_stop_query})")
+                if st.button(f"📷 {photo_stop['name']}", key=f"nav_photo_{route_stop_anchor(photo_stop['name'])}", use_container_width=True):
+                    open_section(photo_stop=photo_stop["name"])
     with st.expander("⭐ Top Empfehlungen", expanded=selected_page == "recommendations"):
-        st.markdown("[Restaurant](?page=recommendations&recommendation=restaurant)")
-        st.markdown("[Unterkunft](?page=recommendations&recommendation=stay)")
-        st.markdown("[Aktivitäten](?page=recommendations&recommendation=activities)")
+        if st.button("Restaurant", key="nav_recommendation_restaurant", use_container_width=True):
+            open_section("recommendations", recommendation="restaurant")
+        if st.button("Unterkunft", key="nav_recommendation_stay", use_container_width=True):
+            open_section("recommendations", recommendation="stay")
+        if st.button("Aktivitäten", key="nav_recommendation_activities", use_container_width=True):
+            open_section("recommendations", recommendation="activities")
     st.divider()
     with st.expander("🔒 Privater Ordner", expanded=False):
         render_private_upload_folder()
@@ -516,7 +541,7 @@ if selected_photo_stop_name:
                 object_fit="contain",
                 height_px=430,
             )
-        st.markdown("[← Zurück zur Reiseübersicht](./)")
+        render_back_to_overview()
         st.stop()
 
 if selected_page:
@@ -569,7 +594,7 @@ if selected_page:
                     for item in summarize_quiz_results(results, quiz_questions):
                         answer_lines = "<br>".join(f"• {answer}" for answer in item["answers"])
                         st.markdown(f'<div class="quiz-answer">📝 <strong>{item["question"]}</strong><br><span class="small">{answer_lines}</span></div>', unsafe_allow_html=True)
-        st.markdown("[← Zurück zur Reiseübersicht](./)")
+        render_back_to_overview()
         st.stop()
 
     if selected_page == "answers":
@@ -581,7 +606,7 @@ if selected_page:
         """, unsafe_allow_html=True)
         st.write("")
         render_quiz_answer_summary(quiz_questions)
-        st.markdown("[← Zurück zur Reiseübersicht](./)")
+        render_back_to_overview()
         st.stop()
 
     if selected_page in {"route", "route_stop"}:
@@ -604,7 +629,7 @@ if selected_page:
                     st.markdown(tags)
                 if stop.get("link"):
                     st.link_button("Ort öffnen", stop["link"], key=f"route_page_{route_stop_anchor(stop['name'])}")
-        st.markdown("[← Zurück zur Reiseübersicht](./)")
+        render_back_to_overview()
         st.stop()
 
     if selected_page == "recommendations":
@@ -655,7 +680,7 @@ if selected_page:
                 with st.container(border=True):
                     st.markdown("### Noch offen")
                     st.write("Hier ergänzen wir schöne Ausflüge, Aussichtspunkte und besondere Stopps.")
-        st.markdown("[← Zurück zur Reiseübersicht](./)")
+        render_back_to_overview()
         st.stop()
 
 st.markdown("""
