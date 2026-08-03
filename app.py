@@ -779,10 +779,9 @@ with st.sidebar:
         if st.button("Route ansehen", key="nav_route", use_container_width=True):
             open_section("route")
     if photo_stops_data:
-        with st.expander("📍 Fotokarte", expanded=selected_page == "photo_map"):
-            if st.button("Fotokarte ansehen", key="nav_photo_map", use_container_width=True):
+        with st.expander("📷 Fotos", expanded=selected_page == "photo_map" or bool(selected_photo_stop_name)):
+            if st.button("📍 Fotokarte ansehen", key="nav_photo_map", use_container_width=True):
                 open_section("photo_map")
-        with st.expander("📷 Foto Stopps", expanded=bool(selected_photo_stop_name)):
             for photo_stop in photo_stops_data:
                 if st.button(f"📷 {photo_stop['name']}", key=f"nav_photo_{route_stop_anchor(photo_stop['name'])}", use_container_width=True):
                     open_section(photo_stop=photo_stop["name"])
