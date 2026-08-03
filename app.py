@@ -655,6 +655,86 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
     st.markdown('</div>', unsafe_allow_html=True)
 
 
+def render_photo_map(data, map_key="photo_map"):
+    photo_stops = [
+        {
+            **stop,
+            "position": [stop["lon"], stop["lat"]],
+            "label_text": stop["name"],
+            "photo_count": len(stop.get("photos", [])),
+            "icon_data": {
+                "url": "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f4f7.png",
+                "width": 72,
+                "height": 72,
+                "anchorY": 36,
+            },
+        }
+        for stop in data.get("photo_stops", [])
+        if stop.get("photos")
+    ]
+    if not photo_stops:
+        st.info("Noch keine Foto-Stopps hinterlegt.")
+        return
+
+    map_state = st.pydeck_chart(
+        pdk.Deck(
+            map_style="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
+            initial_view_state=pdk.ViewState(latitude=-25.6, longitude=30.7, zoom=6.0, pitch=0),
+            layers=[
+                pdk.Layer(
+                    "IconLayer",
+                    photo_stops,
+                    get_icon="icon_data",
+                    get_position="position",
+                    get_size=1.5,
+                    size_scale=18,
+                    pickable=True,
+                ),
+                pdk.Layer(
+                    "TextLayer",
+                    photo_stops,
+                    get_position="position",
+                    get_text="label_text",
+                    get_color=[31, 42, 36, 255],
+                    get_size=14,
+                    get_alignment_baseline="bottom",
+                    get_pixel_offset=[0, -28],
+                ),
+            ],
+            tooltip={"html": "<b>{name}</b><br>{photo_count} Fotos", "style": {"backgroundColor": "#315c45", "color": "#fffaf1"}},
+        ),
+        use_container_width=True,
+        height=420,
+        selection_mode="single-object",
+        on_select="rerun",
+        key=map_key,
+    )
+    st.caption("📷 Kamera antippen, um die Fotos von diesem Stopp zu öffnen.")
+
+    selected_photo_stop_name = None
+    try:
+        selected_objects = map_state.selection.get("objects", {})
+        object_groups = selected_objects.values() if isinstance(selected_objects, dict) else [selected_objects]
+        photo_stop_names = {stop["name"] for stop in photo_stops}
+        for layer_objects in object_groups:
+            for selected_object in layer_objects:
+                if not isinstance(selected_object, dict):
+                    continue
+                selected_name = selected_object.get("name") or selected_object.get("label_text")
+                if selected_name in photo_stop_names:
+                    selected_photo_stop_name = selected_name
+                    break
+            if selected_photo_stop_name:
+                break
+    except Exception:
+        selected_photo_stop_name = None
+
+    if selected_photo_stop_name:
+        st.query_params.clear()
+        st.query_params["photo_stop"] = selected_photo_stop_name
+        st.rerun()
+
+
 data = load_data()
 TRIP_START = datetime(2026, 8, 4, 22, 0)
 days_until_trip = max((TRIP_START.date() - date.today()).days, 0)
@@ -688,6 +768,8 @@ def render_back_to_overview():
 with st.sidebar:
     st.title("🌍 Südafrika")
     st.markdown("### Menü")
+    if st.button("🏠 Übersicht", key="nav_home", use_container_width=True):
+        open_section()
     with st.expander("🦁 Freunde-Quiz", expanded=selected_page in {"quiz", "answers"}):
         if st.button("Quiz ansehen", key="nav_quiz", use_container_width=True):
             open_section("quiz")
@@ -697,6 +779,9 @@ with st.sidebar:
         if st.button("Route ansehen", key="nav_route", use_container_width=True):
             open_section("route")
     if photo_stops_data:
+        with st.expander("📍 Fotokarte", expanded=selected_page == "photo_map"):
+            if st.button("Fotokarte ansehen", key="nav_photo_map", use_container_width=True):
+                open_section("photo_map")
         with st.expander("📷 Foto Stopps", expanded=bool(selected_photo_stop_name)):
             for photo_stop in photo_stops_data:
                 if st.button(f"📷 {photo_stop['name']}", key=f"nav_photo_{route_stop_anchor(photo_stop['name'])}", use_container_width=True):
@@ -814,6 +899,18 @@ if selected_page:
         """, unsafe_allow_html=True)
         st.write("")
         render_route_map_and_timeline(data, selected_photo_stop_name, map_key="route_page_map")
+        render_back_to_overview()
+        st.stop()
+
+    if selected_page == "photo_map":
+        st.markdown("""
+        <div class="hero">
+          <span class="badge">📍 Fotokarte</span>
+          <h1>Foto-Stopps auf der Karte</h1>
+        </div>
+        """, unsafe_allow_html=True)
+        st.write("")
+        render_photo_map(data, map_key="photo_map_page")
         render_back_to_overview()
         st.stop()
 
