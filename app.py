@@ -187,7 +187,7 @@ def image_source_for_gallery(image_path):
     return f"data:{mime};base64,{encoded}"
 
 
-def render_image_carousel(image_paths, carousel_id):
+def render_image_carousel(image_paths, carousel_id, autoplay_ms=2000):
     image_sources = [image_source_for_gallery(path) for path in image_paths]
     if not image_sources:
         return
@@ -201,6 +201,7 @@ def render_image_carousel(image_paths, carousel_id):
 <script>
 (function() {{
   const images = {json.dumps(image_sources)};
+  const autoplayMs = {int(autoplay_ms) if autoplay_ms else 0};
   const root = document.getElementById({json.dumps(carousel_id)});
   const img = root.querySelector('.stay-carousel-image');
   const count = root.querySelector('.stay-carousel-count');
@@ -213,8 +214,8 @@ def render_image_carousel(image_paths, carousel_id):
   root.querySelector('.stay-carousel-prev').addEventListener('click', function() {{ show(index - 1); }});
   root.querySelector('.stay-carousel-next').addEventListener('click', function() {{ show(index + 1); }});
   show(0);
-  if (images.length > 1) {{
-    setInterval(function() {{ show(index + 1); }}, 2000);
+  if (images.length > 1 && autoplayMs > 0) {{
+    setInterval(function() {{ show(index + 1); }}, autoplayMs);
   }}
 }})();
 </script>
@@ -501,7 +502,7 @@ if selected_photo_stop_name:
             st.markdown(f"<p class=\"small\"><b>{selected_photo_page.get('location', selected_photo_page['name'])}</b></p>", unsafe_allow_html=True)
             st.markdown(f"### {selected_photo_page['name']}")
             st.write(selected_photo_page.get("summary", "Bilder von diesem Reisestopp."))
-            render_image_carousel(selected_photo_page["photos"], "photo-stop-page-gallery")
+            render_image_carousel(selected_photo_page["photos"], "photo-stop-page-gallery", autoplay_ms=6000)
         st.markdown("[← Zurück zur Reiseübersicht](./)")
         st.stop()
 
