@@ -403,6 +403,16 @@
   },
   "photo_stops": [
     {
+      "name": "Kapstadt",
+      "location": "Kapstadt / Camps Bay",
+      "lat": -33.9506,
+      "lon": 18.3772,
+      "summary": "Blick über die Küste von Kapstadt mit Bergen, Meer und Camps-Bay-Stimmung.",
+      "photos": [
+        "assets/kapstadt-coast-fotostopp.jpg"
+      ]
+    },
+    {
       "name": "Marloth Park",
       "location": "Marloth Park / Kruger",
       "lat": -25.342,
