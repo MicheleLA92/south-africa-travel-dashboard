@@ -457,6 +457,8 @@ TRIP_START = date(2026, 8, 4)
 days_until_trip = max((TRIP_START - date.today()).days, 0)
 quiz = data.get("quiz", {})
 quiz_questions = quiz.get("questions", []) if isinstance(quiz, dict) else quiz
+photo_stops_data = [stop for stop in data.get("photo_stops", []) if stop.get("photos")]
+selected_photo_stop_name = st.query_params.get("photo_stop")
 
 with st.sidebar:
     st.title("🌍 Südafrika")
@@ -468,6 +470,11 @@ with st.sidebar:
         st.markdown("[Route ansehen](#route-etappen)")
         for stop in data["route"]:
             st.markdown(f"[{stop['emoji']} {stop['name']}](#{route_stop_anchor(stop['name'])})")
+    if photo_stops_data:
+        with st.expander("📷 Foto Stopps", expanded=bool(selected_photo_stop_name)):
+            for photo_stop in photo_stops_data:
+                photo_stop_query = urllib.parse.quote(photo_stop["name"])
+                st.markdown(f"[📷 {photo_stop['name']}](?photo_stop={photo_stop_query}#foto-stopps)")
     with st.expander("⭐ Top Empfehlungen", expanded=False):
         st.markdown("[Restaurant](#top-restaurant)")
         st.markdown("[Unterkunft](#top-unterkunft)")
@@ -827,23 +834,12 @@ with left:
     st.caption("🐘 Kleiner Elefant = Addo Elephant National Park nahe Gqeberha / Port Elizabeth · 📷 Kamera = Bildergalerie · Blau = Küstenfahrt Kapstadt bis East London · Gold = ✈️ Flug-/Inland-Etappe Richtung Johannesburg und Kruger.")
 
     if photo_stops:
-        st.markdown("#### 📷 Foto-Stopps")
-        st.caption("Ruhiger Test: pro Ort ein Foto-Punkt, darunter öffnet sich die passende Galerie.")
-        st.session_state.setdefault("selected_photo_stop", None)
-        photo_cols = st.columns(min(len(photo_stops), 3))
-        for index, photo_stop in enumerate(photo_stops):
-            with photo_cols[index % len(photo_cols)]:
-                if st.button(
-                    f"📷 {photo_stop['name']} · {photo_stop['photo_count']} Fotos",
-                    key=f"photo_stop_{index}",
-                    use_container_width=True,
-                ):
-                    st.session_state["selected_photo_stop"] = photo_stop["name"]
         selected_photo_stop = next(
-            (stop for stop in photo_stops if stop["name"] == st.session_state.get("selected_photo_stop")),
+            (stop for stop in photo_stops if stop["name"] == selected_photo_stop_name),
             None,
         )
         if selected_photo_stop:
+            st.markdown('<div id="foto-stopps"></div>', unsafe_allow_html=True)
             with st.container(border=True):
                 st.markdown(f"<p class=\"small\"><b>Foto-Stopp · {selected_photo_stop.get('location', selected_photo_stop['name'])}</b></p>", unsafe_allow_html=True)
                 st.markdown(f"### {selected_photo_stop['name']}")
