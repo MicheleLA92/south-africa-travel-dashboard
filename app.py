@@ -453,8 +453,8 @@ def summarize_quiz_results(results, quiz_questions):
     return summary
 
 data = load_data()
-TRIP_START = date(2026, 8, 4)
-days_until_trip = max((TRIP_START - date.today()).days, 0)
+TRIP_START = datetime(2026, 8, 4, 22, 0)
+days_until_trip = max((TRIP_START.date() - date.today()).days, 0)
 quiz = data.get("quiz", {})
 quiz_questions = quiz.get("questions", []) if isinstance(quiz, dict) else quiz
 photo_stops_data = [stop for stop in data.get("photo_stops", []) if stop.get("photos")]
@@ -482,6 +482,28 @@ with st.sidebar:
     st.divider()
     with st.expander("🔒 Privater Ordner", expanded=False):
         render_private_upload_folder()
+
+if selected_photo_stop_name:
+    selected_photo_page = next(
+        (stop for stop in photo_stops_data if stop["name"] == selected_photo_stop_name),
+        None,
+    )
+    if selected_photo_page:
+        st.markdown('<div id="foto-stopps"></div>', unsafe_allow_html=True)
+        st.markdown("""
+        <div class="hero">
+          <span class="badge">📷 Foto-Stopp</span>
+          <h1>Reisefotos</h1>
+        </div>
+        """, unsafe_allow_html=True)
+        st.write("")
+        with st.container(border=True):
+            st.markdown(f"<p class=\"small\"><b>{selected_photo_page.get('location', selected_photo_page['name'])}</b></p>", unsafe_allow_html=True)
+            st.markdown(f"### {selected_photo_page['name']}")
+            st.write(selected_photo_page.get("summary", "Bilder von diesem Reisestopp."))
+            render_image_carousel(selected_photo_page["photos"], "photo-stop-page-gallery")
+        st.markdown("[← Zurück zur Reiseübersicht](./)")
+        st.stop()
 
 st.markdown("""
 <div class="hero">
@@ -551,7 +573,7 @@ components.html(f"""
 <div class="countdown-wrap" role="timer" aria-live="polite">
   <div class="countdown-head">
     <div class="countdown-title"><img class="countdown-flag" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f1ff-1f1e6.png" alt="Südafrika-Flagge"> Countdown bis zur Südafrika-Reise</div>
-    <div class="countdown-date">Ziel: 4. August 2026 · noch {days_until_trip} Tage</div>
+    <div class="countdown-date">Abflug: 4. August 2026 · 22:00 Uhr · noch {days_until_trip} Tage</div>
   </div>
   <div class="countdown-grid">
     <div class="countdown-box"><strong id="cd-days">—</strong><span>Tage</span></div>
@@ -561,7 +583,7 @@ components.html(f"""
   </div>
 </div>
 <script>
-  const target = new Date('2026-08-04T00:00:00+02:00');
+  const target = new Date('2026-08-04T22:00:00+02:00');
   const pad = value => String(value).padStart(2, '0');
   const el = id => document.getElementById(id);
   function tick() {{
@@ -858,8 +880,12 @@ with left:
         except Exception:
             map_selected_photo_stop_name = None
 
+        if map_selected_photo_stop_name:
+            st.query_params["photo_stop"] = map_selected_photo_stop_name
+            st.rerun()
+
         selected_photo_stop = next(
-            (stop for stop in photo_stops if stop["name"] == (map_selected_photo_stop_name or selected_photo_stop_name)),
+            (stop for stop in photo_stops if stop["name"] == selected_photo_stop_name),
             None,
         )
         if selected_photo_stop:
