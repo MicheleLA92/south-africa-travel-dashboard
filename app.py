@@ -700,8 +700,14 @@ with left:
         {
             **stop,
             "position": [stop["lon"], stop["lat"]],
-            "label_text": f"📷 {stop['name']}",
+            "label_text": stop["name"],
             "photo_count": len(stop.get("photos", [])),
+            "icon_data": {
+                "url": "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f4f7.png",
+                "width": 72,
+                "height": 72,
+                "anchorY": 36,
+            },
         }
         for stop in data.get("photo_stops", [])
         if stop.get("photos")
@@ -765,13 +771,12 @@ with left:
                     get_pixel_offset=[0, -18],
                 ),
                 pdk.Layer(
-                    "ScatterplotLayer",
+                    "IconLayer",
                     photo_stops,
+                    get_icon="icon_data",
                     get_position="position",
-                    get_fill_color=[197, 139, 54, 245],
-                    get_line_color=[255, 250, 241, 255],
-                    get_radius=26000,
-                    line_width_min_pixels=3,
+                    get_size=1.5,
+                    size_scale=13,
                     pickable=True,
                 ),
                 pdk.Layer(
@@ -782,7 +787,7 @@ with left:
                     get_color=[31, 42, 36, 255],
                     get_size=13,
                     get_alignment_baseline="bottom",
-                    get_pixel_offset=[0, -22],
+                    get_pixel_offset=[0, -24],
                 ),
                 pdk.Layer(
                     "ScatterplotLayer",
@@ -819,7 +824,7 @@ with left:
         use_container_width=True,
         height=470,
     )
-    st.caption("🐘 Kleiner Elefant = Addo Elephant National Park nahe Gqeberha / Port Elizabeth · 📷 Goldener Foto-Punkt = Bildergalerie · Blau = Küstenfahrt Kapstadt bis East London · Gold = ✈️ Flug-/Inland-Etappe Richtung Johannesburg und Kruger.")
+    st.caption("🐘 Kleiner Elefant = Addo Elephant National Park nahe Gqeberha / Port Elizabeth · 📷 Kamera = Bildergalerie · Blau = Küstenfahrt Kapstadt bis East London · Gold = ✈️ Flug-/Inland-Etappe Richtung Johannesburg und Kruger.")
 
     if photo_stops:
         st.markdown("#### 📷 Foto-Stopps")
