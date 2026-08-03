@@ -107,6 +107,15 @@ def test_restored_quiz_answers_include_known_reconstructed_answers():
     assert roberto_answers[4]["answer"] == "80"
 
 
+def test_today_magic_place_override_points_to_existing_non_blyde_place():
+    data = load_data()
+    overrides = data.get("magic_place_overrides", {})
+    place_names = {place["name"] for place in data["magic_places"]}
+
+    assert overrides["2026-08-03"] in place_names
+    assert overrides["2026-08-03"] != "Blyde River Canyon"
+
+
 def test_magic_places_rotate_with_unique_images():
     data = load_data()
     places = data["magic_places"]

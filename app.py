@@ -283,6 +283,11 @@ def select_daily_magic_place(data, current_date=None):
     """Pick one route-relevant Magic Place per day so the photo rotates."""
     current_date = current_date or date.today()
     places = data.get("magic_places") or [data["magic_place"]]
+    override_name = data.get("magic_place_overrides", {}).get(current_date.isoformat())
+    if override_name:
+        override_place = next((place for place in places if place.get("name") == override_name), None)
+        if override_place:
+            return override_place
     return places[current_date.toordinal() % len(places)]
 
 

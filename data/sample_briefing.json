@@ -134,6 +134,9 @@
     "image": "https://upload.wikimedia.org/wikipedia/commons/7/77/Noordhoek_Sunset.JPG",
     "link": "https://www.google.com/maps/search/Noordhoek+Beach+Cape+Town"
   },
+  "magic_place_overrides": {
+    "2026-08-03": "Llandudno Beach Sunset"
+  },
   "magic_places": [
     {
       "name": "Noordhoek Beach Sunset",
