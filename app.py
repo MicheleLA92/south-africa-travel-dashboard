@@ -456,6 +456,205 @@ def summarize_quiz_results(results, quiz_questions):
         )
     return summary
 
+
+def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="route_photo_map"):
+    map_route = data["map_route"]
+    coastal_points = [point for point in map_route if point["kind"] == "coast"]
+    inland_points = [point for point in map_route if point["kind"] != "coast"]
+    route_points = [
+        {
+            **point,
+            "position": [point["lon"], point["lat"]],
+            "label": f"{index}. {point['name']}",
+            "photo_count": "",
+            "color": [20, 116, 139, 235] if point["kind"] == "coast" else [49, 92, 69, 235],
+        }
+        for index, point in enumerate(map_route, start=1)
+    ]
+    photo_stops = [
+        {
+            **stop,
+            "position": [stop["lon"], stop["lat"]],
+            "label_text": stop["name"],
+            "photo_count": len(stop.get("photos", [])),
+            "icon_data": {
+                "url": "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f4f7.png",
+                "width": 72,
+                "height": 72,
+                "anchorY": 36,
+            },
+        }
+        for stop in data.get("photo_stops", [])
+        if stop.get("photos")
+    ]
+    elephant_marker = {
+        **data["map_elephant_marker"],
+        "position": [data["map_elephant_marker"]["lon"], data["map_elephant_marker"]["lat"]],
+        "label_text": "Addo Elephant Park",
+        "photo_count": "",
+        "icon_data": {
+            "url": "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f418.png",
+            "width": 72,
+            "height": 72,
+            "anchorY": 36,
+        },
+    }
+    coastal_path = [{"name": "Küstenroute Cape Town → East London", "path": [[point["lon"], point["lat"]] for point in coastal_points]}]
+    inland_path = [{"name": "✈️ Inland & Safari East London → Johannesburg → Kruger", "path": [[point["lon"], point["lat"]] for point in [coastal_points[-1], *inland_points]]}]
+
+    route_map_state = st.pydeck_chart(
+        pdk.Deck(
+            map_style="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
+            initial_view_state=pdk.ViewState(latitude=-29.2, longitude=25.2, zoom=3.75, pitch=0),
+            layers=[
+                pdk.Layer(
+                    "PathLayer",
+                    coastal_path,
+                    get_path="path",
+                    get_color=[20, 116, 139, 245],
+                    width_min_pixels=7,
+                    rounded=True,
+                    pickable=True,
+                ),
+                pdk.Layer(
+                    "PathLayer",
+                    inland_path,
+                    get_path="path",
+                    get_color=[197, 139, 54, 230],
+                    width_min_pixels=5,
+                    rounded=True,
+                    pickable=True,
+                ),
+                pdk.Layer(
+                    "ScatterplotLayer",
+                    route_points,
+                    get_position="position",
+                    get_fill_color="color",
+                    get_line_color=[255, 250, 241, 255],
+                    get_radius=22000,
+                    line_width_min_pixels=2,
+                    pickable=True,
+                ),
+                pdk.Layer(
+                    "TextLayer",
+                    route_points,
+                    get_position="position",
+                    get_text="label",
+                    get_color=[31, 42, 36, 255],
+                    get_size=14,
+                    get_alignment_baseline="bottom",
+                    get_pixel_offset=[0, -18],
+                ),
+                pdk.Layer(
+                    "IconLayer",
+                    photo_stops,
+                    get_icon="icon_data",
+                    get_position="position",
+                    get_size=1.5,
+                    size_scale=13,
+                    pickable=True,
+                ),
+                pdk.Layer(
+                    "TextLayer",
+                    photo_stops,
+                    get_position="position",
+                    get_text="label_text",
+                    get_color=[31, 42, 36, 255],
+                    get_size=13,
+                    get_alignment_baseline="bottom",
+                    get_pixel_offset=[0, -24],
+                ),
+                pdk.Layer(
+                    "ScatterplotLayer",
+                    [elephant_marker],
+                    get_position="position",
+                    get_fill_color=[255, 193, 7, 250],
+                    get_line_color=[31, 42, 36, 255],
+                    get_radius=16000,
+                    line_width_min_pixels=2,
+                    pickable=True,
+                ),
+                pdk.Layer(
+                    "IconLayer",
+                    [elephant_marker],
+                    get_icon="icon_data",
+                    get_position="position",
+                    get_size=1.5,
+                    size_scale=12,
+                    pickable=True,
+                ),
+                pdk.Layer(
+                    "TextLayer",
+                    [elephant_marker],
+                    get_position="position",
+                    get_text="label_text",
+                    get_color=[49, 92, 69, 255],
+                    get_size=11,
+                    get_alignment_baseline="bottom",
+                    get_pixel_offset=[0, -18],
+                ),
+            ],
+            tooltip={"html": "<b>{name}</b>", "style": {"backgroundColor": "#315c45", "color": "#fffaf1"}},
+        ),
+        use_container_width=True,
+        height=470,
+        selection_mode="single-object",
+        on_select="rerun",
+        key=map_key,
+    )
+    st.caption("🐘 Kleiner Elefant = Addo Elephant National Park nahe Gqeberha / Port Elizabeth · 📷 Kamera = Bildergalerie · Blau = Küstenfahrt Kapstadt bis East London · Gold = ✈️ Flug-/Inland-Etappe Richtung Johannesburg und Kruger.")
+
+    if photo_stops:
+        photo_stop_names = {stop["name"] for stop in photo_stops}
+        map_selected_photo_stop_name = None
+        try:
+            selected_objects = route_map_state.selection.get("objects", {})
+            if isinstance(selected_objects, dict):
+                object_groups = selected_objects.values()
+            else:
+                object_groups = [selected_objects]
+            for layer_objects in object_groups:
+                for selected_object in layer_objects:
+                    if not isinstance(selected_object, dict):
+                        continue
+                    selected_name = selected_object.get("name") or selected_object.get("label_text")
+                    if selected_name in photo_stop_names:
+                        map_selected_photo_stop_name = selected_name
+                        break
+                if map_selected_photo_stop_name:
+                    break
+        except Exception:
+            map_selected_photo_stop_name = None
+
+        if map_selected_photo_stop_name:
+            st.query_params["photo_stop"] = map_selected_photo_stop_name
+            st.rerun()
+
+        selected_photo_stop = next(
+            (stop for stop in photo_stops if stop["name"] == selected_photo_stop_name),
+            None,
+        )
+        if selected_photo_stop:
+            st.markdown('<div id="foto-stopps"></div>', unsafe_allow_html=True)
+            with st.container(border=True):
+                st.markdown(f"<p class=\"small\"><b>Foto-Stopp · {selected_photo_stop.get('location', selected_photo_stop['name'])}</b></p>", unsafe_allow_html=True)
+                st.markdown(f"### {selected_photo_stop['name']}")
+                st.write(selected_photo_stop.get("summary", "Bilder von diesem Reisestopp."))
+                render_image_carousel(selected_photo_stop["photos"], "route-photo-stop-gallery")
+
+    st.markdown('<div class="timeline">', unsafe_allow_html=True)
+    for stop in data["route"]:
+        tags = "".join(f'<span class="pill">{tag}</span>' for tag in stop["tags"])
+        st.markdown(f"""
+        <div id="{route_stop_anchor(stop['name'])}" class="stop">
+          <h4>{stop['emoji']} {stop['name']}</h4>
+          <div class="small">{stop['summary']}</div>
+          <div>{tags}</div>
+        </div>
+        """, unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+
 data = load_data()
 TRIP_START = datetime(2026, 8, 4, 22, 0)
 days_until_trip = max((TRIP_START.date() - date.today()).days, 0)
@@ -494,12 +693,9 @@ with st.sidebar:
             open_section("quiz")
         if st.button("Bisherige Antworten", key="nav_answers", use_container_width=True):
             open_section("answers")
-    with st.expander("🗺️ Route & Etappen", expanded=selected_page in {"route", "route_stop"}):
+    with st.expander("🗺️ Route & Etappen", expanded=selected_page == "route"):
         if st.button("Route ansehen", key="nav_route", use_container_width=True):
             open_section("route")
-        for stop in data["route"]:
-            if st.button(f"{stop['emoji']} {stop['name']}", key=f"nav_route_{route_stop_anchor(stop['name'])}", use_container_width=True):
-                open_section("route_stop", stop=stop["name"])
     if photo_stops_data:
         with st.expander("📷 Foto Stopps", expanded=bool(selected_photo_stop_name)):
             for photo_stop in photo_stops_data:
@@ -609,8 +805,7 @@ if selected_page:
         render_back_to_overview()
         st.stop()
 
-    if selected_page in {"route", "route_stop"}:
-        selected_stop = next((stop for stop in data["route"] if stop["name"] == selected_route_stop_name), None)
+    if selected_page == "route":
         st.markdown("""
         <div class="hero">
           <span class="badge">🗺️ Route & Etappen</span>
@@ -618,17 +813,7 @@ if selected_page:
         </div>
         """, unsafe_allow_html=True)
         st.write("")
-        route_items = [selected_stop] if selected_stop else data["route"]
-        for stop in route_items:
-            with st.container(border=True):
-                st.markdown(f"### {stop['emoji']} {stop['name']}")
-                st.caption(stop["summary"])
-                st.write(stop.get("detail", ""))
-                tags = " ".join(f"`{tag}`" for tag in stop.get("tags", []))
-                if tags:
-                    st.markdown(tags)
-                if stop.get("link"):
-                    st.link_button("Ort öffnen", stop["link"], key=f"route_page_{route_stop_anchor(stop['name'])}")
+        render_route_map_and_timeline(data, selected_photo_stop_name, map_key="route_page_map")
         render_back_to_overview()
         st.stop()
 
@@ -890,201 +1075,7 @@ with left:
     st.markdown('<div id="route-etappen"></div>', unsafe_allow_html=True)
     st.subheader("🗺️ Route & Etappen")
 
-    map_route = data["map_route"]
-    coastal_points = [point for point in map_route if point["kind"] == "coast"]
-    inland_points = [point for point in map_route if point["kind"] != "coast"]
-    route_points = [
-        {
-            **point,
-            "position": [point["lon"], point["lat"]],
-            "label": f"{index}. {point['name']}",
-            "photo_count": "",
-            "color": [20, 116, 139, 235] if point["kind"] == "coast" else [49, 92, 69, 235],
-        }
-        for index, point in enumerate(map_route, start=1)
-    ]
-    photo_stops = [
-        {
-            **stop,
-            "position": [stop["lon"], stop["lat"]],
-            "label_text": stop["name"],
-            "photo_count": len(stop.get("photos", [])),
-            "icon_data": {
-                "url": "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f4f7.png",
-                "width": 72,
-                "height": 72,
-                "anchorY": 36,
-            },
-        }
-        for stop in data.get("photo_stops", [])
-        if stop.get("photos")
-    ]
-    elephant_marker = {
-        **data["map_elephant_marker"],
-        "position": [data["map_elephant_marker"]["lon"], data["map_elephant_marker"]["lat"]],
-        "label_text": "Addo Elephant Park",
-        "photo_count": "",
-        "icon_data": {
-            "url": "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f418.png",
-            "width": 72,
-            "height": 72,
-            "anchorY": 36,
-        },
-    }
-    coastal_path = [{"name": "Küstenroute Cape Town → East London", "path": [[point["lon"], point["lat"]] for point in coastal_points]}]
-    inland_path = [{"name": "✈️ Inland & Safari East London → Johannesburg → Kruger", "path": [[point["lon"], point["lat"]] for point in [coastal_points[-1], *inland_points]]}]
-
-    route_map_state = st.pydeck_chart(
-        pdk.Deck(
-            map_style="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
-            initial_view_state=pdk.ViewState(latitude=-29.2, longitude=25.2, zoom=3.75, pitch=0),
-            layers=[
-                pdk.Layer(
-                    "PathLayer",
-                    coastal_path,
-                    get_path="path",
-                    get_color=[20, 116, 139, 245],
-                    width_min_pixels=7,
-                    rounded=True,
-                    pickable=True,
-                ),
-                pdk.Layer(
-                    "PathLayer",
-                    inland_path,
-                    get_path="path",
-                    get_color=[197, 139, 54, 230],
-                    width_min_pixels=5,
-                    rounded=True,
-                    pickable=True,
-                ),
-                pdk.Layer(
-                    "ScatterplotLayer",
-                    route_points,
-                    get_position="position",
-                    get_fill_color="color",
-                    get_line_color=[255, 250, 241, 255],
-                    get_radius=22000,
-                    line_width_min_pixels=2,
-                    pickable=True,
-                ),
-                pdk.Layer(
-                    "TextLayer",
-                    route_points,
-                    get_position="position",
-                    get_text="label",
-                    get_color=[31, 42, 36, 255],
-                    get_size=14,
-                    get_alignment_baseline="bottom",
-                    get_pixel_offset=[0, -18],
-                ),
-                pdk.Layer(
-                    "IconLayer",
-                    photo_stops,
-                    get_icon="icon_data",
-                    get_position="position",
-                    get_size=1.5,
-                    size_scale=13,
-                    pickable=True,
-                ),
-                pdk.Layer(
-                    "TextLayer",
-                    photo_stops,
-                    get_position="position",
-                    get_text="label_text",
-                    get_color=[31, 42, 36, 255],
-                    get_size=13,
-                    get_alignment_baseline="bottom",
-                    get_pixel_offset=[0, -24],
-                ),
-                pdk.Layer(
-                    "ScatterplotLayer",
-                    [elephant_marker],
-                    get_position="position",
-                    get_fill_color=[255, 193, 7, 250],
-                    get_line_color=[31, 42, 36, 255],
-                    get_radius=16000,
-                    line_width_min_pixels=2,
-                    pickable=True,
-                ),
-                pdk.Layer(
-                    "IconLayer",
-                    [elephant_marker],
-                    get_icon="icon_data",
-                    get_position="position",
-                    get_size=1.5,
-                    size_scale=12,
-                    pickable=True,
-                ),
-                pdk.Layer(
-                    "TextLayer",
-                    [elephant_marker],
-                    get_position="position",
-                    get_text="label_text",
-                    get_color=[49, 92, 69, 255],
-                    get_size=11,
-                    get_alignment_baseline="bottom",
-                    get_pixel_offset=[0, -18],
-                ),
-            ],
-            tooltip={"html": "<b>{name}</b>", "style": {"backgroundColor": "#315c45", "color": "#fffaf1"}},
-        ),
-        use_container_width=True,
-        height=470,
-        selection_mode="single-object",
-        on_select="rerun",
-        key="route_photo_map",
-    )
-    st.caption("🐘 Kleiner Elefant = Addo Elephant National Park nahe Gqeberha / Port Elizabeth · 📷 Kamera = Bildergalerie · Blau = Küstenfahrt Kapstadt bis East London · Gold = ✈️ Flug-/Inland-Etappe Richtung Johannesburg und Kruger.")
-
-    if photo_stops:
-        photo_stop_names = {stop["name"] for stop in photo_stops}
-        map_selected_photo_stop_name = None
-        try:
-            selected_objects = route_map_state.selection.get("objects", {})
-            if isinstance(selected_objects, dict):
-                object_groups = selected_objects.values()
-            else:
-                object_groups = [selected_objects]
-            for layer_objects in object_groups:
-                for selected_object in layer_objects:
-                    if not isinstance(selected_object, dict):
-                        continue
-                    selected_name = selected_object.get("name") or selected_object.get("label_text")
-                    if selected_name in photo_stop_names:
-                        map_selected_photo_stop_name = selected_name
-                        break
-                if map_selected_photo_stop_name:
-                    break
-        except Exception:
-            map_selected_photo_stop_name = None
-
-        if map_selected_photo_stop_name:
-            st.query_params["photo_stop"] = map_selected_photo_stop_name
-            st.rerun()
-
-        selected_photo_stop = next(
-            (stop for stop in photo_stops if stop["name"] == selected_photo_stop_name),
-            None,
-        )
-        if selected_photo_stop:
-            st.markdown('<div id="foto-stopps"></div>', unsafe_allow_html=True)
-            with st.container(border=True):
-                st.markdown(f"<p class=\"small\"><b>Foto-Stopp · {selected_photo_stop.get('location', selected_photo_stop['name'])}</b></p>", unsafe_allow_html=True)
-                st.markdown(f"### {selected_photo_stop['name']}")
-                st.write(selected_photo_stop.get("summary", "Bilder von diesem Reisestopp."))
-                render_image_carousel(selected_photo_stop["photos"], "route-photo-stop-gallery")
-
-    st.markdown('<div class="timeline">', unsafe_allow_html=True)
-    for stop in data["route"]:
-        tags = "".join(f'<span class="pill">{tag}</span>' for tag in stop["tags"])
-        st.markdown(f"""
-        <div id="{route_stop_anchor(stop['name'])}" class="stop">
-          <h4>{stop['emoji']} {stop['name']}</h4>
-          <div class="small">{stop['summary']}</div>
-          <div>{tags}</div>
-        </div>
-        """, unsafe_allow_html=True)
-    st.markdown('</div>', unsafe_allow_html=True)
+    render_route_map_and_timeline(data, selected_photo_stop_name, map_key="route_photo_map")
 
 
 with right:
