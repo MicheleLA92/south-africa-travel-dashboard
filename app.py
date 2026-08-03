@@ -734,7 +734,7 @@ with left:
     coastal_path = [{"name": "Küstenroute Cape Town → East London", "path": [[point["lon"], point["lat"]] for point in coastal_points]}]
     inland_path = [{"name": "✈️ Inland & Safari East London → Johannesburg → Kruger", "path": [[point["lon"], point["lat"]] for point in [coastal_points[-1], *inland_points]]}]
 
-    st.pydeck_chart(
+    route_map_state = st.pydeck_chart(
         pdk.Deck(
             map_style="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
             initial_view_state=pdk.ViewState(latitude=-29.2, longitude=25.2, zoom=3.75, pitch=0),
@@ -830,12 +830,36 @@ with left:
         ),
         use_container_width=True,
         height=470,
+        selection_mode="single-object",
+        on_select="rerun",
+        key="route_photo_map",
     )
     st.caption("🐘 Kleiner Elefant = Addo Elephant National Park nahe Gqeberha / Port Elizabeth · 📷 Kamera = Bildergalerie · Blau = Küstenfahrt Kapstadt bis East London · Gold = ✈️ Flug-/Inland-Etappe Richtung Johannesburg und Kruger.")
 
     if photo_stops:
+        photo_stop_names = {stop["name"] for stop in photo_stops}
+        map_selected_photo_stop_name = None
+        try:
+            selected_objects = route_map_state.selection.get("objects", {})
+            if isinstance(selected_objects, dict):
+                object_groups = selected_objects.values()
+            else:
+                object_groups = [selected_objects]
+            for layer_objects in object_groups:
+                for selected_object in layer_objects:
+                    if not isinstance(selected_object, dict):
+                        continue
+                    selected_name = selected_object.get("name") or selected_object.get("label_text")
+                    if selected_name in photo_stop_names:
+                        map_selected_photo_stop_name = selected_name
+                        break
+                if map_selected_photo_stop_name:
+                    break
+        except Exception:
+            map_selected_photo_stop_name = None
+
         selected_photo_stop = next(
-            (stop for stop in photo_stops if stop["name"] == selected_photo_stop_name),
+            (stop for stop in photo_stops if stop["name"] == (map_selected_photo_stop_name or selected_photo_stop_name)),
             None,
         )
         if selected_photo_stop:
