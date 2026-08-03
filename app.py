@@ -438,16 +438,30 @@ def render_top_recommendation(data, category):
             st.caption("Noch keine Aktivitäten hinterlegt.")
 
 
+def normalize_quiz_answer_text(answer):
+    replacements = {
+        "ich nenne es „Abenteuer“": "wir nennen es „Abenteuer“",
+        "„Ich habe mich in das Frühstück verliebt.“": "„Wir haben uns in das Frühstück verliebt.“",
+        "„Ich wollte nur Ferien machen, jetzt suche ich Wohnungen.“": "„Wir wollten nur Ferien machen, jetzt suchen wir Wohnungen.“",
+        "„Das ist mein neues Lieblingsland.“": "„Das ist unser neues Lieblingsland.“",
+        "„Ich brauche keinen Rückflug, ich brauche einen grösseren Koffer für den Elefanten.“": "„Wir brauchen keinen Rückflug, wir brauchen einen grösseren Koffer für den Elefanten.“",
+    }
+    return replacements.get(answer, answer)
+
+
 def summarize_quiz_results(results, quiz_questions):
     summary = []
-    for question in quiz_questions:
-        answers = [
-            item["answer"]
-            for result in results
-            for item in result.get("answers", [])
-            if item.get("question") == question["question"]
-        ]
-        unique_answers = list(dict.fromkeys(answers))
+    for question_index, question in enumerate(quiz_questions):
+        answers = []
+        for result in results:
+            result_answers = result.get("answers", [])
+            for item_index, item in enumerate(result_answers):
+                same_question = item.get("question") == question["question"]
+                same_position = item_index == question_index
+                if same_question or same_position:
+                    answers.append(normalize_quiz_answer_text(item.get("answer", "")))
+                    break
+        unique_answers = list(dict.fromkeys(answer for answer in answers if answer))
         summary.append(
             {
                 "question": question["question"],
