@@ -187,10 +187,13 @@ def image_source_for_gallery(image_path):
     return f"data:{mime};base64,{encoded}"
 
 
-def render_image_carousel(image_paths, carousel_id, autoplay_ms=2000):
+def render_image_carousel(image_paths, carousel_id, autoplay_ms=2000, object_fit="cover", height_px=300):
     image_sources = [image_source_for_gallery(path) for path in image_paths]
     if not image_sources:
         return
+    mobile_height_px = 320 if object_fit == "contain" else 230
+    background = "#1f2a24" if object_fit == "contain" else "#ead8b7"
+    component_height = height_px + 25
     components.html(f"""
 <div id="{carousel_id}" class="stay-carousel">
   <img class="stay-carousel-image" alt="Unterkunft Marloth Park" />
@@ -223,17 +226,17 @@ def render_image_carousel(image_paths, carousel_id, autoplay_ms=2000):
   .stay-carousel {{
     position: relative;
     width: 100%;
-    height: 300px;
+    height: {height_px}px;
     border-radius: 20px;
     overflow: hidden;
-    background: #ead8b7;
+    background: {background};
     box-shadow: 0 12px 30px rgba(31, 42, 36, .16);
     margin-bottom: 0.8rem;
   }}
   .stay-carousel-image {{
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: {object_fit};
     display: block;
   }}
   .stay-carousel-arrow {{
@@ -269,11 +272,11 @@ def render_image_carousel(image_paths, carousel_id, autoplay_ms=2000):
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }}
   @media (max-width: 760px) {{
-    .stay-carousel {{ height: 230px; border-radius: 16px; }}
+    .stay-carousel {{ height: {mobile_height_px}px; border-radius: 16px; }}
     .stay-carousel-arrow {{ width: 36px; height: 36px; font-size: 30px; }}
   }}
 </style>
-""", height=325)
+""", height=component_height)
 
 
 def select_daily_magic_place(data, current_date=None):
@@ -506,7 +509,13 @@ if selected_photo_stop_name:
             st.markdown(f"<p class=\"small\"><b>{selected_photo_page.get('location', selected_photo_page['name'])}</b></p>", unsafe_allow_html=True)
             st.markdown(f"### {selected_photo_page['name']}")
             st.write(selected_photo_page.get("summary", "Bilder von diesem Reisestopp."))
-            render_image_carousel(selected_photo_page["photos"], "photo-stop-page-gallery", autoplay_ms=6000)
+            render_image_carousel(
+                selected_photo_page["photos"],
+                "photo-stop-page-gallery",
+                autoplay_ms=6000,
+                object_fit="contain",
+                height_px=430,
+            )
         st.markdown("[← Zurück zur Reiseübersicht](./)")
         st.stop()
 
