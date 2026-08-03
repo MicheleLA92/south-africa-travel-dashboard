@@ -851,7 +851,7 @@ if selected_page:
                     answered_count += 1
                 answers.append(answer)
             st.progress(answered_count / len(quiz_questions), text=f"{answered_count} von {len(quiz_questions)} Tipps abgegeben")
-            button_label = quiz.get("button_label", "Meine Tipps speichern") if isinstance(quiz, dict) else "Meine Tipps speichern"
+            button_label = quiz.get("button_label", "Unsere Tipps speichern") if isinstance(quiz, dict) else "Unsere Tipps speichern"
             if st.button(button_label, type="primary", disabled=answered_count < len(quiz_questions) or st.session_state.get("quiz_page_checked", False), key="quiz_page_submit"):
                 display_name = friend_name.strip() or "Anonym"
                 results = save_quiz_result(display_name, quiz_questions, answers)
@@ -1077,7 +1077,7 @@ st.markdown("""
 <div class="quiz-teaser">
   <div>
     <h2><span class="emoji">🦁</span>Freunde-Quiz</h2>
-    <p>Was glaubt ihr, was auf meiner Südafrika-Reise passieren wird?</p>
+    <p>Was glaubt ihr, was auf unserer Südafrika-Reise passieren wird?</p>
   </div>
 </div>
 """, unsafe_allow_html=True)
@@ -1120,7 +1120,7 @@ if quiz_questions and st.session_state.get("show_friend_quiz", False):
 
     st.progress(answered_count / len(quiz_questions), text=f"{answered_count} von {len(quiz_questions)} Tipps abgegeben")
 
-    button_label = quiz.get("button_label", "Meine Tipps speichern") if isinstance(quiz, dict) else "Meine Tipps speichern"
+    button_label = quiz.get("button_label", "Unsere Tipps speichern") if isinstance(quiz, dict) else "Unsere Tipps speichern"
     if st.button(button_label, type="primary", disabled=answered_count < len(quiz_questions) or st.session_state.get("quiz_checked", False)):
         display_name = friend_name.strip() or "Anonym"
         results = save_quiz_result(display_name, quiz_questions, answers)
