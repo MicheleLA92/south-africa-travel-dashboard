@@ -88,6 +88,25 @@ def test_top_metrics_promote_friend_quiz_instead_of_planning():
     assert "68%" not in values
 
 
+def test_restored_quiz_answers_include_known_reconstructed_answers():
+    data = load_data()
+    restored_answers = data.get("restored_quiz_results", [])
+    by_name = {item.get("name"): item for item in restored_answers}
+
+    assert {"Roberto", "Steffi"}.issubset(by_name)
+
+    steffi_answers = by_name["Steffi"]["answers"]
+    assert len(steffi_answers) == 6
+    assert steffi_answers[0]["answer"] == "Elefant"
+    assert steffi_answers[1]["answer"] == "wir nennen es „Abenteuer“"
+    assert steffi_answers[5]["answer"] == "„Wir brauchen keinen Rückflug, wir brauchen einen grösseren Koffer für den Elefanten.“"
+
+    roberto_answers = by_name["Roberto"]["answers"]
+    assert len(roberto_answers) == 6
+    assert roberto_answers[1]["answer"] == "Nie"
+    assert roberto_answers[4]["answer"] == "80"
+
+
 def test_magic_places_rotate_with_unique_images():
     data = load_data()
     places = data["magic_places"]

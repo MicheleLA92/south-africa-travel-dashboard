@@ -295,6 +295,34 @@ def load_quiz_results():
         return []
 
 
+def load_restored_quiz_results():
+    try:
+        data = json.loads(DATA_PATH.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return []
+    restored = data.get("restored_quiz_results", [])
+    return restored if isinstance(restored, list) else []
+
+
+def get_all_quiz_results():
+    merged = []
+    seen = set()
+    for result in [*load_restored_quiz_results(), *load_quiz_results()]:
+        key = json.dumps(
+            {
+                "name": result.get("name"),
+                "answers": result.get("answers", []),
+            },
+            ensure_ascii=False,
+            sort_keys=True,
+        )
+        if key in seen:
+            continue
+        seen.add(key)
+        merged.append(result)
+    return merged
+
+
 def save_quiz_result(friend_name, quiz_questions, answers):
     QUIZ_RESULTS_PATH.parent.mkdir(parents=True, exist_ok=True)
     results = load_quiz_results()
@@ -369,7 +397,7 @@ def save_uploaded_file(uploaded_file):
 
 
 def render_quiz_answer_summary(quiz_questions):
-    quiz_results = load_quiz_results()
+    quiz_results = get_all_quiz_results()
     if quiz_results and quiz_questions:
         for item in summarize_quiz_results(quiz_results, quiz_questions):
             st.markdown(f"**{item['question']}**")
@@ -868,7 +896,8 @@ if selected_page:
             button_label = quiz.get("button_label", "Unsere Tipps speichern") if isinstance(quiz, dict) else "Unsere Tipps speichern"
             if st.button(button_label, type="primary", disabled=answered_count < len(quiz_questions) or st.session_state.get("quiz_page_checked", False), key="quiz_page_submit"):
                 display_name = friend_name.strip() or "Anonym"
-                results = save_quiz_result(display_name, quiz_questions, answers)
+                save_quiz_result(display_name, quiz_questions, answers)
+                results = get_all_quiz_results()
                 notification_status = notify_quiz_submission(display_name, quiz_questions, answers)
                 st.session_state["quiz_page_checked"] = True
                 st.session_state["quiz_last_name"] = display_name
@@ -878,7 +907,7 @@ if selected_page:
             if st.session_state.get("quiz_page_checked"):
                 display_name = st.session_state.get("quiz_last_name", friend_name.strip() or "Anonym")
                 submitted_answers = st.session_state.get("quiz_last_answers", answers)
-                results = st.session_state.get("quiz_results", load_quiz_results())
+                results = st.session_state.get("quiz_results", get_all_quiz_results())
                 st.success("Danke! Deine Vorhersage wurde gespeichert.")
                 result_view = st.selectbox("Quiz Ergebnis anzeigen", ["Deine Antworten", "Bisher gewählte Antworten"], key="quiz_page_result_view")
                 if result_view == "Deine Antworten":
@@ -1137,7 +1166,8 @@ if quiz_questions and st.session_state.get("show_friend_quiz", False):
     button_label = quiz.get("button_label", "Unsere Tipps speichern") if isinstance(quiz, dict) else "Unsere Tipps speichern"
     if st.button(button_label, type="primary", disabled=answered_count < len(quiz_questions) or st.session_state.get("quiz_checked", False)):
         display_name = friend_name.strip() or "Anonym"
-        results = save_quiz_result(display_name, quiz_questions, answers)
+        save_quiz_result(display_name, quiz_questions, answers)
+        results = get_all_quiz_results()
         notification_status = notify_quiz_submission(display_name, quiz_questions, answers)
         st.session_state["quiz_checked"] = True
         st.session_state["quiz_last_name"] = display_name
@@ -1148,7 +1178,7 @@ if quiz_questions and st.session_state.get("show_friend_quiz", False):
     if st.session_state.get("quiz_checked"):
         display_name = st.session_state.get("quiz_last_name", friend_name.strip() or "Anonym")
         submitted_answers = st.session_state.get("quiz_last_answers", answers)
-        results = st.session_state.get("quiz_results", load_quiz_results())
+        results = st.session_state.get("quiz_results", get_all_quiz_results())
         st.success("Danke! Deine Vorhersage wurde gespeichert.")
         st.markdown(
             f'<div class="card"><div class="quiz-score">{display_name}s Südafrika-Vorhersage</div>'

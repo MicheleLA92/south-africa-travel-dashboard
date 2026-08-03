@@ -401,6 +401,68 @@
       }
     ]
   },
+  "restored_quiz_results": [
+    {
+      "submitted_at": "2026-08-03T00:00:00",
+      "name": "Steffi",
+      "answers": [
+        {
+          "question": "Welches Tier werden wir zuerst sehen?",
+          "answer": "Elefant"
+        },
+        {
+          "question": "Wie oft werden wir uns verfahren?",
+          "answer": "wir nennen es „Abenteuer“"
+        },
+        {
+          "question": "Wie oft werden wir sagen: „Okay, DAS ist jetzt wirklich das schönste Foto“?",
+          "answer": "15-mal"
+        },
+        {
+          "question": "Was wird unser Südafrika-Satz der Reise?",
+          "answer": "„Wow!“"
+        },
+        {
+          "question": "Wie viele Fotos werden wir machen, bevor wir merken, dass alle gleich aussehen?",
+          "answer": "10"
+        },
+        {
+          "question": "Was wird unser dramatischster Satz sein?",
+          "answer": "„Wir brauchen keinen Rückflug, wir brauchen einen grösseren Koffer für den Elefanten.“"
+        }
+      ]
+    },
+    {
+      "submitted_at": "2026-07-23T18:54:55",
+      "name": "Roberto",
+      "answers": [
+        {
+          "question": "Welches Tier werden wir zuerst sehen?",
+          "answer": "Elefant"
+        },
+        {
+          "question": "Wie oft werden wir uns verfahren?",
+          "answer": "Nie"
+        },
+        {
+          "question": "Wie oft werden wir sagen: „Okay, DAS ist jetzt wirklich das schönste Foto“?",
+          "answer": "15-mal"
+        },
+        {
+          "question": "Was wird unser Südafrika-Satz der Reise?",
+          "answer": "„Es ist sooo schön“"
+        },
+        {
+          "question": "Wie viele Fotos werden wir machen, bevor wir merken, dass alle gleich aussehen?",
+          "answer": "80"
+        },
+        {
+          "question": "Was wird unser dramatischster Satz sein?",
+          "answer": "„Wir brauchen keinen Rückflug, wir brauchen einen grösseren Koffer für den Elefanten.“"
+        }
+      ]
+    }
+  ],
   "photo_stops": [
     {
       "name": "Kapstadt",
