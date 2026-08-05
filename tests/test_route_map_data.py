@@ -158,6 +158,8 @@ def test_fyn_restaurant_has_gallery_like_marloth_stay():
         "assets/fyn/fyn-cape-town-06.jpg",
         "assets/fyn/fyn-cape-town-07.jpg",
         "assets/fyn/fyn-cape-town-08.jpg",
+        "assets/fyn/fyn-cape-town-09.jpg",
+        "assets/fyn/fyn-cape-town-10.jpg",
     ]
     assert restaurant["images"] == expected
     assert fyn["images"] == expected
