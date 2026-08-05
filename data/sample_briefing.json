@@ -198,7 +198,7 @@
   "restaurant": {
     "name": "FYN Restaurant",
     "location": "Cape Town",
-    "why": "Modernes Fine-Dining in Cape Town – perfekt als besonderer Start in die Reise.",
+    "why": "Persönlich getestet: ein wunderbarer Fine-Dining-Abend in Cape Town – sehr zu empfehlen.",
     "tip": "",
     "link": "https://www.google.com/maps/search/FYN+Restaurant+Cape+Town"
   },
@@ -206,7 +206,7 @@
     {
       "name": "FYN Restaurant",
       "location": "Cape Town",
-      "why": "Modernes Fine-Dining in Cape Town – perfekt als besonderer Start in die Reise.",
+      "why": "Persönlich getestet: ein wunderbarer Fine-Dining-Abend in Cape Town – sehr zu empfehlen.",
       "tip": "",
       "link": "https://www.google.com/maps/search/FYN+Restaurant+Cape+Town"
     },
@@ -475,6 +475,19 @@
       "summary": "Blick über die Küste von Kapstadt mit Bergen, Meer und Camps-Bay-Stimmung.",
       "photos": [
         "assets/kapstadt-coast-fotostopp.jpg"
+      ]
+    },
+    {
+      "name": "FYN Cape Town",
+      "location": "Cape Town / FYN Restaurant",
+      "lat": -33.9229,
+      "lon": 18.4207,
+      "summary": "Unser Abend im FYN: ein wunderbarer Abend mit Fine-Dining in Cape Town – Sehr zu empfehlen.",
+      "photos": [
+        "assets/fyn/fyn-cape-town-01.jpg",
+        "assets/fyn/fyn-cape-town-02.jpg",
+        "assets/fyn/fyn-cape-town-03.jpg",
+        "assets/fyn/fyn-cape-town-04.jpg"
       ]
     },
     {

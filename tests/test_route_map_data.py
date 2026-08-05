@@ -132,3 +132,22 @@ def test_magic_places_rotate_with_unique_images():
         assert place["description"]
         assert place["image"].startswith("https://upload.wikimedia.org/")
         assert place["link"].startswith("https://")
+
+
+def test_fyn_personal_evening_photo_stop_is_published():
+    data = load_data()
+    fyn = next((stop for stop in data.get("photo_stops", []) if stop.get("name") == "FYN Cape Town"), None)
+
+    assert fyn is not None
+    assert "Cape Town" in fyn["location"]
+    assert "wunderbarer Abend" in fyn["summary"]
+    assert "Sehr zu empfehlen" in fyn["summary"]
+    assert fyn["lat"] < -33 and fyn["lon"] > 18
+    assert fyn["photos"] == [
+        "assets/fyn/fyn-cape-town-01.jpg",
+        "assets/fyn/fyn-cape-town-02.jpg",
+        "assets/fyn/fyn-cape-town-03.jpg",
+        "assets/fyn/fyn-cape-town-04.jpg",
+    ]
+    for photo in fyn["photos"]:
+        assert Path(photo).exists(), f"Missing FYN photo: {photo}"
