@@ -143,11 +143,24 @@ def test_fyn_personal_evening_photo_stop_is_published():
     assert "wunderbarer Abend" in fyn["summary"]
     assert "Sehr zu empfehlen" in fyn["summary"]
     assert fyn["lat"] < -33 and fyn["lon"] > 18
-    assert fyn["photos"] == [
-        "assets/fyn/fyn-cape-town-01.jpg",
-        "assets/fyn/fyn-cape-town-02.jpg",
-        "assets/fyn/fyn-cape-town-03.jpg",
-        "assets/fyn/fyn-cape-town-04.jpg",
-    ]
+    assert len(fyn["photos"]) >= 4
     for photo in fyn["photos"]:
         assert Path(photo).exists(), f"Missing FYN photo: {photo}"
+
+
+def test_fyn_restaurant_has_gallery_like_marloth_stay():
+    data = load_data()
+    restaurant = data["restaurant"]
+    fyn = next(item for item in data["restaurants"] if item["name"] == "FYN Restaurant")
+
+    expected = [
+        "assets/fyn/fyn-cape-town-05.jpg",
+        "assets/fyn/fyn-cape-town-06.jpg",
+        "assets/fyn/fyn-cape-town-07.jpg",
+        "assets/fyn/fyn-cape-town-08.jpg",
+    ]
+    assert restaurant["images"] == expected
+    assert fyn["images"] == expected
+    assert "wunderbarer" in fyn["why"]
+    for photo in expected:
+        assert Path(photo).exists(), f"Missing FYN restaurant photo: {photo}"

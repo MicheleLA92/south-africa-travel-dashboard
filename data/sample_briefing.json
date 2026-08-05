@@ -200,7 +200,13 @@
     "location": "Cape Town",
     "why": "Persönlich getestet: ein wunderbarer Fine-Dining-Abend in Cape Town – sehr zu empfehlen.",
     "tip": "",
-    "link": "https://www.google.com/maps/search/FYN+Restaurant+Cape+Town"
+    "link": "https://www.google.com/maps/search/FYN+Restaurant+Cape+Town",
+    "images": [
+      "assets/fyn/fyn-cape-town-05.jpg",
+      "assets/fyn/fyn-cape-town-06.jpg",
+      "assets/fyn/fyn-cape-town-07.jpg",
+      "assets/fyn/fyn-cape-town-08.jpg"
+    ]
   },
   "restaurants": [
     {
@@ -208,7 +214,13 @@
       "location": "Cape Town",
       "why": "Persönlich getestet: ein wunderbarer Fine-Dining-Abend in Cape Town – sehr zu empfehlen.",
       "tip": "",
-      "link": "https://www.google.com/maps/search/FYN+Restaurant+Cape+Town"
+      "link": "https://www.google.com/maps/search/FYN+Restaurant+Cape+Town",
+      "images": [
+        "assets/fyn/fyn-cape-town-05.jpg",
+        "assets/fyn/fyn-cape-town-06.jpg",
+        "assets/fyn/fyn-cape-town-07.jpg",
+        "assets/fyn/fyn-cape-town-08.jpg"
+      ]
     },
     {
       "name": "Chefs Warehouse at Tintswalo Atlantic",

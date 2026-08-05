@@ -452,6 +452,9 @@ def render_top_recommendation(data, category):
     if category == "Restaurant":
         if restaurant:
             st.markdown(f"**[{restaurant['name']}]({restaurant['link']})**")
+            gallery_images = restaurant.get("images") or ([restaurant["image"]] if restaurant.get("image") else [])
+            if gallery_images:
+                render_image_carousel(gallery_images, "top-restaurant-carousel", autoplay_ms=3500)
             st.caption(restaurant["why"])
         else:
             st.caption("Noch kein Restaurant hinterlegt.")
@@ -976,6 +979,9 @@ if selected_page:
                 with st.container(border=True):
                     st.markdown(f"<p class=\"small\"><b>Restaurant · {restaurant_item.get('location', '')}</b></p>", unsafe_allow_html=True)
                     st.markdown(f"### {restaurant_item['name']}")
+                    gallery_images = restaurant_item.get("images") or ([restaurant_item["image"]] if restaurant_item.get("image") else [])
+                    if gallery_images:
+                        render_image_carousel(gallery_images, f"restaurant-page-carousel-{index}")
                     st.write(restaurant_item["why"])
                     if restaurant_item.get("tip"):
                         st.caption(restaurant_item["tip"])
