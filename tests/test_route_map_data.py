@@ -229,7 +229,7 @@ def test_noordhoek_beach_is_on_photo_map_with_sunset_photos():
     assert spot["region"] == "Kapstadt"
     assert -35 <= spot["lat"] <= -34
     assert 18 <= spot["lon"] <= 19
-    assert "Sonnenuntergang" in spot["summary"]
+    assert spot["summary"] == "Weitläufiger Strandmoment bei Noordhoek Beach mit Sonnenuntergang, Meer und Bergen"
     assert spot["photos"] == [
         "assets/noordhoek-beach/noordhoek-beach-01.jpg",
         "assets/noordhoek-beach/noordhoek-beach-02.jpg",
