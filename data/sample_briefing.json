@@ -530,6 +530,17 @@
       ]
     },
     {
+      "name": "Pauline's Greenpoint",
+      "location": "Cape Town / Green Point",
+      "lat": -33.9086,
+      "lon": 18.4104,
+      "summary": "Super Frühstücksspot in Cape Town: wunderschön eingerichtet, sehr gemütlich und mit super Essen – klare Empfehlung.",
+      "photos": [
+        "assets/paulines-greenpoint/paulines-greenpoint-01.jpg",
+        "assets/paulines-greenpoint/paulines-greenpoint-02.jpg"
+      ]
+    },
+    {
       "name": "Marloth Park",
       "location": "Marloth Park / Kruger",
       "lat": -25.342,

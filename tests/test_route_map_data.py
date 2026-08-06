@@ -186,3 +186,21 @@ def test_paulines_greenpoint_breakfast_spot_is_recommended_with_photos():
     assert spot["images"] == expected
     for photo in expected:
         assert Path(photo).exists(), f"Missing Pauline's photo: {photo}"
+
+
+def test_paulines_greenpoint_is_on_photo_map():
+    data = load_data()
+    spot = next((item for item in data["photo_stops"] if item["name"] == "Pauline's Greenpoint"), None)
+
+    assert spot is not None
+    assert "Green Point" in spot["location"]
+    assert spot["lat"] < -33 and spot["lon"] > 18
+    assert "Super Frühstücksspot" in spot["summary"]
+    assert "super Essen" in spot["summary"]
+    assert "Avocado" not in spot["summary"]
+    assert spot["photos"] == [
+        "assets/paulines-greenpoint/paulines-greenpoint-01.jpg",
+        "assets/paulines-greenpoint/paulines-greenpoint-02.jpg",
+    ]
+    for photo in spot["photos"]:
+        assert Path(photo).exists(), f"Missing Pauline's photo stop photo: {photo}"
