@@ -842,16 +842,25 @@ with st.sidebar:
                 grouped_photo_stops.setdefault(photo_stop.get("region", "Weitere Spots"), []).append(photo_stop)
 
             for region, region_photo_stops in grouped_photo_stops.items():
+                region_anchor = route_stop_anchor(region)
+                region_state_key = f"nav_photo_region_open_{region_anchor}"
                 region_is_active = any(stop["name"] == selected_photo_stop_name for stop in region_photo_stops)
-                show_region = st.toggle(
-                    f"▾ {region}",
-                    value=region_is_active,
-                    key=f"nav_photo_region_{route_stop_anchor(region)}",
-                )
-                if show_region:
+
+                if region_state_key not in st.session_state:
+                    st.session_state[region_state_key] = region_is_active
+                elif region_is_active:
+                    st.session_state[region_state_key] = True
+
+                is_region_open = st.session_state[region_state_key]
+                region_icon = "▼" if is_region_open else "▶"
+                if st.button(f"{region_icon} {region}", key=f"nav_photo_region_button_{region_anchor}", use_container_width=True):
+                    st.session_state[region_state_key] = not is_region_open
+                    st.rerun()
+
+                if st.session_state[region_state_key]:
                     for photo_stop in region_photo_stops:
                         icon = "🍴" if photo_stop.get("kind") == "restaurant" else "📷"
-                        if st.button(f"{icon} {photo_stop['name']}", key=f"nav_photo_{route_stop_anchor(photo_stop['name'])}", use_container_width=True):
+                        if st.button(f"   {icon} {photo_stop['name']}", key=f"nav_photo_{route_stop_anchor(photo_stop['name'])}", use_container_width=True):
                             open_section(photo_stop=photo_stop["name"])
     with st.expander("⭐ Top Empfehlungen", expanded=selected_page == "recommendations"):
         if st.button("Restaurant", key="nav_recommendation_restaurant", use_container_width=True):
