@@ -168,3 +168,21 @@ def test_fyn_restaurant_has_gallery_like_marloth_stay():
     assert "wunderbarer" in fyn["why"]
     for photo in expected:
         assert Path(photo).exists(), f"Missing FYN restaurant photo: {photo}"
+
+
+def test_paulines_greenpoint_breakfast_spot_is_recommended_with_photos():
+    data = load_data()
+    spot = next(item for item in data["restaurants"] if item["name"] == "Pauline's Greenpoint")
+
+    assert "Cape Town" in spot["location"]
+    assert "Super Frühstücksspot" in spot["why"]
+    assert "super Essen" in spot["why"]
+    assert "Avocado" not in spot["why"]
+    assert spot["link"] == "https://maps.app.goo.gl/Rtho4z8KyPSoBFFz7"
+    expected = [
+        "assets/paulines-greenpoint/paulines-greenpoint-01.jpg",
+        "assets/paulines-greenpoint/paulines-greenpoint-02.jpg",
+    ]
+    assert spot["images"] == expected
+    for photo in expected:
+        assert Path(photo).exists(), f"Missing Pauline's photo: {photo}"
