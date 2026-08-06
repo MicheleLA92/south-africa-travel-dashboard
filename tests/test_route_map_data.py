@@ -144,7 +144,17 @@ def test_fyn_personal_evening_photo_stop_is_published():
     assert "Sehr zu empfehlen" in fyn["summary"]
     assert fyn["kind"] == "restaurant"
     assert fyn["lat"] < -33 and fyn["lon"] > 18
-    assert len(fyn["photos"]) >= 4
+    expected = [
+        "assets/fyn/fyn-cape-town-05.jpg",
+        "assets/fyn/fyn-cape-town-06.jpg",
+        "assets/fyn/fyn-cape-town-07.jpg",
+        "assets/fyn/fyn-cape-town-08.jpg",
+        "assets/fyn/fyn-cape-town-09.jpg",
+        "assets/fyn/fyn-cape-town-10.jpg",
+        "assets/fyn/fyn-cape-town-11.jpg",
+        "assets/fyn/fyn-cape-town-12.jpg",
+    ]
+    assert fyn["photos"] == expected
     for photo in fyn["photos"]:
         assert Path(photo).exists(), f"Missing FYN photo: {photo}"
 
