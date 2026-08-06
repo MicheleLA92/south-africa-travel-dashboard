@@ -214,6 +214,9 @@ def test_chefs_warehouse_tintswalo_has_uploaded_food_gallery():
     ]
     assert restaurant["location"] == "Cape Town / Hout Bay"
     assert restaurant["link"] == "https://maps.app.goo.gl/xSp3384MMfwmqRwd8"
+    assert restaurant["region"] == "Kapstadt"
+    assert -35 <= restaurant["lat"] <= -34
+    assert 18 <= restaurant["lon"] <= 19
     assert restaurant["images"] == expected
     for photo in expected:
         assert Path(photo).exists(), f"Missing Chefs Warehouse Tintswalo photo: {photo}"

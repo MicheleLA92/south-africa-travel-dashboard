@@ -444,6 +444,44 @@ def route_stop_anchor(stop_name):
     return "route-" + re.sub(r"[^a-z0-9]+", "-", stop_name.lower()).strip("-")
 
 
+def recommendation_images(item):
+    return item.get("images") or ([item["image"]] if item.get("image") else [])
+
+
+def get_photo_stop_entries(data):
+    photo_stops = [stop for stop in data.get("photo_stops", []) if stop.get("photos")]
+    existing_names = {stop["name"] for stop in photo_stops}
+
+    recommendation_sources = [
+        ("restaurant", data.get("restaurants") or ([data.get("restaurant")] if data.get("restaurant") else [])),
+        ("stay", data.get("stays") or ([data.get("stay")] if data.get("stay") else [])),
+        ("activity", data.get("activities", [])),
+    ]
+    for recommendation_kind, items in recommendation_sources:
+        for item in items:
+            if not isinstance(item, dict) or item.get("name") in existing_names:
+                continue
+            images = recommendation_images(item)
+            if not images or "lat" not in item or "lon" not in item:
+                continue
+            kind = "restaurant" if recommendation_kind == "restaurant" else "photo"
+            photo_stops.append(
+                {
+                    "name": item["name"],
+                    "location": item.get("location", item["name"]),
+                    "lat": item["lat"],
+                    "lon": item["lon"],
+                    "summary": item.get("why") or item.get("summary") or "Empfehlung mit Reisefotos.",
+                    "region": item.get("region", "Weitere Spots"),
+                    "kind": kind,
+                    "photos": images,
+                    "source": "top_recommendation",
+                }
+            )
+            existing_names.add(item["name"])
+    return photo_stops
+
+
 def render_route_stop(stop):
     st.markdown(f"**{stop['emoji']} {stop['name']}**")
     st.caption(stop["summary"])
@@ -538,7 +576,7 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
                 "anchorY": 36,
             },
         }
-        for stop in data.get("photo_stops", [])
+        for stop in get_photo_stop_entries(data)
         if stop.get("photos")
     ]
     elephant_marker = {
@@ -703,7 +741,7 @@ def render_photo_map(data, map_key="photo_map"):
                 "anchorY": 36,
             },
         }
-        for stop in data.get("photo_stops", [])
+        for stop in get_photo_stop_entries(data)
         if stop.get("photos")
     ]
     if not photo_stops:
@@ -772,7 +810,7 @@ def render_photo_map(data, map_key="photo_map"):
 data = load_data()
 quiz = data.get("quiz", {})
 quiz_questions = quiz.get("questions", []) if isinstance(quiz, dict) else quiz
-photo_stops_data = [stop for stop in data.get("photo_stops", []) if stop.get("photos")]
+photo_stops_data = get_photo_stop_entries(data)
 selected_photo_stop_name = st.query_params.get("photo_stop")
 selected_page = st.query_params.get("page")
 selected_route_stop_name = st.query_params.get("stop")
