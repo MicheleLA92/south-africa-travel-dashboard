@@ -836,10 +836,23 @@ with st.sidebar:
         with st.expander("📷 Fotos", expanded=selected_page == "photo_map" or bool(selected_photo_stop_name)):
             if st.button("📍 Fotokarte ansehen", key="nav_photo_map", use_container_width=True):
                 open_section("photo_map")
+
+            grouped_photo_stops = {}
             for photo_stop in photo_stops_data:
-                icon = "🍴" if photo_stop.get("kind") == "restaurant" else "📷"
-                if st.button(f"{icon} {photo_stop['name']}", key=f"nav_photo_{route_stop_anchor(photo_stop['name'])}", use_container_width=True):
-                    open_section(photo_stop=photo_stop["name"])
+                grouped_photo_stops.setdefault(photo_stop.get("region", "Weitere Spots"), []).append(photo_stop)
+
+            for region, region_photo_stops in grouped_photo_stops.items():
+                region_is_active = any(stop["name"] == selected_photo_stop_name for stop in region_photo_stops)
+                show_region = st.toggle(
+                    f"▾ {region}",
+                    value=region_is_active,
+                    key=f"nav_photo_region_{route_stop_anchor(region)}",
+                )
+                if show_region:
+                    for photo_stop in region_photo_stops:
+                        icon = "🍴" if photo_stop.get("kind") == "restaurant" else "📷"
+                        if st.button(f"{icon} {photo_stop['name']}", key=f"nav_photo_{route_stop_anchor(photo_stop['name'])}", use_container_width=True):
+                            open_section(photo_stop=photo_stop["name"])
     with st.expander("⭐ Top Empfehlungen", expanded=selected_page == "recommendations"):
         if st.button("Restaurant", key="nav_recommendation_restaurant", use_container_width=True):
             open_section("recommendations", recommendation="restaurant")

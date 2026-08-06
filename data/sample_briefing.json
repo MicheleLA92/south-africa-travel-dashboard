@@ -504,6 +504,7 @@
       "lat": -33.9506,
       "lon": 18.3772,
       "summary": "Blick über die Küste von Kapstadt mit Bergen, Meer und Camps-Bay-Stimmung.",
+      "region": "Kapstadt",
       "photos": [
         "assets/kapstadt-coast-fotostopp.jpg"
       ]
@@ -514,6 +515,7 @@
       "lat": -33.9229,
       "lon": 18.4207,
       "summary": "Unser Abend im FYN: ein wunderbarer Abend mit Fine-Dining in Cape Town – Sehr zu empfehlen.",
+      "region": "Kapstadt",
       "kind": "restaurant",
       "photos": [
         "assets/fyn/fyn-cape-town-05.jpg",
@@ -532,6 +534,7 @@
       "lat": -33.9086,
       "lon": 18.4104,
       "summary": "Super Frühstücksspot in Cape Town: wunderschön eingerichtet, sehr gemütlich und mit super Essen – klare Empfehlung.",
+      "region": "Kapstadt",
       "kind": "restaurant",
       "photos": [
         "assets/paulines-greenpoint/paulines-greenpoint-01.jpg",
@@ -544,6 +547,7 @@
       "lat": -25.342,
       "lon": 31.778,
       "summary": "Erster ruhiger Test-Fotostopp mit Bildern der Unterkunft.",
+      "region": "Marloth Park / Kruger",
       "photos": [
         "assets/marloth-park-unterkunft.jpg",
         "assets/marloth-park-pool-zebra.jpg",

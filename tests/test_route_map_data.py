@@ -143,6 +143,7 @@ def test_fyn_personal_evening_photo_stop_is_published():
     assert "wunderbarer Abend" in fyn["summary"]
     assert "Sehr zu empfehlen" in fyn["summary"]
     assert fyn["kind"] == "restaurant"
+    assert fyn["region"] == "Kapstadt"
     assert fyn["lat"] < -33 and fyn["lon"] > 18
     expected = [
         "assets/fyn/fyn-cape-town-05.jpg",
@@ -209,6 +210,7 @@ def test_paulines_greenpoint_is_on_photo_map():
     assert "Super Frühstücksspot" in spot["summary"]
     assert "super Essen" in spot["summary"]
     assert spot["kind"] == "restaurant"
+    assert spot["region"] == "Kapstadt"
     assert "Avocado" not in spot["summary"]
     assert spot["photos"] == [
         "assets/paulines-greenpoint/paulines-greenpoint-01.jpg",
@@ -216,3 +218,12 @@ def test_paulines_greenpoint_is_on_photo_map():
     ]
     for photo in spot["photos"]:
         assert Path(photo).exists(), f"Missing Pauline's photo stop photo: {photo}"
+
+
+def test_all_photo_stops_are_grouped_by_region():
+    data = load_data()
+    regions = {stop.get("region") for stop in data["photo_stops"]}
+
+    assert None not in regions
+    assert "Kapstadt" in regions
+    assert "Marloth Park / Kruger" in regions
