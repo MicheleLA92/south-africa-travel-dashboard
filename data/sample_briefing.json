@@ -514,6 +514,7 @@
       "lat": -33.9229,
       "lon": 18.4207,
       "summary": "Unser Abend im FYN: ein wunderbarer Abend mit Fine-Dining in Cape Town – Sehr zu empfehlen.",
+      "kind": "restaurant",
       "photos": [
         "assets/fyn/fyn-cape-town-01.jpg",
         "assets/fyn/fyn-cape-town-02.jpg",
@@ -535,6 +536,7 @@
       "lat": -33.9086,
       "lon": 18.4104,
       "summary": "Super Frühstücksspot in Cape Town: wunderschön eingerichtet, sehr gemütlich und mit super Essen – klare Empfehlung.",
+      "kind": "restaurant",
       "photos": [
         "assets/paulines-greenpoint/paulines-greenpoint-01.jpg",
         "assets/paulines-greenpoint/paulines-greenpoint-02.jpg"

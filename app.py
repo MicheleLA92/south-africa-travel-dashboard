@@ -528,7 +528,9 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
             "label_text": stop["name"],
             "photo_count": len(stop.get("photos", [])),
             "icon_data": {
-                "url": "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f4f7.png",
+                "url": "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f374.png"
+                if stop.get("kind") == "restaurant"
+                else "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f4f7.png",
                 "width": 72,
                 "height": 72,
                 "anchorY": 36,
@@ -652,7 +654,7 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
         on_select="rerun",
         key=map_key,
     )
-    st.caption("🐘 Kleiner Elefant = Addo Elephant National Park nahe Gqeberha / Port Elizabeth · 📷 Kamera = Bildergalerie · Blau = Küstenfahrt Kapstadt bis East London · Gold = ✈️ Flug-/Inland-Etappe Richtung Johannesburg und Kruger.")
+    st.caption("🐘 Kleiner Elefant = Addo Elephant National Park nahe Gqeberha / Port Elizabeth · 📷 Kamera = Foto-Spot · 🍴 Besteck = Restaurant-/Food-Spot · Blau = Küstenfahrt Kapstadt bis East London · Gold = ✈️ Flug-/Inland-Etappe Richtung Johannesburg und Kruger.")
 
     if photo_stops:
         photo_stop_names = {stop["name"] for stop in photo_stops}
@@ -713,7 +715,9 @@ def render_photo_map(data, map_key="photo_map"):
             "label_text": stop["name"],
             "photo_count": len(stop.get("photos", [])),
             "icon_data": {
-                "url": "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f4f7.png",
+                "url": "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f374.png"
+                if stop.get("kind") == "restaurant"
+                else "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f4f7.png",
                 "width": 72,
                 "height": 72,
                 "anchorY": 36,
@@ -759,7 +763,7 @@ def render_photo_map(data, map_key="photo_map"):
         on_select="rerun",
         key=map_key,
     )
-    st.caption("📷 Kamera antippen, um die Fotos von diesem Stopp zu öffnen.")
+    st.caption("📷 Kamera = Foto-Spot · 🍴 Besteck = Restaurant-/Food-Spot · Symbol antippen, um die Fotos von diesem Stopp zu öffnen.")
 
     selected_photo_stop_name = None
     try:
@@ -833,7 +837,8 @@ with st.sidebar:
             if st.button("📍 Fotokarte ansehen", key="nav_photo_map", use_container_width=True):
                 open_section("photo_map")
             for photo_stop in photo_stops_data:
-                if st.button(f"📷 {photo_stop['name']}", key=f"nav_photo_{route_stop_anchor(photo_stop['name'])}", use_container_width=True):
+                icon = "🍴" if photo_stop.get("kind") == "restaurant" else "📷"
+                if st.button(f"{icon} {photo_stop['name']}", key=f"nav_photo_{route_stop_anchor(photo_stop['name'])}", use_container_width=True):
                     open_section(photo_stop=photo_stop["name"])
     with st.expander("⭐ Top Empfehlungen", expanded=selected_page == "recommendations"):
         if st.button("Restaurant", key="nav_recommendation_restaurant", use_container_width=True):

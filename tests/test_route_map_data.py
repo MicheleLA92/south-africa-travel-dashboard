@@ -142,6 +142,7 @@ def test_fyn_personal_evening_photo_stop_is_published():
     assert "Cape Town" in fyn["location"]
     assert "wunderbarer Abend" in fyn["summary"]
     assert "Sehr zu empfehlen" in fyn["summary"]
+    assert fyn["kind"] == "restaurant"
     assert fyn["lat"] < -33 and fyn["lon"] > 18
     assert len(fyn["photos"]) >= 4
     for photo in fyn["photos"]:
@@ -197,6 +198,7 @@ def test_paulines_greenpoint_is_on_photo_map():
     assert spot["lat"] < -33 and spot["lon"] > 18
     assert "Super Frühstücksspot" in spot["summary"]
     assert "super Essen" in spot["summary"]
+    assert spot["kind"] == "restaurant"
     assert "Avocado" not in spot["summary"]
     assert spot["photos"] == [
         "assets/paulines-greenpoint/paulines-greenpoint-01.jpg",
