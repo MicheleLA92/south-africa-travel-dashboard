@@ -200,6 +200,25 @@ def test_paulines_greenpoint_breakfast_spot_is_recommended_with_photos():
         assert Path(photo).exists(), f"Missing Pauline's photo: {photo}"
 
 
+def test_chefs_warehouse_tintswalo_has_uploaded_food_gallery():
+    data = load_data()
+    restaurant = next(item for item in data["restaurants"] if item["name"] == "Chefs Warehouse at Tintswalo Atlantic")
+
+    expected = [
+        "assets/chefs-warehouse-tintswalo/chefs-warehouse-tintswalo-01.jpg",
+        "assets/chefs-warehouse-tintswalo/chefs-warehouse-tintswalo-02.jpg",
+        "assets/chefs-warehouse-tintswalo/chefs-warehouse-tintswalo-03.jpg",
+        "assets/chefs-warehouse-tintswalo/chefs-warehouse-tintswalo-04.jpg",
+        "assets/chefs-warehouse-tintswalo/chefs-warehouse-tintswalo-05.jpg",
+        "assets/chefs-warehouse-tintswalo/chefs-warehouse-tintswalo-06.jpg",
+    ]
+    assert restaurant["location"] == "Cape Town / Hout Bay"
+    assert restaurant["link"] == "https://maps.app.goo.gl/xSp3384MMfwmqRwd8"
+    assert restaurant["images"] == expected
+    for photo in expected:
+        assert Path(photo).exists(), f"Missing Chefs Warehouse Tintswalo photo: {photo}"
+
+
 def test_paulines_greenpoint_is_on_photo_map():
     data = load_data()
     spot = next((item for item in data["photo_stops"] if item["name"] == "Pauline's Greenpoint"), None)
