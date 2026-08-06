@@ -412,20 +412,9 @@ def render_quiz_answer_summary(quiz_questions):
         st.caption("Noch keine Antworten gespeichert.")
 
 
-def make_map_icon(label, background, foreground="#fffaf1", border="#1f2a24"):
-    svg = f"""
-    <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
-      <circle cx="48" cy="48" r="41" fill="{background}" stroke="{border}" stroke-width="6"/>
-      <circle cx="48" cy="48" r="34" fill="none" stroke="#fffaf1" stroke-opacity="0.58" stroke-width="3"/>
-      <text x="48" y="58" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800" fill="{foreground}">{label}</text>
-    </svg>
-    """
-    return "data:image/svg+xml;charset=utf-8," + urllib.parse.quote(svg)
-
-
-PHOTO_MAP_ICON_URL = make_map_icon("📷", "#8a5a16")
-RESTAURANT_MAP_ICON_URL = make_map_icon("🍴", "#315c45")
-ELEPHANT_MAP_ICON_URL = make_map_icon("🐘", "#b66c14")
+PHOTO_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f4f7.png"
+RESTAURANT_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f374.png"
+ELEPHANT_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f418.png"
 
 
 def render_private_upload_folder():
@@ -533,7 +522,6 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
             "position": [point["lon"], point["lat"]],
             "label": f"{index}. {point['name']}",
             "photo_count": "",
-            "color": [0, 93, 115, 255] if point["kind"] == "coast" else [142, 91, 14, 255],
         }
         for index, point in enumerate(map_route, start=1)
     ]
@@ -545,9 +533,9 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
             "photo_count": len(stop.get("photos", [])),
             "icon_data": {
                 "url": RESTAURANT_MAP_ICON_URL if stop.get("kind") == "restaurant" else PHOTO_MAP_ICON_URL,
-                "width": 96,
-                "height": 96,
-                "anchorY": 48,
+                "width": 72,
+                "height": 72,
+                "anchorY": 36,
             },
         }
         for stop in data.get("photo_stops", [])
@@ -560,9 +548,9 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
         "photo_count": "",
         "icon_data": {
             "url": ELEPHANT_MAP_ICON_URL,
-            "width": 96,
-            "height": 96,
-            "anchorY": 48,
+            "width": 72,
+            "height": 72,
+            "anchorY": 36,
         },
     }
     coastal_path = [{"name": "Küstenroute Cape Town → East London", "path": [[point["lon"], point["lat"]] for point in coastal_points]}]
@@ -589,16 +577,6 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
                     get_color=[180, 108, 20, 255],
                     width_min_pixels=7,
                     rounded=True,
-                    pickable=True,
-                ),
-                pdk.Layer(
-                    "ScatterplotLayer",
-                    route_points,
-                    get_position="position",
-                    get_fill_color="color",
-                    get_line_color=[255, 250, 241, 255],
-                    get_radius=25000,
-                    line_width_min_pixels=3,
                     pickable=True,
                 ),
                 pdk.Layer(
@@ -629,16 +607,6 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
                     get_size=13,
                     get_alignment_baseline="bottom",
                     get_pixel_offset=[0, -24],
-                ),
-                pdk.Layer(
-                    "ScatterplotLayer",
-                    [elephant_marker],
-                    get_position="position",
-                    get_fill_color=[255, 193, 7, 250],
-                    get_line_color=[31, 42, 36, 255],
-                    get_radius=16000,
-                    line_width_min_pixels=2,
-                    pickable=True,
                 ),
                 pdk.Layer(
                     "IconLayer",
@@ -730,9 +698,9 @@ def render_photo_map(data, map_key="photo_map"):
             "photo_count": len(stop.get("photos", [])),
             "icon_data": {
                 "url": RESTAURANT_MAP_ICON_URL if stop.get("kind") == "restaurant" else PHOTO_MAP_ICON_URL,
-                "width": 96,
-                "height": 96,
-                "anchorY": 48,
+                "width": 72,
+                "height": 72,
+                "anchorY": 36,
             },
         }
         for stop in data.get("photo_stops", [])
