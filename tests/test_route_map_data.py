@@ -220,6 +220,25 @@ def test_paulines_greenpoint_is_on_photo_map():
         assert Path(photo).exists(), f"Missing Pauline's photo stop photo: {photo}"
 
 
+def test_noordhoek_beach_is_on_photo_map_with_sunset_photos():
+    data = load_data()
+    spot = next((item for item in data["photo_stops"] if item["name"] == "Noordhoek Beach"), None)
+
+    assert spot is not None
+    assert spot["location"] == "Cape Town / Noordhoek Beach"
+    assert spot["region"] == "Kapstadt"
+    assert -35 <= spot["lat"] <= -34
+    assert 18 <= spot["lon"] <= 19
+    assert "Sonnenuntergang" in spot["summary"]
+    assert spot["photos"] == [
+        "assets/noordhoek-beach/noordhoek-beach-01.jpg",
+        "assets/noordhoek-beach/noordhoek-beach-02.jpg",
+        "assets/noordhoek-beach/noordhoek-beach-03.jpg",
+    ]
+    for photo in spot["photos"]:
+        assert Path(photo).exists(), f"Missing Noordhoek Beach photo: {photo}"
+
+
 def test_all_photo_stops_are_grouped_by_region():
     data = load_data()
     regions = {stop.get("region") for stop in data["photo_stops"]}

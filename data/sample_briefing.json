@@ -542,6 +542,19 @@
       ]
     },
     {
+      "name": "Noordhoek Beach",
+      "location": "Cape Town / Noordhoek Beach",
+      "lat": -34.1028,
+      "lon": 18.3609,
+      "summary": "Weitläufiger Strandmoment bei Noordhoek Beach mit Sonnenuntergang, Meer und Bergen – ein ruhiger Kapstadt-Spot zum Durchatmen.",
+      "region": "Kapstadt",
+      "photos": [
+        "assets/noordhoek-beach/noordhoek-beach-01.jpg",
+        "assets/noordhoek-beach/noordhoek-beach-02.jpg",
+        "assets/noordhoek-beach/noordhoek-beach-03.jpg"
+      ]
+    },
+    {
       "name": "Marloth Park",
       "location": "Marloth Park / Kruger",
       "lat": -25.342,
