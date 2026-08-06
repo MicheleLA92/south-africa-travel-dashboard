@@ -412,6 +412,22 @@ def render_quiz_answer_summary(quiz_questions):
         st.caption("Noch keine Antworten gespeichert.")
 
 
+def make_map_icon(label, background, foreground="#fffaf1", border="#1f2a24"):
+    svg = f"""
+    <svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
+      <circle cx="48" cy="48" r="41" fill="{background}" stroke="{border}" stroke-width="6"/>
+      <circle cx="48" cy="48" r="34" fill="none" stroke="#fffaf1" stroke-opacity="0.58" stroke-width="3"/>
+      <text x="48" y="58" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800" fill="{foreground}">{label}</text>
+    </svg>
+    """
+    return "data:image/svg+xml;charset=utf-8," + urllib.parse.quote(svg)
+
+
+PHOTO_MAP_ICON_URL = make_map_icon("📷", "#8a5a16")
+RESTAURANT_MAP_ICON_URL = make_map_icon("🍴", "#315c45")
+ELEPHANT_MAP_ICON_URL = make_map_icon("🐘", "#b66c14")
+
+
 def render_private_upload_folder():
     upload_password = get_upload_password()
     if not upload_password:
@@ -517,7 +533,7 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
             "position": [point["lon"], point["lat"]],
             "label": f"{index}. {point['name']}",
             "photo_count": "",
-            "color": [20, 116, 139, 235] if point["kind"] == "coast" else [49, 92, 69, 235],
+            "color": [0, 93, 115, 255] if point["kind"] == "coast" else [142, 91, 14, 255],
         }
         for index, point in enumerate(map_route, start=1)
     ]
@@ -528,12 +544,10 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
             "label_text": stop["name"],
             "photo_count": len(stop.get("photos", [])),
             "icon_data": {
-                "url": "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f374.png"
-                if stop.get("kind") == "restaurant"
-                else "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f4f7.png",
-                "width": 72,
-                "height": 72,
-                "anchorY": 36,
+                "url": RESTAURANT_MAP_ICON_URL if stop.get("kind") == "restaurant" else PHOTO_MAP_ICON_URL,
+                "width": 96,
+                "height": 96,
+                "anchorY": 48,
             },
         }
         for stop in data.get("photo_stops", [])
@@ -545,10 +559,10 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
         "label_text": "Addo Elephant Park",
         "photo_count": "",
         "icon_data": {
-            "url": "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f418.png",
-            "width": 72,
-            "height": 72,
-            "anchorY": 36,
+            "url": ELEPHANT_MAP_ICON_URL,
+            "width": 96,
+            "height": 96,
+            "anchorY": 48,
         },
     }
     coastal_path = [{"name": "Küstenroute Cape Town → East London", "path": [[point["lon"], point["lat"]] for point in coastal_points]}]
@@ -563,8 +577,8 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
                     "PathLayer",
                     coastal_path,
                     get_path="path",
-                    get_color=[20, 116, 139, 245],
-                    width_min_pixels=7,
+                    get_color=[0, 93, 115, 255],
+                    width_min_pixels=8,
                     rounded=True,
                     pickable=True,
                 ),
@@ -572,8 +586,8 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
                     "PathLayer",
                     inland_path,
                     get_path="path",
-                    get_color=[197, 139, 54, 230],
-                    width_min_pixels=5,
+                    get_color=[180, 108, 20, 255],
+                    width_min_pixels=7,
                     rounded=True,
                     pickable=True,
                 ),
@@ -583,8 +597,8 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
                     get_position="position",
                     get_fill_color="color",
                     get_line_color=[255, 250, 241, 255],
-                    get_radius=22000,
-                    line_width_min_pixels=2,
+                    get_radius=25000,
+                    line_width_min_pixels=3,
                     pickable=True,
                 ),
                 pdk.Layer(
@@ -603,7 +617,7 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
                     get_icon="icon_data",
                     get_position="position",
                     get_size=1.5,
-                    size_scale=13,
+                    size_scale=16,
                     pickable=True,
                 ),
                 pdk.Layer(
@@ -649,12 +663,12 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
             tooltip={"html": "<b>{name}</b>", "style": {"backgroundColor": "#315c45", "color": "#fffaf1"}},
         ),
         use_container_width=True,
-        height=470,
+        height=420,
         selection_mode="single-object",
         on_select="rerun",
         key=map_key,
     )
-    st.caption("🐘 Kleiner Elefant = Addo Elephant National Park nahe Gqeberha / Port Elizabeth · 📷 Kamera = Foto-Spot · 🍴 Besteck = Restaurant-/Food-Spot · Blau = Küstenfahrt Kapstadt bis East London · Gold = ✈️ Flug-/Inland-Etappe Richtung Johannesburg und Kruger.")
+    st.caption("📷 Foto-Spot · 🍴 Restaurant/Food · 🐘 Addo Elephant Park · Blau = Küstenroute · Gold = Inland/Safari. Tipp: Symbol antippen, um Fotos zu öffnen.")
 
     if photo_stops:
         photo_stop_names = {stop["name"] for stop in photo_stops}
@@ -715,12 +729,10 @@ def render_photo_map(data, map_key="photo_map"):
             "label_text": stop["name"],
             "photo_count": len(stop.get("photos", [])),
             "icon_data": {
-                "url": "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f374.png"
-                if stop.get("kind") == "restaurant"
-                else "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f4f7.png",
-                "width": 72,
-                "height": 72,
-                "anchorY": 36,
+                "url": RESTAURANT_MAP_ICON_URL if stop.get("kind") == "restaurant" else PHOTO_MAP_ICON_URL,
+                "width": 96,
+                "height": 96,
+                "anchorY": 48,
             },
         }
         for stop in data.get("photo_stops", [])
@@ -733,7 +745,7 @@ def render_photo_map(data, map_key="photo_map"):
     map_state = st.pydeck_chart(
         pdk.Deck(
             map_style="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
-            initial_view_state=pdk.ViewState(latitude=-25.6, longitude=30.7, zoom=6.0, pitch=0),
+            initial_view_state=pdk.ViewState(latitude=-27.2, longitude=23.7, zoom=3.05, pitch=0),
             layers=[
                 pdk.Layer(
                     "IconLayer",
@@ -741,7 +753,7 @@ def render_photo_map(data, map_key="photo_map"):
                     get_icon="icon_data",
                     get_position="position",
                     get_size=1.5,
-                    size_scale=18,
+                    size_scale=20,
                     pickable=True,
                 ),
                 pdk.Layer(
@@ -763,7 +775,7 @@ def render_photo_map(data, map_key="photo_map"):
         on_select="rerun",
         key=map_key,
     )
-    st.caption("📷 Kamera = Foto-Spot · 🍴 Besteck = Restaurant-/Food-Spot · Symbol antippen, um die Fotos von diesem Stopp zu öffnen.")
+    st.caption("📷 Foto-Spot · 🍴 Restaurant/Food · Symbol antippen, um die Fotos zu öffnen.")
 
     selected_photo_stop_name = None
     try:
@@ -790,8 +802,6 @@ def render_photo_map(data, map_key="photo_map"):
 
 
 data = load_data()
-TRIP_START = datetime(2026, 8, 4, 22, 0)
-days_until_trip = max((TRIP_START.date() - date.today()).days, 0)
 quiz = data.get("quiz", {})
 quiz_questions = quiz.get("questions", []) if isinstance(quiz, dict) else quiz
 photo_stops_data = [stop for stop in data.get("photo_stops", []) if stop.get("photos")]
@@ -1053,99 +1063,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 st.write("")
-
-components.html(f"""
-<style>
-  .countdown-wrap {{
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    margin: 0 0 2px 0;
-    border-radius: 24px;
-    padding: 18px 20px;
-    background: rgba(255, 250, 241, .88);
-    border: 1px solid rgba(49, 92, 69, .12);
-    box-shadow: 0 14px 40px rgba(49,92,69,.08);
-    color: #1f2a24;
-  }}
-  .countdown-head {{
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 14px;
-    margin-bottom: 12px;
-  }}
-  .countdown-title {{
-    font-size: 1rem;
-    font-weight: 800;
-    color: #315c45;
-    letter-spacing: .02em;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }}
-  .countdown-flag {{ width: 1.35em; height: 1.35em; display: inline-block; }}
-  .countdown-date {{ color: #6f766f; font-size: .9rem; }}
-  .countdown-grid {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }}
-  .countdown-box {{
-    border-radius: 18px;
-    padding: 14px 10px;
-    text-align: center;
-    background: linear-gradient(180deg, #fffaf1, #f2e4cb);
-    border: 1px solid rgba(49, 92, 69, .10);
-  }}
-  .countdown-box strong {{
-    display: block;
-    font-size: clamp(1.9rem, 5vw, 3.1rem);
-    line-height: 1;
-    letter-spacing: -.06em;
-    font-variant-numeric: tabular-nums;
-  }}
-  .countdown-box span {{
-    display: block;
-    margin-top: 7px;
-    color: #6f766f;
-    font-size: .72rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: .12em;
-  }}
-  @media (max-width: 560px) {{ .countdown-grid {{ grid-template-columns: repeat(2, 1fr); }} }}
-</style>
-<div class="countdown-wrap" role="timer" aria-live="polite">
-  <div class="countdown-head">
-    <div class="countdown-title"><img class="countdown-flag" src="https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f1ff-1f1e6.png" alt="Südafrika-Flagge"> Countdown bis zur Südafrika-Reise</div>
-    <div class="countdown-date">Abflug: 4. August 2026 · 22:00 Uhr · noch {days_until_trip} Tage</div>
-  </div>
-  <div class="countdown-grid">
-    <div class="countdown-box"><strong id="cd-days">—</strong><span>Tage</span></div>
-    <div class="countdown-box"><strong id="cd-hours">—</strong><span>Stunden</span></div>
-    <div class="countdown-box"><strong id="cd-minutes">—</strong><span>Minuten</span></div>
-    <div class="countdown-box"><strong id="cd-seconds">—</strong><span>Sekunden</span></div>
-  </div>
-</div>
-<script>
-  const target = new Date('2026-08-04T22:00:00+02:00');
-  const pad = value => String(value).padStart(2, '0');
-  const el = id => document.getElementById(id);
-  function tick() {{
-    const now = new Date();
-    const diff = target - now;
-    if (diff <= 0) {{
-      el('cd-days').textContent = '0';
-      el('cd-hours').textContent = '00';
-      el('cd-minutes').textContent = '00';
-      el('cd-seconds').textContent = '00';
-      return;
-    }}
-    const total = Math.floor(diff / 1000);
-    el('cd-days').textContent = Math.floor(total / 86400);
-    el('cd-hours').textContent = pad(Math.floor((total % 86400) / 3600));
-    el('cd-minutes').textContent = pad(Math.floor((total % 3600) / 60));
-    el('cd-seconds').textContent = pad(total % 60);
-  }}
-  tick();
-  setInterval(tick, 1000);
-</script>
-""", height=178)
 
 show_quiz_answers = st.query_params.get("show") == "answers"
 
