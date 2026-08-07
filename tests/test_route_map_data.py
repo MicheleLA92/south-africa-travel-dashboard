@@ -271,7 +271,10 @@ def test_franschhoek_wine_tram_activity_has_photo_and_map_coordinates():
     assert activity["region"] == "Kapstadt"
     assert -34 <= activity["lat"] <= -33
     assert 19 <= activity["lon"] <= 20
-    assert activity["images"] == ["assets/franschhoek-wine-tram/franschhoek-wine-tram-01.jpg"]
+    assert activity["images"] == [
+        "assets/franschhoek-wine-tram/franschhoek-wine-tram-01.jpg",
+        "assets/franschhoek-wine-tram/franschhoek-wine-tram-02.jpg",
+    ]
     for photo in activity["images"]:
         assert Path(photo).exists(), f"Missing Franschhoek Wine Tram photo: {photo}"
 
