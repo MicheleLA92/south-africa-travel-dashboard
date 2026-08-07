@@ -414,6 +414,7 @@ def render_quiz_answer_summary(quiz_questions):
 
 PHOTO_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f4f7.png"
 RESTAURANT_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f374.png"
+ACTIVITY_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f377.png"
 ELEPHANT_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f418.png"
 
 
@@ -448,6 +449,22 @@ def recommendation_images(item):
     return item.get("images") or ([item["image"]] if item.get("image") else [])
 
 
+def photo_stop_icon_url(stop):
+    if stop.get("kind") == "restaurant":
+        return RESTAURANT_MAP_ICON_URL
+    if stop.get("kind") == "activity":
+        return ACTIVITY_MAP_ICON_URL
+    return PHOTO_MAP_ICON_URL
+
+
+def photo_stop_menu_icon(stop):
+    if stop.get("kind") == "restaurant":
+        return "🍴"
+    if stop.get("kind") == "activity":
+        return "🍷"
+    return "📷"
+
+
 def get_photo_stop_entries(data):
     photo_stops = [stop for stop in data.get("photo_stops", []) if stop.get("photos")]
     existing_names = {stop["name"] for stop in photo_stops}
@@ -464,7 +481,7 @@ def get_photo_stop_entries(data):
             images = recommendation_images(item)
             if not images or "lat" not in item or "lon" not in item:
                 continue
-            kind = "restaurant" if recommendation_kind == "restaurant" else "photo"
+            kind = "restaurant" if recommendation_kind == "restaurant" else ("activity" if recommendation_kind == "activity" else "photo")
             photo_stops.append(
                 {
                     "name": item["name"],
@@ -570,7 +587,7 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
             "label_text": stop["name"],
             "photo_count": len(stop.get("photos", [])),
             "icon_data": {
-                "url": RESTAURANT_MAP_ICON_URL if stop.get("kind") == "restaurant" else PHOTO_MAP_ICON_URL,
+                "url": photo_stop_icon_url(stop),
                 "width": 72,
                 "height": 72,
                 "anchorY": 36,
@@ -674,7 +691,7 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
         on_select="rerun",
         key=map_key,
     )
-    st.caption("📷 Foto-Spot · 🍴 Restaurant/Food · 🐘 Addo Elephant Park · Blau = Küstenroute · Gold = Inland/Safari. Tipp: Symbol antippen, um Fotos zu öffnen.")
+    st.caption("📷 Foto-Spot · 🍴 Restaurant/Food · 🍷 Aktivität · 🐘 Addo Elephant Park · Blau = Küstenroute · Gold = Inland/Safari. Tipp: Symbol antippen, um Fotos zu öffnen.")
 
     if photo_stops:
         photo_stop_names = {stop["name"] for stop in photo_stops}
@@ -735,7 +752,7 @@ def render_photo_map(data, map_key="photo_map"):
             "label_text": stop["name"],
             "photo_count": len(stop.get("photos", [])),
             "icon_data": {
-                "url": RESTAURANT_MAP_ICON_URL if stop.get("kind") == "restaurant" else PHOTO_MAP_ICON_URL,
+                "url": photo_stop_icon_url(stop),
                 "width": 72,
                 "height": 72,
                 "anchorY": 36,
@@ -781,7 +798,7 @@ def render_photo_map(data, map_key="photo_map"):
         on_select="rerun",
         key=map_key,
     )
-    st.caption("📷 Foto-Spot · 🍴 Restaurant/Food · Symbol antippen, um die Fotos zu öffnen.")
+    st.caption("📷 Foto-Spot · 🍴 Restaurant/Food · 🍷 Aktivität · Symbol antippen, um die Fotos zu öffnen.")
 
     selected_photo_stop_name = None
     try:
@@ -875,7 +892,7 @@ with st.sidebar:
 
                 if st.session_state[region_state_key]:
                     for photo_stop in region_photo_stops:
-                        icon = "🍴" if photo_stop.get("kind") == "restaurant" else "📷"
+                        icon = photo_stop_menu_icon(photo_stop)
                         if st.button(f"   {icon} {photo_stop['name']}", key=f"nav_photo_{route_stop_anchor(photo_stop['name'])}", use_container_width=True):
                             open_section(photo_stop=photo_stop["name"])
     with st.expander("⭐ Top Empfehlungen", expanded=selected_page == "recommendations"):
