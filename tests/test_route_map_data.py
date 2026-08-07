@@ -140,7 +140,10 @@ def test_kapstadt_photo_stop_has_preferred_mountain_photo():
 
     assert kapstadt is not None
     assert kapstadt["region"] == "Kapstadt"
-    assert kapstadt["photos"] == ["assets/kapstadt-coast-fotostopp-02.jpg"]
+    assert kapstadt["photos"] == [
+        "assets/kapstadt-coast-fotostopp-02.jpg",
+        "assets/kapstadt-camps-bay-fotostopp.jpg",
+    ]
     for photo in kapstadt["photos"]:
         assert Path(photo).exists(), f"Missing Kapstadt photo: {photo}"
 
