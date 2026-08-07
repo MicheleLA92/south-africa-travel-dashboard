@@ -1047,8 +1047,11 @@ if selected_page:
             if activities_page:
                 for index, activity in enumerate(activities_page):
                     with st.container(border=True):
-                        st.markdown('<p class="small"><b>Aktivitäten</b></p>', unsafe_allow_html=True)
+                        st.markdown(f"<p class=\"small\"><b>Aktivität · {activity.get('location', '')}</b></p>", unsafe_allow_html=True)
                         st.markdown(f"### {activity['name']}")
+                        gallery_images = activity.get("images") or ([activity["image"]] if activity.get("image") else [])
+                        if gallery_images:
+                            render_image_carousel(gallery_images, f"activity-page-carousel-{index}", object_fit="contain", height_px=430)
                         st.write(activity.get('why', 'Ausgewählte Aktivität für die Reise.'))
                         if activity.get("tip"):
                             st.caption(activity["tip"])

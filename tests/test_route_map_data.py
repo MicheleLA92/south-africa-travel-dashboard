@@ -261,6 +261,21 @@ def test_noordhoek_beach_is_on_photo_map_with_sunset_photos():
         assert Path(photo).exists(), f"Missing Noordhoek Beach photo: {photo}"
 
 
+def test_franschhoek_wine_tram_activity_has_photo_and_map_coordinates():
+    data = load_data()
+    activity = next((item for item in data.get("activities", []) if item["name"] == "Franschhoek Wine Tram"), None)
+
+    assert activity is not None
+    assert activity["location"] == "Franschhoek"
+    assert activity["link"] == "https://maps.app.goo.gl/PWEVXGeEe1G4KaHj6"
+    assert activity["region"] == "Kapstadt"
+    assert -34 <= activity["lat"] <= -33
+    assert 19 <= activity["lon"] <= 20
+    assert activity["images"] == ["assets/franschhoek-wine-tram/franschhoek-wine-tram-01.jpg"]
+    for photo in activity["images"]:
+        assert Path(photo).exists(), f"Missing Franschhoek Wine Tram photo: {photo}"
+
+
 def test_all_photo_stops_are_grouped_by_region():
     data = load_data()
     regions = {stop.get("region") for stop in data["photo_stops"]}

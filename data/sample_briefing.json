@@ -290,6 +290,21 @@
       ]
     }
   ],
+  "activities": [
+    {
+      "name": "Franschhoek Wine Tram",
+      "location": "Franschhoek",
+      "why": "Weintram-Erlebnis durch Franschhoek – eine entspannte Aktivität zwischen Weinbergen, Aussicht und kleinen Stopps.",
+      "tip": "",
+      "link": "https://maps.app.goo.gl/PWEVXGeEe1G4KaHj6",
+      "lat": -33.9099,
+      "lon": 19.1194,
+      "region": "Kapstadt",
+      "images": [
+        "assets/franschhoek-wine-tram/franschhoek-wine-tram-01.jpg"
+      ]
+    }
+  ],
   "preparation": [
     {
       "task": "Reisemedizinische Beratung / Malaria-Prophylaxe klären",
