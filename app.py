@@ -417,6 +417,15 @@ RESTAURANT_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/as
 ACTIVITY_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f377.png"
 ELEPHANT_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f418.png"
 
+MAP_MARKER_PIXEL_OFFSETS = {
+    "Kapstadt": [-58, -10],
+    "FYN Cape Town": [-24, -54],
+    "Pauline's Greenpoint": [24, -52],
+    "Noordhoek Beach": [-64, 18],
+    "Chefs Warehouse at Tintswalo Atlantic": [24, 18],
+    "Franschhoek Wine Tram": [70, -8],
+}
+
 
 def render_private_upload_folder():
     upload_password = get_upload_password()
@@ -463,6 +472,15 @@ def photo_stop_menu_icon(stop):
     if stop.get("kind") == "activity":
         return "🍷"
     return "📷"
+
+
+def photo_stop_icon_pixel_offset(stop):
+    return MAP_MARKER_PIXEL_OFFSETS.get(stop.get("name"), [0, 0])
+
+
+def photo_stop_label_pixel_offset(stop, label_gap=-30):
+    icon_offset_x, icon_offset_y = photo_stop_icon_pixel_offset(stop)
+    return [icon_offset_x, icon_offset_y + label_gap]
 
 
 def get_photo_stop_entries(data):
@@ -585,6 +603,8 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
             **stop,
             "position": [stop["lon"], stop["lat"]],
             "label_text": stop["name"],
+            "icon_pixel_offset": photo_stop_icon_pixel_offset(stop),
+            "label_pixel_offset": photo_stop_label_pixel_offset(stop),
             "photo_count": len(stop.get("photos", [])),
             "icon_data": {
                 "url": photo_stop_icon_url(stop),
@@ -649,6 +669,7 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
                     photo_stops,
                     get_icon="icon_data",
                     get_position="position",
+                    get_pixel_offset="icon_pixel_offset",
                     get_size=1.5,
                     size_scale=16,
                     pickable=True,
@@ -661,7 +682,7 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
                     get_color=[31, 42, 36, 255],
                     get_size=13,
                     get_alignment_baseline="bottom",
-                    get_pixel_offset=[0, -24],
+                    get_pixel_offset="label_pixel_offset",
                 ),
                 pdk.Layer(
                     "IconLayer",
@@ -750,6 +771,8 @@ def render_photo_map(data, map_key="photo_map"):
             **stop,
             "position": [stop["lon"], stop["lat"]],
             "label_text": stop["name"],
+            "icon_pixel_offset": photo_stop_icon_pixel_offset(stop),
+            "label_pixel_offset": photo_stop_label_pixel_offset(stop, label_gap=-34),
             "photo_count": len(stop.get("photos", [])),
             "icon_data": {
                 "url": photo_stop_icon_url(stop),
@@ -768,13 +791,14 @@ def render_photo_map(data, map_key="photo_map"):
     map_state = st.pydeck_chart(
         pdk.Deck(
             map_style="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
-            initial_view_state=pdk.ViewState(latitude=-27.2, longitude=23.7, zoom=3.05, pitch=0),
+            initial_view_state=pdk.ViewState(latitude=-31.3, longitude=23.7, zoom=2.85, pitch=0),
             layers=[
                 pdk.Layer(
                     "IconLayer",
                     photo_stops,
                     get_icon="icon_data",
                     get_position="position",
+                    get_pixel_offset="icon_pixel_offset",
                     get_size=1.5,
                     size_scale=20,
                     pickable=True,
@@ -787,7 +811,7 @@ def render_photo_map(data, map_key="photo_map"):
                     get_color=[31, 42, 36, 255],
                     get_size=14,
                     get_alignment_baseline="bottom",
-                    get_pixel_offset=[0, -28],
+                    get_pixel_offset="label_pixel_offset",
                 ),
             ],
             tooltip={"html": "<b>{name}</b><br>{photo_count} Fotos", "style": {"backgroundColor": "#315c45", "color": "#fffaf1"}},
