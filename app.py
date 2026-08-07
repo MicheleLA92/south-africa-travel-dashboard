@@ -1190,21 +1190,9 @@ if quiz_questions and st.session_state.get("show_friend_quiz", False):
 
 st.write("")
 
-left, right = st.columns([1.2, .8], gap="large")
-
-with left:
-    st.markdown('<div id="route-etappen"></div>', unsafe_allow_html=True)
-    st.subheader("🗺️ Route & Etappen")
-
-    render_route_map_and_timeline(data, selected_photo_stop_name, map_key="route_photo_map")
-
-
-with right:
-    st.subheader("✨ Magic Place des Tages")
-    magic = select_daily_magic_place(data)
-    st.image(magic["image"], caption=magic["caption"], use_container_width=True)
-    st.markdown(f"### {magic['name']}")
-    st.write(magic["description"])
+st.markdown('<div id="route-etappen"></div>', unsafe_allow_html=True)
+st.subheader("🗺️ Route & Etappen")
+render_route_map_and_timeline(data, selected_photo_stop_name, map_key="route_photo_map")
 
 st.write("")
 st.markdown('<div id="top-empfehlungen"></div>', unsafe_allow_html=True)
