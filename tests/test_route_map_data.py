@@ -134,6 +134,20 @@ def test_magic_places_rotate_with_unique_images():
         assert place["link"].startswith("https://")
 
 
+def test_kapstadt_photo_stop_has_added_coast_photo():
+    data = load_data()
+    kapstadt = next((stop for stop in data.get("photo_stops", []) if stop.get("name") == "Kapstadt"), None)
+
+    assert kapstadt is not None
+    assert kapstadt["region"] == "Kapstadt"
+    assert kapstadt["photos"] == [
+        "assets/kapstadt-coast-fotostopp.jpg",
+        "assets/kapstadt-coast-fotostopp-02.jpg",
+    ]
+    for photo in kapstadt["photos"]:
+        assert Path(photo).exists(), f"Missing Kapstadt photo: {photo}"
+
+
 def test_fyn_personal_evening_photo_stop_is_published():
     data = load_data()
     fyn = next((stop for stop in data.get("photo_stops", []) if stop.get("name") == "FYN Cape Town"), None)
