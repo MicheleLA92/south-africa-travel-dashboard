@@ -415,6 +415,7 @@ def render_quiz_answer_summary(quiz_questions):
 PHOTO_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f4f7.png"
 RESTAURANT_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f374.png"
 ACTIVITY_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f377.png"
+PENGUIN_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f427.png"
 ELEPHANT_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f418.png"
 
 
@@ -452,6 +453,8 @@ def recommendation_images(item):
 def photo_stop_icon_url(stop):
     if stop.get("kind") == "restaurant":
         return RESTAURANT_MAP_ICON_URL
+    if stop.get("kind") == "penguin":
+        return PENGUIN_MAP_ICON_URL
     if stop.get("kind") == "activity":
         return ACTIVITY_MAP_ICON_URL
     return PHOTO_MAP_ICON_URL
@@ -460,6 +463,8 @@ def photo_stop_icon_url(stop):
 def photo_stop_menu_icon(stop):
     if stop.get("kind") == "restaurant":
         return "🍴"
+    if stop.get("kind") == "penguin":
+        return "🐧"
     if stop.get("kind") == "activity":
         return "🍷"
     return "📷"
@@ -481,7 +486,7 @@ def get_photo_stop_entries(data):
             images = recommendation_images(item)
             if not images or "lat" not in item or "lon" not in item:
                 continue
-            kind = "restaurant" if recommendation_kind == "restaurant" else ("activity" if recommendation_kind == "activity" else "photo")
+            kind = item.get("kind") or ("restaurant" if recommendation_kind == "restaurant" else ("activity" if recommendation_kind == "activity" else "photo"))
             photo_stops.append(
                 {
                     "name": item["name"],
@@ -691,7 +696,7 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
         on_select="rerun",
         key=map_key,
     )
-    st.caption("📷 Foto-Spot · 🍴 Restaurant/Food · 🍷 Aktivität · 🐘 Addo Elephant Park · Blau = Küstenroute · Gold = Inland/Safari. Tipp: Symbol antippen, um Fotos zu öffnen.")
+    st.caption("📷 Foto-Spot · 🍴 Restaurant/Food · 🍷 Aktivität · 🐧 Pinguine · 🐘 Addo Elephant Park · Blau = Küstenroute · Gold = Inland/Safari. Tipp: Symbol antippen, um Fotos zu öffnen.")
 
     if photo_stops:
         photo_stop_names = {stop["name"] for stop in photo_stops}
@@ -798,7 +803,7 @@ def render_photo_map(data, map_key="photo_map"):
         on_select="rerun",
         key=map_key,
     )
-    st.caption("📷 Foto-Spot · 🍴 Restaurant/Food · 🍷 Aktivität · Symbol antippen, um die Fotos zu öffnen.")
+    st.caption("📷 Foto-Spot · 🍴 Restaurant/Food · 🍷 Aktivität · 🐧 Pinguine · Symbol antippen, um die Fotos zu öffnen.")
 
     selected_photo_stop_name = None
     try:

@@ -295,6 +295,25 @@ def test_franschhoek_wine_tram_activity_has_photo_and_map_coordinates():
         assert Path(photo).exists(), f"Missing Franschhoek Wine Tram photo: {photo}"
 
 
+def test_stony_point_penguin_activity_has_photos_and_penguin_kind():
+    data = load_data()
+    activity = next((item for item in data.get("activities", []) if item["name"] == "Stony Point Penguin Colony"), None)
+
+    assert activity is not None
+    assert activity["location"] == "Betty's Bay / Stony Point"
+    assert activity["link"] == "https://maps.app.goo.gl/TKzg4csA1hKPNXdV6"
+    assert activity["region"] == "Kapstadt"
+    assert activity["kind"] == "penguin"
+    assert -35 <= activity["lat"] <= -34
+    assert 18 <= activity["lon"] <= 19
+    assert activity["images"] == [
+        "assets/stony-point-penguins/stony-point-penguins-01.jpg",
+        "assets/stony-point-penguins/stony-point-penguins-02.jpg",
+    ]
+    for photo in activity["images"]:
+        assert Path(photo).exists(), f"Missing Stony Point Penguin photo: {photo}"
+
+
 def test_all_photo_stops_are_grouped_by_region():
     data = load_data()
     regions = {stop.get("region") for stop in data["photo_stops"]}
