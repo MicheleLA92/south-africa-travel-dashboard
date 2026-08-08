@@ -625,16 +625,25 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
                     get_alignment_baseline="bottom",
                     get_pixel_offset=[0, -18],
                 ),
+                pdk.Layer(
+                    "IconLayer",
+                    photo_stops,
+                    get_icon="icon_data",
+                    get_position="position",
+                    get_size=1.0,
+                    size_scale=10,
+                    pickable=True,
+                ),
             ],
             tooltip={"html": "<b>{name}</b>", "style": {"backgroundColor": "#315c45", "color": "#fffaf1"}},
         ),
         use_container_width=True,
-        height=380,
+        height=400,
         selection_mode="single-object",
         on_select="rerun",
         key=map_key,
     )
-    st.caption("Tatsächlich gefahrene Route. Die Foto-, Restaurant- und Aktivitäts-Symbole findest du in der separaten Fotokarte.")
+    st.caption("Tatsächlich gefahrene Route · kleine Symbole: 📷 Foto · 🍴 Restaurant · 🍷 Aktivität · 🐧 Pinguine. Symbol antippen, um Fotos zu öffnen.")
 
     if photo_stops:
         photo_stop_names = {stop["name"] for stop in photo_stops}
