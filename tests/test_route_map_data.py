@@ -236,6 +236,24 @@ def test_chefs_warehouse_tintswalo_has_uploaded_food_gallery():
         assert Path(photo).exists(), f"Missing Chefs Warehouse Tintswalo photo: {photo}"
 
 
+def test_carola_anns_mossel_bay_is_recommended_with_food_photos():
+    data = load_data()
+    restaurant = next(item for item in data["restaurants"] if item["name"] == "Carola Ann's")
+
+    expected = [
+        "assets/carola-anns-mossel-bay/carola-anns-mossel-bay-01.jpg",
+        "assets/carola-anns-mossel-bay/carola-anns-mossel-bay-02.jpg",
+    ]
+    assert restaurant["location"] == "Mossel Bay / 38 Marsh Street"
+    assert restaurant["link"] == "https://maps.app.goo.gl/9KFzrHL45iUrntcg6?g_st=ac"
+    assert restaurant["region"] == "Garden Route"
+    assert -35 <= restaurant["lat"] <= -34
+    assert 22 <= restaurant["lon"] <= 23
+    assert restaurant["images"] == expected
+    for photo in expected:
+        assert Path(photo).exists(), f"Missing Carola Ann's photo: {photo}"
+
+
 def test_paulines_greenpoint_is_on_photo_map():
     data = load_data()
     spot = next((item for item in data["photo_stops"] if item["name"] == "Pauline's Greenpoint"), None)
