@@ -8,8 +8,8 @@
     "metrics": [
       {
         "label": "Route",
-        "value": "5 Etappen",
-        "hint": "Cape Town bis Kruger"
+        "value": "5 echte Stopps",
+        "hint": "Cape Town bis Mossel Bay"
       },
       {
         "label": "Fokus",
@@ -29,24 +29,19 @@
     ],
     "news": [
       "Reisehinweise vor Abreise prüfen: Auswärtiges Amt, GOV.UK und US Travel Advisories führen weiterhin Hinweise zu Kriminalität, Demonstrationen und regionalen Risiken.",
-      "Für die Route gilt: In Städten wie Cape Town, East London und Johannesburg Transfers bewusst planen, Wertsachen unauffällig halten und nach Einbruch der Dunkelheit eher Uber/Transfer nutzen.",
+      "Für die aktuell gemachte Route gilt: Cape Town, Franschhoek, Betty's Bay, Swellendam und Mossel Bay bewusst ruhig fahren, Fotostopps einplanen und nach Einbruch der Dunkelheit eher kurze Transfers wählen.",
       "Load-Shedding kann je nach Lage kurzfristig wieder Thema sein; Unterkünfte mit Backup-Strom/WLAN sind für Roadtrip-Planung und Navigation praktisch."
     ],
-    "health": "Für Kruger im August Malaria-Risiko individuell mit Reisemedizin prüfen; Mückenschutz, lange helle Kleidung und Repellent einplanen.",
+    "health": "Für die aktuelle Küsten- und Garden-Route-Etappe reichen Sonnenschutz, warme Schichten und wetterfeste Kleidung für wechselhafte Küstentage.",
     "mosquito_level": 42
   },
   "route": [
     {
       "emoji": "🌊",
       "name": "Cape Town",
-      "summary": "Start mit Tafelberg, Küste, Weinregion und urbanem Food-Fokus.",
-      "detail": "Ideal für Akklimatisierung, Tagesausflüge ans Kap und erste Restaurant-/Weinbuchungen. Im August kann es kühl und regnerisch sein.",
-      "tags": [
-        "City",
-        "Food",
-        "Tafelberg",
-        "Wein"
-      ],
+      "summary": "Start mit Stadt, Küste, Lion’s Head, Camps Bay und ersten Food-Momenten.",
+      "detail": "Der echte Reisestart: Cape-Town-Gefühl, Meer, Berge und die ersten Lieblingsorte.",
+      "tags": ["City", "Küste", "Food", "Berge"],
       "risk": "low",
       "risk_de": "niedrig",
       "weather": "kühl / wechselhaft",
@@ -55,76 +50,56 @@
       "lon": 18.4241
     },
     {
-      "emoji": "🌿",
-      "name": "Garden Route",
-      "summary": "Küstenstraße mit Wäldern, Lagunen, Knysna, Tsitsikamma und kleinen Stopps.",
-      "detail": "Perfekt für langsames Roadtrip-Tempo. Plane Puffer ein, weil Fotostopps und kurze Wanderungen schnell Zeit fressen.",
-      "tags": [
-        "Roadtrip",
-        "Natur",
-        "Knysna",
-        "Tsitsikamma"
-      ],
+      "emoji": "🍷",
+      "name": "Franschhoek",
+      "summary": "Weinberge, Wine Tram und ein ruhiger Moment zum Entspannen.",
+      "detail": "Echte Etappe mit Franschhoek Wine Tram und dem schönen Moment im Weingut Bacco.",
+      "tags": ["Wein", "Wine Tram", "Entspannen", "Bacco"],
       "risk": "low",
       "risk_de": "niedrig",
       "weather": "mild / frisch",
-      "link": "https://www.google.com/maps/search/Garden+Route+South+Africa",
-      "lat": -34.0363,
-      "lon": 23.0471
+      "link": "https://www.google.com/maps/search/Franschhoek+South+Africa",
+      "lat": -33.9099,
+      "lon": 19.1194
+    },
+    {
+      "emoji": "🐧",
+      "name": "Betty's Bay / Stony Point",
+      "summary": "Pinguin-Stopp direkt an der Küste.",
+      "detail": "Toller Moment bei den Pinguinen — ein echter Küstenstopp, der in Erinnerung bleibt.",
+      "tags": ["Pinguine", "Küste", "Foto-Stopp", "Betty’s Bay"],
+      "risk": "low",
+      "risk_de": "niedrig",
+      "weather": "mild / windig",
+      "link": "https://maps.app.goo.gl/TKzg4csA1hKPNXdV6",
+      "lat": -34.3733,
+      "lon": 18.8948
+    },
+    {
+      "emoji": "🌿",
+      "name": "Swellendam",
+      "summary": "Zwischenstopp auf der Fahrt Richtung Mossel Bay.",
+      "detail": "Teil der tatsächlich gefahrenen Route: über Swellendam weiter entlang der Garden Route Richtung Mossel Bay.",
+      "tags": ["Roadtrip", "Zwischenstopp", "Garden Route", "Weiterfahrt"],
+      "risk": "low",
+      "risk_de": "niedrig",
+      "weather": "mild / frisch",
+      "link": "https://www.google.com/maps/search/Swellendam+South+Africa",
+      "lat": -34.0226,
+      "lon": 20.4417
     },
     {
       "emoji": "🌊",
-      "name": "East London",
-      "summary": "Küstenstopp am Eastern Cape mit Strand, Flussmündung und ruhigerem Roadtrip-Tempo.",
-      "detail": "Guter Wendepunkt nach der Garden Route/Eastern Cape-Küste, bevor es Richtung Johannesburg und Safari weitergeht. Fokus: Strandspaziergang, sichere Unterkunftslage und entspannte Pause.",
-      "tags": [
-        "Beach",
-        "Eastern Cape",
-        "Pause",
-        "Küste"
-      ],
-      "risk": "medium",
-      "risk_de": "mittel",
-      "weather": "mild / windig",
-      "link": "https://www.google.com/maps/search/East+London+South+Africa",
-      "lat": -33.0153,
-      "lon": 27.9116
-    },
-    {
-      "emoji": "🏙️",
-      "name": "Johannesburg",
-      "summary": "Urbaner Transfer- und Kulturstopp vor dem Safari-Teil.",
-      "detail": "Fokus auf sichere Transfers, gute Unterkunftslage und optional Apartheid Museum / Soweto Tour.",
-      "tags": [
-        "Transfer",
-        "Kultur",
-        "Museum",
-        "City"
-      ],
-      "risk": "medium",
-      "risk_de": "mittel",
-      "weather": "trocken / sonnig",
-      "link": "https://www.google.com/maps/search/Johannesburg+South+Africa",
-      "lat": -26.2041,
-      "lon": 28.0473
-    },
-    {
-      "emoji": "🦁",
-      "name": "Kruger National Park",
-      "summary": "Safari-Finale mit Trockenzeit, guten Sichtungen und Malaria-Check.",
-      "detail": "August ist oft stark für Tierbeobachtung. Früh buchen, Gate-Zeiten beachten, Fernglas und warme Morgenkleidung einpacken.",
-      "tags": [
-        "Safari",
-        "Big Five",
-        "Trockenzeit",
-        "Lodge"
-      ],
-      "risk": "high",
-      "risk_de": "hoch",
-      "weather": "trocken / kühle Morgen",
-      "link": "https://www.google.com/maps/search/Kruger+National+Park",
-      "lat": -24.0112,
-      "lon": 31.4858
+      "name": "Mossel Bay",
+      "summary": "Küstenstopp an der Garden Route mit Restaurantmomenten.",
+      "detail": "Aktueller echter Stopp an der Küste — mit Mossel-Bay-Gefühl und Carola Ann’s als Restaurant-Empfehlung.",
+      "tags": ["Küste", "Garden Route", "Restaurant", "Mossel Bay"],
+      "risk": "low",
+      "risk_de": "niedrig",
+      "weather": "mild / frisch",
+      "link": "https://www.google.com/maps/search/Mossel+Bay+South+Africa",
+      "lat": -34.1831,
+      "lon": 22.146
     }
   ],
   "magic_place": {
@@ -366,60 +341,11 @@
     }
   ],
   "map_route": [
-    {
-      "name": "Cape Town",
-      "lat": -33.9249,
-      "lon": 18.4241,
-      "kind": "coast"
-    },
-    {
-      "name": "Hermanus",
-      "lat": -34.4092,
-      "lon": 19.2504,
-      "kind": "coast"
-    },
-    {
-      "name": "Mossel Bay",
-      "lat": -34.1831,
-      "lon": 22.146,
-      "kind": "coast"
-    },
-    {
-      "name": "Knysna",
-      "lat": -34.0351,
-      "lon": 23.0471,
-      "kind": "coast"
-    },
-    {
-      "name": "Tsitsikamma",
-      "lat": -34.0219,
-      "lon": 23.8958,
-      "kind": "coast"
-    },
-    {
-      "name": "Gqeberha / Port Elizabeth",
-      "lat": -33.9608,
-      "lon": 25.6022,
-      "kind": "coast"
-    },
-    {
-      "name": "East London",
-      "lat": -33.0153,
-      "lon": 27.9116,
-      "kind": "coast"
-    },
-    {
-      "name": "Johannesburg",
-      "lat": -26.2041,
-      "lon": 28.0473,
-      "kind": "inland"
-    },
-    {
-      "name": "Kruger National Park",
-      "lat": -24.0112,
-      "lon": 31.4858,
-      "kind": "safari"
-    }
+    {"name": "Cape Town", "lat": -33.9249, "lon": 18.4241, "kind": "actual"},
+    {"name": "Franschhoek", "lat": -33.9099, "lon": 19.1194, "kind": "actual"},
+    {"name": "Betty's Bay / Stony Point", "lat": -34.3733, "lon": 18.8948, "kind": "actual"},
+    {"name": "Swellendam", "lat": -34.0226, "lon": 20.4417, "kind": "actual"},
+    {"name": "Mossel Bay", "lat": -34.1831, "lon": 22.146, "kind": "actual"}
   ],
   "map_elephant_marker": {
     "icon": "🐘",

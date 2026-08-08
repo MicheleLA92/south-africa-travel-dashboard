@@ -18,36 +18,36 @@ def test_route_stops_have_coordinates_for_map():
         assert 16 <= stop["lon"] <= 33
 
 
-def test_route_order_matches_trip_plan():
+def test_route_order_matches_actual_trip():
     data = load_data()
 
     assert [stop["name"] for stop in data["route"]] == [
         "Cape Town",
-        "Garden Route",
-        "East London",
-        "Johannesburg",
-        "Kruger National Park",
+        "Franschhoek",
+        "Betty's Bay / Stony Point",
+        "Swellendam",
+        "Mossel Bay",
     ]
 
 
-def test_map_route_follows_coast_before_turning_inland():
+def test_map_route_shows_only_actual_driven_route():
     data = load_data()
     route = data["map_route"]
     names = [point["name"] for point in route]
 
-    assert names[:7] == [
+    assert names == [
         "Cape Town",
-        "Hermanus",
+        "Franschhoek",
+        "Betty's Bay / Stony Point",
+        "Swellendam",
         "Mossel Bay",
-        "Knysna",
-        "Tsitsikamma",
-        "Gqeberha / Port Elizabeth",
-        "East London",
     ]
-    assert "Durban" not in names
-    assert "Coffee Bay / Wild Coast" not in names
-    assert names[-2:] == ["Johannesburg", "Kruger National Park"]
-    assert len(route) >= 9
+    assert all(point["kind"] == "actual" for point in route)
+    assert "East London" not in names
+    assert "Johannesburg" not in names
+    assert "Kruger National Park" not in names
+    assert "Knysna" not in names
+    assert "Tsitsikamma" not in names
 
 
 def test_map_has_elephant_marker_near_port_elizabeth():

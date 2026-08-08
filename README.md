@@ -2,7 +2,7 @@
 
 Kostenlos teilbares Streamlit-Dashboard für die Südafrika-Reise 2026.
 
-Route: Cape Town → Coast → East London → Johannesburg → Kruger National Park  
+Route: Cape Town → Franschhoek → Betty’s Bay → Swellendam → Mossel Bay  
 Abreise: 4. August 2026
 
 ## Lokal starten

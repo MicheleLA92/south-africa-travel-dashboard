@@ -574,8 +574,6 @@ def summarize_quiz_results(results, quiz_questions):
 
 def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="route_photo_map"):
     map_route = data["map_route"]
-    coastal_points = [point for point in map_route if point["kind"] == "coast"]
-    inland_points = [point for point in map_route if point["kind"] != "coast"]
     route_points = [
         {
             **point,
@@ -601,41 +599,19 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
         for stop in get_photo_stop_entries(data)
         if stop.get("photos")
     ]
-    elephant_marker = {
-        **data["map_elephant_marker"],
-        "position": [data["map_elephant_marker"]["lon"], data["map_elephant_marker"]["lat"]],
-        "label_text": "Addo Elephant Park",
-        "photo_count": "",
-        "icon_data": {
-            "url": ELEPHANT_MAP_ICON_URL,
-            "width": 72,
-            "height": 72,
-            "anchorY": 36,
-        },
-    }
-    coastal_path = [{"name": "Küstenroute Cape Town → East London", "path": [[point["lon"], point["lat"]] for point in coastal_points]}]
-    inland_path = [{"name": "✈️ Inland & Safari East London → Johannesburg → Kruger", "path": [[point["lon"], point["lat"]] for point in [coastal_points[-1], *inland_points]]}]
+    actual_route_path = [{"name": "Tatsächlich gefahrene Route", "path": [[point["lon"], point["lat"]] for point in map_route]}]
 
     route_map_state = st.pydeck_chart(
         pdk.Deck(
             map_style="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
-            initial_view_state=pdk.ViewState(latitude=-29.2, longitude=25.2, zoom=3.75, pitch=0),
+            initial_view_state=pdk.ViewState(latitude=-34.02, longitude=20.25, zoom=6.0, pitch=0),
             layers=[
                 pdk.Layer(
                     "PathLayer",
-                    coastal_path,
+                    actual_route_path,
                     get_path="path",
                     get_color=[0, 93, 115, 255],
                     width_min_pixels=8,
-                    rounded=True,
-                    pickable=True,
-                ),
-                pdk.Layer(
-                    "PathLayer",
-                    inland_path,
-                    get_path="path",
-                    get_color=[180, 108, 20, 255],
-                    width_min_pixels=7,
                     rounded=True,
                     pickable=True,
                 ),
@@ -668,25 +644,6 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
                     get_alignment_baseline="bottom",
                     get_pixel_offset=[0, -24],
                 ),
-                pdk.Layer(
-                    "IconLayer",
-                    [elephant_marker],
-                    get_icon="icon_data",
-                    get_position="position",
-                    get_size=1.5,
-                    size_scale=12,
-                    pickable=True,
-                ),
-                pdk.Layer(
-                    "TextLayer",
-                    [elephant_marker],
-                    get_position="position",
-                    get_text="label_text",
-                    get_color=[49, 92, 69, 255],
-                    get_size=11,
-                    get_alignment_baseline="bottom",
-                    get_pixel_offset=[0, -18],
-                ),
             ],
             tooltip={"html": "<b>{name}</b>", "style": {"backgroundColor": "#315c45", "color": "#fffaf1"}},
         ),
@@ -696,7 +653,7 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
         on_select="rerun",
         key=map_key,
     )
-    st.caption("📷 Foto-Spot · 🍴 Restaurant/Food · 🍷 Aktivität · 🐧 Pinguine · 🐘 Addo Elephant Park · Blau = Küstenroute · Gold = Inland/Safari. Tipp: Symbol antippen, um Fotos zu öffnen.")
+    st.caption("Tatsächlich gefahrene Route · 📷 Foto-Spot · 🍴 Restaurant/Food · 🍷 Aktivität · 🐧 Pinguine. Tipp: Symbol antippen, um Fotos zu öffnen.")
 
     if photo_stops:
         photo_stop_names = {stop["name"] for stop in photo_stops}
@@ -1086,7 +1043,7 @@ if selected_page:
 
 st.markdown("""
 <div class="hero">
-  <span class="badge">Cape Town → East London → Johannesburg → Kruger</span>
+  <span class="badge">Cape Town → Franschhoek → Betty’s Bay → Swellendam → Mossel Bay</span>
   <h1>Südafrika Reise</h1>
 </div>
 """, unsafe_allow_html=True)
