@@ -611,7 +611,7 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
                     actual_route_path,
                     get_path="path",
                     get_color=[0, 93, 115, 255],
-                    width_min_pixels=8,
+                    width_min_pixels=4,
                     rounded=True,
                     pickable=True,
                 ),
