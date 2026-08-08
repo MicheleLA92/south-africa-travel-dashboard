@@ -1041,7 +1041,7 @@ if selected_page:
         st.write("")
         if current == "restaurant":
             for index, restaurant_item in enumerate(restaurants_page):
-                with st.container(border=True):
+                with st.container():
                     st.markdown(f"<p class=\"small\"><b>Restaurant · {restaurant_item.get('location', '')}</b></p>", unsafe_allow_html=True)
                     st.markdown(f"### {restaurant_item['name']}")
                     gallery_images = restaurant_item.get("images") or ([restaurant_item["image"]] if restaurant_item.get("image") else [])
@@ -1211,7 +1211,7 @@ activities = data.get("activities", [])
 with r1:
     st.markdown('<div id="top-restaurant"></div>', unsafe_allow_html=True)
     for index, restaurant_item in enumerate(restaurants):
-        with st.container(border=True):
+        with st.container():
             st.markdown(f"<p class=\"small\"><b>Restaurant · {restaurant_item.get('location', '')}</b></p>", unsafe_allow_html=True)
             st.markdown(f"### {restaurant_item['name']}")
             st.write(restaurant_item["why"])
