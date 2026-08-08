@@ -254,6 +254,13 @@ def test_carola_anns_mossel_bay_is_recommended_with_food_photos():
         assert Path(photo).exists(), f"Missing Carola Ann's photo: {photo}"
 
 
+def test_restaurant_recommendations_do_not_use_secondary_tip_text():
+    data = load_data()
+
+    for restaurant in data["restaurants"]:
+        assert restaurant.get("tip", "") == ""
+
+
 def test_paulines_greenpoint_is_on_photo_map():
     data = load_data()
     spot = next((item for item in data["photo_stops"] if item["name"] == "Pauline's Greenpoint"), None)

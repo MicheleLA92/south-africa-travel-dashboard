@@ -1048,8 +1048,6 @@ if selected_page:
                     if gallery_images:
                         render_image_carousel(gallery_images, f"restaurant-page-carousel-{index}", object_fit="contain", height_px=430)
                     st.write(restaurant_item["why"])
-                    if restaurant_item.get("tip"):
-                        st.caption(restaurant_item["tip"])
                     if restaurant_item.get("link"):
                         st.link_button("Restaurant öffnen", restaurant_item["link"], key=f"restaurant_page_link_{index}")
         elif current == "stay":
@@ -1215,8 +1213,6 @@ with r1:
             st.markdown(f"<p class=\"small\"><b>Restaurant · {restaurant_item.get('location', '')}</b></p>", unsafe_allow_html=True)
             st.markdown(f"### {restaurant_item['name']}")
             st.write(restaurant_item["why"])
-            if restaurant_item.get("tip"):
-                st.caption(restaurant_item["tip"])
             if restaurant_item.get("link"):
                 st.link_button("Restaurant öffnen", restaurant_item["link"], key=f"restaurant_link_{index}")
 with r2:
