@@ -451,6 +451,15 @@ def recommendation_images(item):
     return item.get("images") or ([item["image"]] if item.get("image") else [])
 
 
+def recommendation_videos(item):
+    return item.get("videos", [])
+
+
+def render_recommendation_videos(item, key_prefix):
+    for index, video in enumerate(recommendation_videos(item)):
+        st.video(video)
+
+
 def photo_stop_icon_url(stop):
     if stop.get("kind") == "restaurant":
         return RESTAURANT_MAP_ICON_URL
@@ -1003,6 +1012,7 @@ if selected_page:
                     gallery_images = stay_item.get("images") or ([stay_item["image"]] if stay_item.get("image") else [])
                     if gallery_images:
                         render_image_carousel(gallery_images, f"stay-page-carousel-{index}")
+                    render_recommendation_videos(stay_item, f"stay-page-video-{index}")
                     st.write(stay_item["why"])
                     if stay_item.get("tip"):
                         st.caption(stay_item["tip"])
@@ -1169,6 +1179,7 @@ with r2:
             gallery_images = stay_item.get("images") or ([stay_item["image"]] if stay_item.get("image") else [])
             if gallery_images:
                 render_image_carousel(gallery_images, f"stay-carousel-{index}")
+            render_recommendation_videos(stay_item, f"stay-video-{index}")
             st.write(stay_item["why"])
             if stay_item.get("tip"):
                 st.caption(stay_item["tip"])
