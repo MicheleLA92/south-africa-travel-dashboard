@@ -576,12 +576,12 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
     map_route = data["map_route"]
     route_points = [
         {
-            **point,
-            "position": [point["lon"], point["lat"]],
+            **stop,
+            "position": [stop["lon"], stop["lat"]],
             "label": str(index),
             "photo_count": "",
         }
-        for index, point in enumerate(map_route, start=1)
+        for index, stop in enumerate(data["route"], start=1)
     ]
     photo_stops = [
         {

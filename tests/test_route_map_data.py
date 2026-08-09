@@ -35,8 +35,7 @@ def test_map_route_shows_only_actual_driven_route():
     data = load_data()
     route = data["map_route"]
     names = [point["name"] for point in route]
-
-    assert names == [
+    major_stops = [
         "Cape Town",
         "Franschhoek",
         "Betty's Bay / Stony Point",
@@ -44,7 +43,11 @@ def test_map_route_shows_only_actual_driven_route():
         "Mossel Bay",
         "Wilderness",
     ]
+
     assert all(point["kind"] == "actual" for point in route)
+    assert len(route) > len(major_stops)
+    assert [name for name in names if name in major_stops] == major_stops
+    assert {"Great Brak River", "Glentana", "George", "Victoria Bay"}.issubset(names)
     assert "East London" not in names
     assert "Johannesburg" not in names
     assert "Kruger National Park" not in names
