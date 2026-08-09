@@ -76,7 +76,7 @@ def test_moontide_riverside_lodge_replaces_rhino_post_stay():
         "assets/moontide-riverside-lodge/moontide-riverside-lodge-02.jpg",
     ]
     assert moontide["videos"] == [
-        "assets/moontide-riverside-lodge/moontide-riverside-lodge-photo-video.mp4",
+        "assets/moontide-riverside-lodge/moontide-riverside-lodge-room-tour.mp4",
     ]
     for photo in moontide["images"]:
         assert Path(photo).exists(), f"Missing Moontide Riverside Lodge photo: {photo}"
