@@ -514,6 +514,7 @@ def get_photo_stop_entries(data):
                     "region": item.get("region", "Weitere Spots"),
                     "kind": kind,
                     "photos": images,
+                    "videos": recommendation_videos(item),
                     "source": "top_recommendation",
                 }
             )
@@ -699,6 +700,7 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
                 st.markdown(f"### {selected_photo_stop['name']}")
                 st.write(selected_photo_stop.get("summary", "Bilder von diesem Reisestopp."))
                 render_image_carousel(selected_photo_stop["photos"], "route-photo-stop-gallery")
+                render_recommendation_videos(selected_photo_stop, "route-photo-stop-video")
 
     st.markdown('<div class="timeline">', unsafe_allow_html=True)
     for stop in data["route"]:
@@ -890,6 +892,7 @@ if selected_photo_stop_name:
                 object_fit="contain",
                 height_px=430,
             )
+            render_recommendation_videos(selected_photo_page, "photo-stop-page-video")
         render_back_to_overview()
         st.stop()
 
