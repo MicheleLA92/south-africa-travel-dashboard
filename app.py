@@ -1023,7 +1023,7 @@ if selected_page:
 
 st.markdown("""
 <div class="hero">
-  <span class="badge">Cape Town → Franschhoek → Betty’s Bay → Swellendam → Mossel Bay</span>
+  <span class="badge">Cape Town → Franschhoek → Betty’s Bay → Swellendam → Mossel Bay → Wilderness</span>
   <h1>Südafrika Reise</h1>
 </div>
 """, unsafe_allow_html=True)

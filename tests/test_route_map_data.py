@@ -27,6 +27,7 @@ def test_route_order_matches_actual_trip():
         "Betty's Bay / Stony Point",
         "Swellendam",
         "Mossel Bay",
+        "Wilderness",
     ]
 
 
@@ -41,6 +42,7 @@ def test_map_route_shows_only_actual_driven_route():
         "Betty's Bay / Stony Point",
         "Swellendam",
         "Mossel Bay",
+        "Wilderness",
     ]
     assert all(point["kind"] == "actual" for point in route)
     assert "East London" not in names
@@ -48,6 +50,27 @@ def test_map_route_shows_only_actual_driven_route():
     assert "Kruger National Park" not in names
     assert "Knysna" not in names
     assert "Tsitsikamma" not in names
+
+
+def test_moontide_riverside_lodge_replaces_rhino_post_stay():
+    data = load_data()
+    stays = data["stays"]
+    stay_names = [stay["name"] for stay in stays]
+    moontide = next(item for item in stays if item["name"] == "Moontide Riverside Lodge")
+
+    assert data["stay"]["name"] == "Moontide Riverside Lodge"
+    assert "Rhino Post Safari Lodge" not in stay_names
+    assert moontide["location"] == "Wilderness / Garden Route"
+    assert moontide["link"] == "https://maps.app.goo.gl/wAuc6D9jhGChsRCk6"
+    assert moontide["region"] == "Garden Route"
+    assert -34.5 <= moontide["lat"] <= -33.5
+    assert 22 <= moontide["lon"] <= 23
+    assert moontide["images"] == [
+        "assets/moontide-riverside-lodge/moontide-riverside-lodge-01.jpg",
+        "assets/moontide-riverside-lodge/moontide-riverside-lodge-02.jpg",
+    ]
+    for photo in moontide["images"]:
+        assert Path(photo).exists(), f"Missing Moontide Riverside Lodge photo: {photo}"
 
 
 def test_map_has_elephant_marker_near_port_elizabeth():

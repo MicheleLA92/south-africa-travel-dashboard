@@ -8,8 +8,8 @@
     "metrics": [
       {
         "label": "Route",
-        "value": "5 echte Stopps",
-        "hint": "Cape Town bis Mossel Bay"
+        "value": "6 echte Stopps",
+        "hint": "Cape Town bis Wilderness"
       },
       {
         "label": "Fokus",
@@ -29,7 +29,7 @@
     ],
     "news": [
       "Reisehinweise vor Abreise prüfen: Auswärtiges Amt, GOV.UK und US Travel Advisories führen weiterhin Hinweise zu Kriminalität, Demonstrationen und regionalen Risiken.",
-      "Für die aktuell gemachte Route gilt: Cape Town, Franschhoek, Betty's Bay, Swellendam und Mossel Bay bewusst ruhig fahren, Fotostopps einplanen und nach Einbruch der Dunkelheit eher kurze Transfers wählen.",
+      "Für die aktuell gemachte Route gilt: Cape Town, Franschhoek, Betty's Bay, Swellendam, Mossel Bay und Wilderness bewusst ruhig fahren, Fotostopps einplanen und nach Einbruch der Dunkelheit eher kurze Transfers wählen.",
       "Load-Shedding kann je nach Lage kurzfristig wieder Thema sein; Unterkünfte mit Backup-Strom/WLAN sind für Roadtrip-Planung und Navigation praktisch."
     ],
     "health": "Für die aktuelle Küsten- und Garden-Route-Etappe reichen Sonnenschutz, warme Schichten und wetterfeste Kleidung für wechselhafte Küstentage.",
@@ -100,6 +100,19 @@
       "link": "https://www.google.com/maps/search/Mossel+Bay+South+Africa",
       "lat": -34.1831,
       "lon": 22.146
+    },
+    {
+      "emoji": "🌿",
+      "name": "Wilderness",
+      "summary": "Ruhiger Unterkunftsstopp bei der Moontide Riverside Lodge.",
+      "detail": "Echter Garden-Route-Stopp in Wilderness: Moontide Riverside Lodge mit warmem Lodge-Gefühl, Naturmaterialien und Flussnähe.",
+      "tags": ["Unterkunft", "Garden Route", "Wilderness", "Riverside Lodge"],
+      "risk": "low",
+      "risk_de": "niedrig",
+      "weather": "mild / frisch",
+      "link": "https://maps.app.goo.gl/wAuc6D9jhGChsRCk6",
+      "lat": -33.9956,
+      "lon": 22.5746
     }
   ],
   "magic_place": {
@@ -250,20 +263,20 @@
     }
   ],
   "stay": {
-    "name": "Rhino Post Safari Lodge",
-    "location": "Kruger National Park",
-    "why": "Safari-Unterkunft im Kruger-Gebiet – guter Kandidat für ein besonderes Finale der Route.",
+    "name": "Moontide Riverside Lodge",
+    "location": "Wilderness / Garden Route",
+    "why": "Schöne Riverside-Lodge in Wilderness mit warmem Naturstein-, Holz- und Reetdach-Stil – ein gemütlicher Unterkunftsstopp auf der Garden Route.",
     "tip": "",
-    "link": "https://www.google.com/maps/search/Rhino+Post+Safari+Lodge+Kruger"
+    "link": "https://maps.app.goo.gl/wAuc6D9jhGChsRCk6",
+    "lat": -33.9956,
+    "lon": 22.5746,
+    "region": "Garden Route",
+    "images": [
+      "assets/moontide-riverside-lodge/moontide-riverside-lodge-01.jpg",
+      "assets/moontide-riverside-lodge/moontide-riverside-lodge-02.jpg"
+    ]
   },
   "stays": [
-    {
-      "name": "Rhino Post Safari Lodge",
-      "location": "Kruger National Park",
-      "why": "Safari-Unterkunft im Kruger-Gebiet – guter Kandidat für ein besonderes Finale der Route.",
-      "tip": "",
-      "link": "https://www.google.com/maps/search/Rhino+Post+Safari+Lodge+Kruger"
-    },
     {
       "name": "Unterkunft Marloth Park",
       "location": "Marloth Park",
@@ -276,6 +289,20 @@
         "assets/marloth-park-pool-zebra.jpg",
         "assets/marloth-park-living-kitchen.jpg",
         "assets/marloth-park-terrace-dinner.jpg"
+      ]
+    },
+    {
+      "name": "Moontide Riverside Lodge",
+      "location": "Wilderness / Garden Route",
+      "why": "Schöne Riverside-Lodge in Wilderness mit warmem Naturstein-, Holz- und Reetdach-Stil – ein gemütlicher Unterkunftsstopp auf der Garden Route.",
+      "tip": "",
+      "link": "https://maps.app.goo.gl/wAuc6D9jhGChsRCk6",
+      "lat": -33.9956,
+      "lon": 22.5746,
+      "region": "Garden Route",
+      "images": [
+        "assets/moontide-riverside-lodge/moontide-riverside-lodge-01.jpg",
+        "assets/moontide-riverside-lodge/moontide-riverside-lodge-02.jpg"
       ]
     }
   ],
@@ -345,7 +372,8 @@
     {"name": "Franschhoek", "lat": -33.9099, "lon": 19.1194, "kind": "actual"},
     {"name": "Betty's Bay / Stony Point", "lat": -34.3733, "lon": 18.8948, "kind": "actual"},
     {"name": "Swellendam", "lat": -34.0226, "lon": 20.4417, "kind": "actual"},
-    {"name": "Mossel Bay", "lat": -34.1831, "lon": 22.146, "kind": "actual"}
+    {"name": "Mossel Bay", "lat": -34.1831, "lon": 22.146, "kind": "actual"},
+    {"name": "Wilderness", "lat": -33.9956, "lon": 22.5746, "kind": "actual"}
   ],
   "map_elephant_marker": {
     "icon": "🐘",
