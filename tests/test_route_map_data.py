@@ -68,6 +68,7 @@ def test_moontide_riverside_lodge_replaces_rhino_post_stay():
     assert moontide["location"] == "Wilderness / Garden Route"
     assert moontide["link"] == "https://maps.app.goo.gl/wAuc6D9jhGChsRCk6"
     assert moontide["region"] == "Garden Route"
+    assert moontide["kind"] == "stay"
     assert -34.5 <= moontide["lat"] <= -33.5
     assert 22 <= moontide["lon"] <= 23
     assert moontide["images"] == [
@@ -374,3 +375,12 @@ def test_all_photo_stops_are_grouped_by_region():
     assert None not in regions
     assert "Kapstadt" in regions
     assert "Marloth Park / Kruger" in regions
+
+
+def test_accommodation_photo_stops_use_stay_kind_for_map_symbol():
+    data = load_data()
+    marloth = next(stop for stop in data["photo_stops"] if stop["name"] == "Marloth Park")
+    moontide = next(stay for stay in data["stays"] if stay["name"] == "Moontide Riverside Lodge")
+
+    assert marloth["kind"] == "stay"
+    assert moontide["kind"] == "stay"

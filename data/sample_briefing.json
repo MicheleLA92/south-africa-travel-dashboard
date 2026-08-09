@@ -271,6 +271,7 @@
     "lat": -33.9956,
     "lon": 22.5746,
     "region": "Garden Route",
+    "kind": "stay",
     "images": [
       "assets/moontide-riverside-lodge/moontide-riverside-lodge-01.jpg",
       "assets/moontide-riverside-lodge/moontide-riverside-lodge-02.jpg"
@@ -300,6 +301,7 @@
       "lat": -33.9956,
       "lon": 22.5746,
       "region": "Garden Route",
+      "kind": "stay",
       "images": [
         "assets/moontide-riverside-lodge/moontide-riverside-lodge-01.jpg",
         "assets/moontide-riverside-lodge/moontide-riverside-lodge-02.jpg"
@@ -677,6 +679,7 @@
       "lon": 31.778,
       "summary": "Erster ruhiger Test-Fotostopp mit Bildern der Unterkunft.",
       "region": "Marloth Park / Kruger",
+      "kind": "stay",
       "photos": [
         "assets/marloth-park-unterkunft.jpg",
         "assets/marloth-park-pool-zebra.jpg",
