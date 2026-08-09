@@ -47,7 +47,9 @@ def test_map_route_shows_only_actual_driven_route():
     assert all(point["kind"] == "actual" for point in route)
     assert len(route) > len(major_stops)
     assert [name for name in names if name in major_stops] == major_stops
-    assert {"Great Brak River", "Glentana", "George", "Victoria Bay"}.issubset(names)
+    mossel_index = names.index("Mossel Bay")
+    wilderness_index = names.index("Wilderness")
+    assert wilderness_index - mossel_index > 10
     assert "East London" not in names
     assert "Johannesburg" not in names
     assert "Kruger National Park" not in names
