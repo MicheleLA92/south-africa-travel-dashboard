@@ -57,6 +57,20 @@ def test_map_route_shows_only_actual_driven_route():
     assert "Tsitsikamma" not in names
 
 
+def test_map_route_includes_morning_drive_to_sedge_links():
+    data = load_data()
+    names = [point["name"] for point in data["map_route"]]
+
+    wilderness_index = names.index("Wilderness")
+    sedge_links_index = names.index("Sedge Links Golf Club")
+    morning_segment = names[wilderness_index:sedge_links_index + 1]
+
+    assert wilderness_index < sedge_links_index
+    assert "Island Lake N2 link" in morning_segment
+    assert "Swartvlei N2 link" in morning_segment
+    assert "Sedgefield N2 link" in morning_segment
+
+
 def test_route_line_connects_cape_town_coastal_photo_stops():
     data = load_data()
     main_names = [point["name"] for point in data["map_route"]]

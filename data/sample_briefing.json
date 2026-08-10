@@ -1090,6 +1090,42 @@
       "lat": -33.99512,
       "lon": 22.57457,
       "kind": "actual"
+    },
+    {
+      "name": "Wilderness east N2 link",
+      "lat": -33.9949,
+      "lon": 22.5968,
+      "kind": "actual"
+    },
+    {
+      "name": "Island Lake N2 link",
+      "lat": -33.9958,
+      "lon": 22.6395,
+      "kind": "actual"
+    },
+    {
+      "name": "Kleinkrantz N2 link",
+      "lat": -34.0008,
+      "lon": 22.6832,
+      "kind": "actual"
+    },
+    {
+      "name": "Swartvlei N2 link",
+      "lat": -34.0047,
+      "lon": 22.7315,
+      "kind": "actual"
+    },
+    {
+      "name": "Sedgefield N2 link",
+      "lat": -34.0106,
+      "lon": 22.7881,
+      "kind": "actual"
+    },
+    {
+      "name": "Sedge Links Golf Club",
+      "lat": -34.0165,
+      "lon": 22.8046,
+      "kind": "actual"
     }
   ],
   "map_elephant_marker": {
