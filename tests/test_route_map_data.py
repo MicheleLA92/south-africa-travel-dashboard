@@ -399,7 +399,7 @@ def test_neevrah_art_decor_activity_has_photos_and_bitcoin_funfact():
     assert activity["location"] == "Timberlake Village / Wilderness"
     assert activity["link"] == "https://maps.app.goo.gl/BCBAeVe3rcsB3kMZ9"
     assert activity["region"] == "Garden Route"
-    assert activity["kind"] == "activity"
+    assert activity["kind"] == "art"
     assert "Bitcoin" in activity["why"]
     assert -35 <= activity["lat"] <= -33
     assert 22 <= activity["lon"] <= 23
