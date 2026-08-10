@@ -8,8 +8,8 @@
     "metrics": [
       {
         "label": "Route",
-        "value": "6 echte Stopps",
-        "hint": "Cape Town bis Wilderness"
+        "value": "7 echte Stopps",
+        "hint": "Cape Town bis Knysna"
       },
       {
         "label": "Fokus",
@@ -29,7 +29,7 @@
     ],
     "news": [
       "Reisehinweise vor Abreise prüfen: Auswärtiges Amt, GOV.UK und US Travel Advisories führen weiterhin Hinweise zu Kriminalität, Demonstrationen und regionalen Risiken.",
-      "Für die aktuell gemachte Route gilt: Cape Town, Franschhoek, Betty's Bay, Swellendam, Mossel Bay und Wilderness bewusst ruhig fahren, Fotostopps einplanen und nach Einbruch der Dunkelheit eher kurze Transfers wählen.",
+      "Für die aktuell gemachte Route gilt: Cape Town, Franschhoek, Betty's Bay, Swellendam, Mossel Bay, Wilderness und Knysna bewusst ruhig fahren, Fotostopps einplanen und nach Einbruch der Dunkelheit eher kurze Transfers wählen.",
       "Load-Shedding kann je nach Lage kurzfristig wieder Thema sein; Unterkünfte mit Backup-Strom/WLAN sind für Roadtrip-Planung und Navigation praktisch."
     ],
     "health": "Für die aktuelle Küsten- und Garden-Route-Etappe reichen Sonnenschutz, warme Schichten und wetterfeste Kleidung für wechselhafte Küstentage.",
@@ -143,6 +143,24 @@
       "link": "https://maps.app.goo.gl/wAuc6D9jhGChsRCk6",
       "lat": -33.9956,
       "lon": 22.5746
+    },
+    {
+      "emoji": "🏡",
+      "name": "Knysna",
+      "summary": "Unterkunftsstopp auf Leisure Island bei The Knysna Belle Guest House.",
+      "detail": "Echter Garden-Route-Stopp in Knysna: The Knysna Belle Guest House mit Blick über die Lagune, Garten, Pool und ruhigem Leisure-Island-Gefühl.",
+      "tags": [
+        "Unterkunft",
+        "Garden Route",
+        "Knysna",
+        "Leisure Island"
+      ],
+      "risk": "low",
+      "risk_de": "niedrig",
+      "weather": "mild / frisch",
+      "link": "https://maps.app.goo.gl/1eKptN5MPdNgRD6h6",
+      "lat": -34.0646,
+      "lon": 23.0602
     }
   ],
   "magic_place": {
@@ -293,21 +311,19 @@
     }
   ],
   "stay": {
-    "name": "Moontide Riverside Lodge",
-    "location": "Wilderness / Garden Route",
-    "why": "Ruhige Lodge in Wilderness – gemütlich, schön eingerichtet und direkt an der Garden Route.",
+    "name": "The Knysna Belle Guest House",
+    "location": "Knysna / Leisure Island",
+    "why": "Ruhige Unterkunft auf Leisure Island in Knysna – helles Zimmer, schöner Blick über die Lagune und Garten mit Pool.",
     "tip": "",
-    "link": "https://maps.app.goo.gl/wAuc6D9jhGChsRCk6",
-    "lat": -33.9956,
-    "lon": 22.5746,
+    "link": "https://maps.app.goo.gl/1eKptN5MPdNgRD6h6",
+    "lat": -34.0646,
+    "lon": 23.0602,
     "region": "Garden Route",
     "kind": "stay",
     "images": [
-      "assets/moontide-riverside-lodge/moontide-riverside-lodge-01.jpg",
-      "assets/moontide-riverside-lodge/moontide-riverside-lodge-02.jpg"
-    ],
-    "videos": [
-      "assets/moontide-riverside-lodge/moontide-riverside-lodge-room-tour.mp4"
+      "assets/knysna-belle-guest-house/knysna-belle-guest-house-01.jpg",
+      "assets/knysna-belle-guest-house/knysna-belle-guest-house-02.jpg",
+      "assets/knysna-belle-guest-house/knysna-belle-guest-house-03.jpg"
     ]
   },
   "stays": [
@@ -341,6 +357,22 @@
       ],
       "videos": [
         "assets/moontide-riverside-lodge/moontide-riverside-lodge-room-tour.mp4"
+      ]
+    },
+    {
+      "name": "The Knysna Belle Guest House",
+      "location": "Knysna / Leisure Island",
+      "why": "Ruhige Unterkunft auf Leisure Island in Knysna – helles Zimmer, schöner Blick über die Lagune und Garten mit Pool.",
+      "tip": "",
+      "link": "https://maps.app.goo.gl/1eKptN5MPdNgRD6h6",
+      "lat": -34.0646,
+      "lon": 23.0602,
+      "region": "Garden Route",
+      "kind": "stay",
+      "images": [
+        "assets/knysna-belle-guest-house/knysna-belle-guest-house-01.jpg",
+        "assets/knysna-belle-guest-house/knysna-belle-guest-house-02.jpg",
+        "assets/knysna-belle-guest-house/knysna-belle-guest-house-03.jpg"
       ]
     }
   ],
@@ -1125,6 +1157,54 @@
       "name": "Sedge Links Golf Club",
       "lat": -34.0165,
       "lon": 22.8046,
+      "kind": "actual"
+    },
+    {
+      "name": "Sedgefield east N2 link",
+      "lat": -34.0182,
+      "lon": 22.8425,
+      "kind": "actual"
+    },
+    {
+      "name": "Groenvlei N2 link",
+      "lat": -34.0144,
+      "lon": 22.8878,
+      "kind": "actual"
+    },
+    {
+      "name": "Buffalo Bay turnoff N2 link",
+      "lat": -34.0206,
+      "lon": 22.9735,
+      "kind": "actual"
+    },
+    {
+      "name": "Knysna west N2 link",
+      "lat": -34.0335,
+      "lon": 23.0263,
+      "kind": "actual"
+    },
+    {
+      "name": "Knysna lagoon road link",
+      "lat": -34.0448,
+      "lon": 23.0488,
+      "kind": "actual"
+    },
+    {
+      "name": "Leisure Island causeway link",
+      "lat": -34.0576,
+      "lon": 23.0594,
+      "kind": "actual"
+    },
+    {
+      "name": "Knysna",
+      "lat": -34.0354,
+      "lon": 23.0471,
+      "kind": "actual"
+    },
+    {
+      "name": "The Knysna Belle Guest House",
+      "lat": -34.0646,
+      "lon": 23.0602,
       "kind": "actual"
     }
   ],

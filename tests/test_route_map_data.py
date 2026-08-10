@@ -28,6 +28,7 @@ def test_route_order_matches_actual_trip():
         "Swellendam",
         "Mossel Bay",
         "Wilderness",
+        "Knysna",
     ]
 
 
@@ -42,6 +43,7 @@ def test_map_route_shows_only_actual_driven_route():
         "Swellendam",
         "Mossel Bay",
         "Wilderness",
+        "Knysna",
     ]
 
     assert all(point["kind"] == "actual" for point in route)
@@ -53,7 +55,6 @@ def test_map_route_shows_only_actual_driven_route():
     assert "East London" not in names
     assert "Johannesburg" not in names
     assert "Kruger National Park" not in names
-    assert "Knysna" not in names
     assert "Tsitsikamma" not in names
 
 
@@ -69,6 +70,20 @@ def test_map_route_includes_morning_drive_to_sedge_links():
     assert "Island Lake N2 link" in morning_segment
     assert "Swartvlei N2 link" in morning_segment
     assert "Sedgefield N2 link" in morning_segment
+
+
+def test_map_route_extends_to_knysna_belle_guest_house():
+    data = load_data()
+    names = [point["name"] for point in data["map_route"]]
+
+    sedge_links_index = names.index("Sedge Links Golf Club")
+    knysna_belle_index = names.index("The Knysna Belle Guest House")
+    knysna_segment = names[sedge_links_index:knysna_belle_index + 1]
+
+    assert sedge_links_index < knysna_belle_index
+    assert "Groenvlei N2 link" in knysna_segment
+    assert "Knysna west N2 link" in knysna_segment
+    assert "Leisure Island causeway link" in knysna_segment
 
 
 def test_route_line_connects_cape_town_coastal_photo_stops():
@@ -95,7 +110,6 @@ def test_moontide_riverside_lodge_replaces_rhino_post_stay():
     stay_names = [stay["name"] for stay in stays]
     moontide = next(item for item in stays if item["name"] == "Moontide Riverside Lodge")
 
-    assert data["stay"]["name"] == "Moontide Riverside Lodge"
     assert "Rhino Post Safari Lodge" not in stay_names
     assert moontide["location"] == "Wilderness / Garden Route"
     assert moontide["link"] == "https://maps.app.goo.gl/wAuc6D9jhGChsRCk6"
@@ -114,6 +128,28 @@ def test_moontide_riverside_lodge_replaces_rhino_post_stay():
         assert Path(photo).exists(), f"Missing Moontide Riverside Lodge photo: {photo}"
     for video in moontide["videos"]:
         assert Path(video).exists(), f"Missing Moontide Riverside Lodge video: {video}"
+
+
+def test_knysna_belle_guest_house_is_current_stay_with_photos():
+    data = load_data()
+    stays = data["stays"]
+    stay = next((item for item in stays if item["name"] == "The Knysna Belle Guest House"), None)
+
+    assert data["stay"]["name"] == "The Knysna Belle Guest House"
+    assert stay is not None
+    assert stay["location"] == "Knysna / Leisure Island"
+    assert stay["link"] == "https://maps.app.goo.gl/1eKptN5MPdNgRD6h6"
+    assert stay["region"] == "Garden Route"
+    assert stay["kind"] == "stay"
+    assert -35 <= stay["lat"] <= -34
+    assert 23 <= stay["lon"] <= 24
+    assert stay["images"] == [
+        "assets/knysna-belle-guest-house/knysna-belle-guest-house-01.jpg",
+        "assets/knysna-belle-guest-house/knysna-belle-guest-house-02.jpg",
+        "assets/knysna-belle-guest-house/knysna-belle-guest-house-03.jpg",
+    ]
+    for photo in stay["images"]:
+        assert Path(photo).exists(), f"Missing The Knysna Belle Guest House photo: {photo}"
 
 
 def test_map_has_elephant_marker_near_port_elizabeth():
