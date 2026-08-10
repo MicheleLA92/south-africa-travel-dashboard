@@ -484,6 +484,18 @@ def photo_stop_menu_icon(stop):
     return "📷"
 
 
+def render_made_stops_overview(photo_stops):
+    if not photo_stops:
+        return
+    st.markdown("### Gemachte Stopps")
+    grouped_stops = {}
+    for stop in photo_stops:
+        grouped_stops.setdefault(stop.get("region", "Weitere Spots"), []).append(stop)
+    for region, stops in grouped_stops.items():
+        stop_labels = " · ".join(f"{photo_stop_menu_icon(stop)} {stop['name']}" for stop in stops)
+        st.markdown(f"<p class=\"small\"><b>{region}</b><br>{stop_labels}</p>", unsafe_allow_html=True)
+
+
 def get_photo_stop_entries(data):
     photo_stops = [stop for stop in data.get("photo_stops", []) if stop.get("photos")]
     existing_names = {stop["name"] for stop in photo_stops}
@@ -662,6 +674,7 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
         key=map_key,
     )
     st.caption("Tatsächlich gefahrene Route · kleine Symbole: 📷 Foto · 🍴 Restaurant · 🏡 Unterkunft · 🍷 Aktivität · 🐧 Pinguine. Symbol antippen, um Fotos zu öffnen.")
+    render_made_stops_overview(photo_stops)
 
     if photo_stops:
         photo_stop_names = {stop["name"] for stop in photo_stops}
