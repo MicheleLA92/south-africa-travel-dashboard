@@ -1184,6 +1184,12 @@
       "kind": "actual"
     },
     {
+      "name": "Knysna",
+      "lat": -34.0354,
+      "lon": 23.0471,
+      "kind": "actual"
+    },
+    {
       "name": "Knysna lagoon road link",
       "lat": -34.0448,
       "lon": 23.0488,
@@ -1193,12 +1199,6 @@
       "name": "Leisure Island causeway link",
       "lat": -34.0576,
       "lon": 23.0594,
-      "kind": "actual"
-    },
-    {
-      "name": "Knysna",
-      "lat": -34.0354,
-      "lon": 23.0471,
       "kind": "actual"
     },
     {
