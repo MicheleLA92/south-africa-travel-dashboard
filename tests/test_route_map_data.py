@@ -57,6 +57,18 @@ def test_map_route_shows_only_actual_driven_route():
     assert "Tsitsikamma" not in names
 
 
+def test_route_line_connects_cape_town_coastal_photo_stops():
+    data = load_data()
+    names = [point["name"] for point in data["map_route"]]
+    cape_index = names.index("Cape Town")
+    franschhoek_index = names.index("Franschhoek")
+    cape_segment = names[cape_index:franschhoek_index]
+
+    assert "Chefs Warehouse coast link" in cape_segment
+    assert "Noordhoek Beach coast link" in cape_segment
+    assert cape_segment.index("Chefs Warehouse coast link") < cape_segment.index("Noordhoek Beach coast link")
+
+
 def test_moontide_riverside_lodge_replaces_rhino_post_stay():
     data = load_data()
     stays = data["stays"]
