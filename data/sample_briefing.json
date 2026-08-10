@@ -1298,51 +1298,51 @@
           "kind": "actual"
         },
         {
-          "name": "Sandy Bay road link",
-          "lat": -34.0205,
-          "lon": 18.3448,
+          "name": "Hout Bay north land link",
+          "lat": -34.0198,
+          "lon": 18.3578,
           "kind": "actual"
         },
         {
-          "name": "Hout Bay north shore link",
-          "lat": -34.0298,
-          "lon": 18.3509,
+          "name": "Hout Bay east road link",
+          "lat": -34.0295,
+          "lon": 18.3687,
           "kind": "actual"
         },
         {
-          "name": "Hout Bay village link",
-          "lat": -34.0398,
-          "lon": 18.3494,
+          "name": "Hout Bay inland road link",
+          "lat": -34.0405,
+          "lon": 18.3718,
           "kind": "actual"
         },
         {
-          "name": "Hout Bay harbour road link",
-          "lat": -34.049,
-          "lon": 18.3481,
+          "name": "Chapmans Peak entrance road link",
+          "lat": -34.0525,
+          "lon": 18.3658,
           "kind": "actual"
         },
         {
-          "name": "Chapmans Peak toll link",
-          "lat": -34.0555,
-          "lon": 18.3494,
+          "name": "Chapmans Peak lower road link",
+          "lat": -34.0618,
+          "lon": 18.3618,
           "kind": "actual"
         },
         {
           "name": "Chapmans Peak bend link",
-          "lat": -34.0645,
-          "lon": 18.3508,
+          "lat": -34.0712,
+          "lon": 18.3605,
           "kind": "actual"
         },
         {
-          "name": "Chapmans Peak lookout link",
-          "lat": -34.0747,
-          "lon": 18.354,
+          "name": "Noordhoek road approach link",
+          "lat": -34.0868,
+          "lon": 18.3662,
           "kind": "actual"
         },
         {
-          "name": "Noordhoek approach link",
-          "lat": -34.0904,
-          "lon": 18.3588,
+          "name": "Noordhoek inland approach link",
+          "lat": -34.0975,
+          "lon": 18.3695,
           "kind": "actual"
         },
         {

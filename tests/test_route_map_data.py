@@ -65,10 +65,11 @@ def test_route_line_connects_cape_town_coastal_photo_stops():
     coast_names = [point["name"] for point in cape_extension["points"]]
 
     assert "Noordhoek Beach coast link" in coast_names
-    assert "Hout Bay harbour road link" in coast_names
-    assert "Chapmans Peak lookout link" in coast_names
-    assert "Noordhoek approach link" in coast_names
-    assert coast_names.index("Hout Bay harbour road link") < coast_names.index("Chapmans Peak lookout link") < coast_names.index("Noordhoek Beach coast link")
+    assert "Hout Bay east road link" in coast_names
+    assert "Hout Bay inland road link" in coast_names
+    assert "Chapmans Peak entrance road link" in coast_names
+    assert "Noordhoek inland approach link" in coast_names
+    assert coast_names.index("Hout Bay east road link") < coast_names.index("Chapmans Peak entrance road link") < coast_names.index("Noordhoek Beach coast link")
     assert "Cape Town route return" not in main_names
     assert "Constantia coast link" not in main_names
     assert "Ou Kaapse Weg coast link" not in main_names
