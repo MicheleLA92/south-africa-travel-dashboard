@@ -391,6 +391,26 @@ def test_stony_point_penguin_activity_has_photos_and_penguin_kind():
         assert Path(photo).exists(), f"Missing Stony Point Penguin photo: {photo}"
 
 
+def test_neevrah_art_decor_activity_has_photos_and_bitcoin_funfact():
+    data = load_data()
+    activity = next((item for item in data.get("activities", []) if item["name"] == "Neevrah Art + Décor"), None)
+
+    assert activity is not None
+    assert activity["location"] == "Timberlake Village / Wilderness"
+    assert activity["link"] == "https://maps.app.goo.gl/BCBAeVe3rcsB3kMZ9"
+    assert activity["region"] == "Garden Route"
+    assert activity["kind"] == "activity"
+    assert "Bitcoin" in activity["why"]
+    assert -35 <= activity["lat"] <= -33
+    assert 22 <= activity["lon"] <= 23
+    assert activity["images"] == [
+        "assets/neevrah-art-decor/neevrah-art-decor-01.jpg",
+        "assets/neevrah-art-decor/neevrah-art-decor-02.jpg",
+    ]
+    for photo in activity["images"]:
+        assert Path(photo).exists(), f"Missing Neevrah Art + Décor photo: {photo}"
+
+
 def test_all_photo_stops_are_grouped_by_region():
     data = load_data()
     regions = {stop.get("region") for stop in data["photo_stops"]}

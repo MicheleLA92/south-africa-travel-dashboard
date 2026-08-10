@@ -375,6 +375,21 @@
         "assets/stony-point-penguins/stony-point-penguins-01.jpg",
         "assets/stony-point-penguins/stony-point-penguins-02.jpg"
       ]
+    },
+    {
+      "name": "Neevrah Art + Décor",
+      "location": "Timberlake Village / Wilderness",
+      "why": "Kleiner kreativer Art-&-Décor-Stopp bei Timberlake Village: handgemachte Deko, Holzarbeiten und schöne lokale Fundstücke. Funfact: Man kann dort sogar mit Bitcoin bezahlen.",
+      "tip": "",
+      "link": "https://maps.app.goo.gl/BCBAeVe3rcsB3kMZ9",
+      "lat": -34.0055,
+      "lon": 22.7078,
+      "region": "Garden Route",
+      "kind": "activity",
+      "images": [
+        "assets/neevrah-art-decor/neevrah-art-decor-01.jpg",
+        "assets/neevrah-art-decor/neevrah-art-decor-02.jpg"
+      ]
     }
   ],
   "preparation": [
