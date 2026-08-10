@@ -1298,27 +1298,51 @@
           "kind": "actual"
         },
         {
-          "name": "Hout Bay road link",
-          "lat": -34.0268,
-          "lon": 18.3568,
+          "name": "Sandy Bay road link",
+          "lat": -34.0205,
+          "lon": 18.3448,
           "kind": "actual"
         },
         {
-          "name": "Hout Bay land link",
-          "lat": -34.0408,
-          "lon": 18.3619,
+          "name": "Hout Bay north shore link",
+          "lat": -34.0298,
+          "lon": 18.3509,
           "kind": "actual"
         },
         {
-          "name": "Chapmans Peak land link",
-          "lat": -34.0578,
-          "lon": 18.3615,
+          "name": "Hout Bay village link",
+          "lat": -34.0398,
+          "lon": 18.3494,
           "kind": "actual"
         },
         {
-          "name": "Chapmans Peak road link",
-          "lat": -34.0753,
-          "lon": 18.3638,
+          "name": "Hout Bay harbour road link",
+          "lat": -34.049,
+          "lon": 18.3481,
+          "kind": "actual"
+        },
+        {
+          "name": "Chapmans Peak toll link",
+          "lat": -34.0555,
+          "lon": 18.3494,
+          "kind": "actual"
+        },
+        {
+          "name": "Chapmans Peak bend link",
+          "lat": -34.0645,
+          "lon": 18.3508,
+          "kind": "actual"
+        },
+        {
+          "name": "Chapmans Peak lookout link",
+          "lat": -34.0747,
+          "lon": 18.354,
+          "kind": "actual"
+        },
+        {
+          "name": "Noordhoek approach link",
+          "lat": -34.0904,
+          "lon": 18.3588,
           "kind": "actual"
         },
         {
