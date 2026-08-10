@@ -391,6 +391,21 @@
         "assets/neevrah-art-decor/neevrah-art-decor-02.jpg",
         "assets/neevrah-art-decor/neevrah-art-decor-03.jpg"
       ]
+    },
+    {
+      "name": "Sedge Links Golf Club",
+      "location": "Sedgefield / Garden Route",
+      "why": "Entspannter Golf-Stopp an der Garden Route: grüne Fairways, kleine Wasserhindernisse und schöne Landschaft rund um Sedgefield.",
+      "tip": "",
+      "link": "https://maps.app.goo.gl/wQeveGS45N7iqre5A?g_st=ac",
+      "lat": -34.0165,
+      "lon": 22.8046,
+      "region": "Garden Route",
+      "kind": "golf",
+      "images": [
+        "assets/sedge-links-golf-club/sedge-links-golf-club-01.jpg",
+        "assets/sedge-links-golf-club/sedge-links-golf-club-02.jpg"
+      ]
     }
   ],
   "preparation": [

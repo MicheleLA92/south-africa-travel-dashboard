@@ -412,6 +412,25 @@ def test_neevrah_art_decor_activity_has_photos_and_bitcoin_funfact():
         assert Path(photo).exists(), f"Missing Neevrah Art + Décor photo: {photo}"
 
 
+def test_sedge_links_golf_activity_has_photos_and_golf_kind():
+    data = load_data()
+    activity = next((item for item in data.get("activities", []) if item["name"] == "Sedge Links Golf Club"), None)
+
+    assert activity is not None
+    assert activity["location"] == "Sedgefield / Garden Route"
+    assert activity["link"] == "https://maps.app.goo.gl/wQeveGS45N7iqre5A?g_st=ac"
+    assert activity["region"] == "Garden Route"
+    assert activity["kind"] == "golf"
+    assert -35 <= activity["lat"] <= -33
+    assert 22 <= activity["lon"] <= 23
+    assert activity["images"] == [
+        "assets/sedge-links-golf-club/sedge-links-golf-club-01.jpg",
+        "assets/sedge-links-golf-club/sedge-links-golf-club-02.jpg",
+    ]
+    for photo in activity["images"]:
+        assert Path(photo).exists(), f"Missing Sedge Links Golf Club photo: {photo}"
+
+
 def test_all_photo_stops_are_grouped_by_region():
     data = load_data()
     regions = {stop.get("region") for stop in data["photo_stops"]}
