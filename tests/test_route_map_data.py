@@ -406,6 +406,7 @@ def test_neevrah_art_decor_activity_has_photos_and_bitcoin_funfact():
     assert activity["images"] == [
         "assets/neevrah-art-decor/neevrah-art-decor-01.jpg",
         "assets/neevrah-art-decor/neevrah-art-decor-02.jpg",
+        "assets/neevrah-art-decor/neevrah-art-decor-03.jpg",
     ]
     for photo in activity["images"]:
         assert Path(photo).exists(), f"Missing Neevrah Art + Décor photo: {photo}"
