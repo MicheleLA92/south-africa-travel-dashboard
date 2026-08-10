@@ -630,6 +630,13 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
         if stop.get("photos")
     ]
     actual_route_path = [{"name": "Tatsächlich gefahrene Route", "path": [[point["lon"], point["lat"]] for point in map_route]}]
+    for extension in data.get("map_route_extensions", []):
+        points = extension.get("points", [])
+        if len(points) >= 2:
+            actual_route_path.append({
+                "name": extension.get("name", "Zusätzliche gefahrene Stopps"),
+                "path": [[point["lon"], point["lat"]] for point in points],
+            })
 
     route_map_state = st.pydeck_chart(
         pdk.Deck(

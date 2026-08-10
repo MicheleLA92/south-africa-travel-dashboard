@@ -59,14 +59,18 @@ def test_map_route_shows_only_actual_driven_route():
 
 def test_route_line_connects_cape_town_coastal_photo_stops():
     data = load_data()
-    names = [point["name"] for point in data["map_route"]]
-    cape_index = names.index("Cape Town")
-    franschhoek_index = names.index("Franschhoek")
-    cape_segment = names[cape_index:franschhoek_index]
+    main_names = [point["name"] for point in data["map_route"]]
+    extensions = data.get("map_route_extensions", [])
+    cape_extension = next(item for item in extensions if item["name"] == "Cape Town Küstenstopps")
+    coast_names = [point["name"] for point in cape_extension["points"]]
 
-    assert "Chefs Warehouse coast link" in cape_segment
-    assert "Noordhoek Beach coast link" in cape_segment
-    assert cape_segment.index("Chefs Warehouse coast link") < cape_segment.index("Noordhoek Beach coast link")
+    assert "Noordhoek Beach coast link" in coast_names
+    assert "Hout Bay land link" in coast_names
+    assert "Chapmans Peak land link" in coast_names
+    assert coast_names.index("Hout Bay land link") < coast_names.index("Noordhoek Beach coast link")
+    assert "Cape Town route return" not in main_names
+    assert "Constantia coast link" not in main_names
+    assert "Ou Kaapse Weg coast link" not in main_names
 
 
 def test_moontide_riverside_lodge_replaces_rhino_post_stay():

@@ -413,66 +413,6 @@
       "kind": "actual"
     },
     {
-      "name": "Kapstadt Coast link",
-      "lat": -33.9506,
-      "lon": 18.3772,
-      "kind": "actual"
-    },
-    {
-      "name": "Camps Bay coast link",
-      "lat": -33.9637,
-      "lon": 18.3784,
-      "kind": "actual"
-    },
-    {
-      "name": "Llandudno coast link",
-      "lat": -34.0072,
-      "lon": 18.3416,
-      "kind": "actual"
-    },
-    {
-      "name": "Hout Bay coast link",
-      "lat": -34.0436,
-      "lon": 18.355,
-      "kind": "actual"
-    },
-    {
-      "name": "Chefs Warehouse coast link",
-      "lat": -34.0586,
-      "lon": 18.3486,
-      "kind": "actual"
-    },
-    {
-      "name": "Chapmans Peak coast link",
-      "lat": -34.0802,
-      "lon": 18.3573,
-      "kind": "actual"
-    },
-    {
-      "name": "Noordhoek Beach coast link",
-      "lat": -34.1028,
-      "lon": 18.3609,
-      "kind": "actual"
-    },
-    {
-      "name": "Ou Kaapse Weg coast link",
-      "lat": -34.081,
-      "lon": 18.425,
-      "kind": "actual"
-    },
-    {
-      "name": "Constantia coast link",
-      "lat": -34.0325,
-      "lon": 18.421,
-      "kind": "actual"
-    },
-    {
-      "name": "Cape Town route return",
-      "lat": -33.9251,
-      "lon": 18.4239,
-      "kind": "actual"
-    },
-    {
       "name": "Route point",
       "lat": -33.92166,
       "lon": 18.4328,
@@ -1326,6 +1266,67 @@
         "assets/marloth-park-pool-zebra.jpg",
         "assets/marloth-park-living-kitchen.jpg",
         "assets/marloth-park-terrace-dinner.jpg"
+      ]
+    }
+  ],
+  "map_route_extensions": [
+    {
+      "name": "Cape Town Küstenstopps",
+      "points": [
+        {
+          "name": "Cape Town",
+          "lat": -33.92507,
+          "lon": 18.42392,
+          "kind": "actual"
+        },
+        {
+          "name": "Kapstadt Coast link",
+          "lat": -33.9506,
+          "lon": 18.3772,
+          "kind": "actual"
+        },
+        {
+          "name": "Camps Bay coast link",
+          "lat": -33.9637,
+          "lon": 18.3784,
+          "kind": "actual"
+        },
+        {
+          "name": "Llandudno coast link",
+          "lat": -34.0072,
+          "lon": 18.3416,
+          "kind": "actual"
+        },
+        {
+          "name": "Hout Bay road link",
+          "lat": -34.0268,
+          "lon": 18.3568,
+          "kind": "actual"
+        },
+        {
+          "name": "Hout Bay land link",
+          "lat": -34.0408,
+          "lon": 18.3619,
+          "kind": "actual"
+        },
+        {
+          "name": "Chapmans Peak land link",
+          "lat": -34.0578,
+          "lon": 18.3615,
+          "kind": "actual"
+        },
+        {
+          "name": "Chapmans Peak road link",
+          "lat": -34.0753,
+          "lon": 18.3638,
+          "kind": "actual"
+        },
+        {
+          "name": "Noordhoek Beach coast link",
+          "lat": -34.1028,
+          "lon": 18.3609,
+          "kind": "actual"
+        }
       ]
     }
   ]
