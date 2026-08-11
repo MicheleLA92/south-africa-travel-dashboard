@@ -438,6 +438,20 @@
         "assets/sedge-links-golf-club/sedge-links-golf-club-01.jpg",
         "assets/sedge-links-golf-club/sedge-links-golf-club-02.jpg"
       ]
+    },
+    {
+      "name": "Bollards Bay Kanufahrt",
+      "location": "Bollards Bay Beach / Leisure Island, Knysna",
+      "why": "Ruhiger Kanufahrt-Stopp auf Leisure Island: flaches Lagunenwasser, Sonne und entspannte Knysna-Stimmung direkt am Wasser.",
+      "tip": "",
+      "link": "https://maps.app.goo.gl/oUieEaKUJnYLrtYcA?g_st=ac",
+      "lat": -34.0662,
+      "lon": 23.0638,
+      "region": "Garden Route",
+      "kind": "canoe",
+      "images": [
+        "assets/bollards-bay-canoe/bollards-bay-canoe-01.jpg"
+      ]
     }
   ],
   "preparation": [
@@ -1205,6 +1219,18 @@
       "name": "The Knysna Belle Guest House",
       "lat": -34.0646,
       "lon": 23.0602,
+      "kind": "actual"
+    },
+    {
+      "name": "Bollards Bay Beach road link",
+      "lat": -34.0654,
+      "lon": 23.0625,
+      "kind": "actual"
+    },
+    {
+      "name": "Bollards Bay Kanufahrt",
+      "lat": -34.0662,
+      "lon": 23.0638,
       "kind": "actual"
     }
   ],

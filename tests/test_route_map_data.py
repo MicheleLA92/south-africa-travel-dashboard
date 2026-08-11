@@ -86,6 +86,18 @@ def test_map_route_extends_to_knysna_belle_guest_house():
     assert "Leisure Island causeway link" in knysna_segment
 
 
+def test_map_route_extends_to_bollards_bay_canoe_stop():
+    data = load_data()
+    names = [point["name"] for point in data["map_route"]]
+
+    guest_house_index = names.index("The Knysna Belle Guest House")
+    canoe_index = names.index("Bollards Bay Kanufahrt")
+    canoe_segment = names[guest_house_index:canoe_index + 1]
+
+    assert guest_house_index < canoe_index
+    assert "Bollards Bay Beach road link" in canoe_segment
+
+
 def test_route_line_connects_cape_town_coastal_photo_stops():
     data = load_data()
     main_names = [point["name"] for point in data["map_route"]]
@@ -479,6 +491,22 @@ def test_sedge_links_golf_activity_has_photos_and_golf_kind():
     ]
     for photo in activity["images"]:
         assert Path(photo).exists(), f"Missing Sedge Links Golf Club photo: {photo}"
+
+
+def test_bollards_bay_canoe_activity_has_photo_and_canoe_kind():
+    data = load_data()
+    activity = next((item for item in data.get("activities", []) if item["name"] == "Bollards Bay Kanufahrt"), None)
+
+    assert activity is not None
+    assert activity["location"] == "Bollards Bay Beach / Leisure Island, Knysna"
+    assert activity["link"] == "https://maps.app.goo.gl/oUieEaKUJnYLrtYcA?g_st=ac"
+    assert activity["region"] == "Garden Route"
+    assert activity["kind"] == "canoe"
+    assert -35 <= activity["lat"] <= -34
+    assert 23 <= activity["lon"] <= 24
+    assert activity["images"] == ["assets/bollards-bay-canoe/bollards-bay-canoe-01.jpg"]
+    for photo in activity["images"]:
+        assert Path(photo).exists(), f"Missing Bollards Bay canoe photo: {photo}"
 
 
 def test_all_photo_stops_are_grouped_by_region():
