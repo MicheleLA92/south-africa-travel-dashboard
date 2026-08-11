@@ -29,6 +29,7 @@ def test_route_order_matches_actual_trip():
         "Mossel Bay",
         "Wilderness",
         "Knysna",
+        "Robberg Hiking Trail",
     ]
 
 
@@ -44,6 +45,7 @@ def test_map_route_shows_only_actual_driven_route():
         "Mossel Bay",
         "Wilderness",
         "Knysna",
+        "Robberg Hiking Trail",
     ]
 
     assert all(point["kind"] == "actual" for point in route)
@@ -96,6 +98,20 @@ def test_map_route_extends_to_bollards_bay_canoe_stop():
 
     assert guest_house_index < canoe_index
     assert "Bollards Bay Beach road link" in canoe_segment
+
+
+def test_map_route_extends_to_robberg_hiking_trail():
+    data = load_data()
+    names = [point["name"] for point in data["map_route"]]
+
+    canoe_index = names.index("Bollards Bay Kanufahrt")
+    hiking_index = names.index("Robberg Hiking Trail")
+    hiking_segment = names[canoe_index:hiking_index + 1]
+
+    assert canoe_index < hiking_index
+    assert "Harkerville N2 link" in hiking_segment
+    assert "Plettenberg Bay Robberg Road link" in hiking_segment
+    assert "Robberg Nature Reserve approach link" in hiking_segment
 
 
 def test_route_line_connects_cape_town_coastal_photo_stops():
@@ -507,6 +523,29 @@ def test_bollards_bay_canoe_activity_has_photo_and_canoe_kind():
     assert activity["images"] == ["assets/bollards-bay-canoe/bollards-bay-canoe-01.jpg"]
     for photo in activity["images"]:
         assert Path(photo).exists(), f"Missing Bollards Bay canoe photo: {photo}"
+
+
+def test_robberg_hiking_activity_has_photos_and_hiking_kind():
+    data = load_data()
+    activity = next((item for item in data.get("activities", []) if item["name"] == "Robberg Hiking Trail"), None)
+
+    assert activity is not None
+    assert activity["location"] == "Robberg Nature Reserve / Plettenberg Bay"
+    assert activity["link"] == "https://maps.app.goo.gl/cqSLHAf8n1jZwT8ZA"
+    assert activity["region"] == "Garden Route"
+    assert activity["kind"] == "hiking"
+    assert -35 <= activity["lat"] <= -34
+    assert 23 <= activity["lon"] <= 24
+    assert activity["images"] == [
+        "assets/robberg-hiking-trail/robberg-hiking-trail-01.jpg",
+        "assets/robberg-hiking-trail/robberg-hiking-trail-02.jpg",
+        "assets/robberg-hiking-trail/robberg-hiking-trail-03.jpg",
+        "assets/robberg-hiking-trail/robberg-hiking-trail-04.jpg",
+        "assets/robberg-hiking-trail/robberg-hiking-trail-05.jpg",
+        "assets/robberg-hiking-trail/robberg-hiking-trail-06.jpg",
+    ]
+    for photo in activity["images"]:
+        assert Path(photo).exists(), f"Missing Robberg Hiking Trail photo: {photo}"
 
 
 def test_all_photo_stops_are_grouped_by_region():

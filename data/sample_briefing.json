@@ -8,8 +8,8 @@
     "metrics": [
       {
         "label": "Route",
-        "value": "7 echte Stopps",
-        "hint": "Cape Town bis Knysna"
+        "value": "8 echte Stopps",
+        "hint": "Cape Town bis Robberg"
       },
       {
         "label": "Fokus",
@@ -29,7 +29,7 @@
     ],
     "news": [
       "Reisehinweise vor Abreise prüfen: Auswärtiges Amt, GOV.UK und US Travel Advisories führen weiterhin Hinweise zu Kriminalität, Demonstrationen und regionalen Risiken.",
-      "Für die aktuell gemachte Route gilt: Cape Town, Franschhoek, Betty's Bay, Swellendam, Mossel Bay, Wilderness und Knysna bewusst ruhig fahren, Fotostopps einplanen und nach Einbruch der Dunkelheit eher kurze Transfers wählen.",
+      "Für die aktuell gemachte Route gilt: Cape Town, Franschhoek, Betty's Bay, Swellendam, Mossel Bay, Wilderness, Knysna und Robberg bewusst ruhig fahren, Fotostopps einplanen und nach Einbruch der Dunkelheit eher kurze Transfers wählen.",
       "Load-Shedding kann je nach Lage kurzfristig wieder Thema sein; Unterkünfte mit Backup-Strom/WLAN sind für Roadtrip-Planung und Navigation praktisch."
     ],
     "health": "Für die aktuelle Küsten- und Garden-Route-Etappe reichen Sonnenschutz, warme Schichten und wetterfeste Kleidung für wechselhafte Küstentage.",
@@ -161,6 +161,24 @@
       "link": "https://maps.app.goo.gl/1eKptN5MPdNgRD6h6",
       "lat": -34.0646,
       "lon": 23.0602
+    },
+    {
+      "emoji": "🥾",
+      "name": "Robberg Hiking Trail",
+      "summary": "Hiking-Stopp bei Plettenberg Bay mit Klippen, Meerblick und wilder Robberg-Küste.",
+      "detail": "Echter Garden-Route-Hiking-Stopp: Robberg Hiking Trail mit schmalen Wegen, Felsen, Brandung und weiten Blicken über den Indischen Ozean.",
+      "tags": [
+        "Hiking",
+        "Garden Route",
+        "Plettenberg Bay",
+        "Küste"
+      ],
+      "risk": "low",
+      "risk_de": "niedrig",
+      "weather": "sonnig / windig",
+      "link": "https://maps.app.goo.gl/cqSLHAf8n1jZwT8ZA",
+      "lat": -34.1006,
+      "lon": 23.3759
     }
   ],
   "magic_place": {
@@ -451,6 +469,25 @@
       "kind": "canoe",
       "images": [
         "assets/bollards-bay-canoe/bollards-bay-canoe-01.jpg"
+      ]
+    },
+    {
+      "name": "Robberg Hiking Trail",
+      "location": "Robberg Nature Reserve / Plettenberg Bay",
+      "why": "Spektakulärer Hiking-Stopp an der Garden Route: schmale Küstenpfade, Felsen, wilde Brandung und weite Blicke über das türkis-blaue Meer.",
+      "tip": "",
+      "link": "https://maps.app.goo.gl/cqSLHAf8n1jZwT8ZA",
+      "lat": -34.1006,
+      "lon": 23.3759,
+      "region": "Garden Route",
+      "kind": "hiking",
+      "images": [
+        "assets/robberg-hiking-trail/robberg-hiking-trail-01.jpg",
+        "assets/robberg-hiking-trail/robberg-hiking-trail-02.jpg",
+        "assets/robberg-hiking-trail/robberg-hiking-trail-03.jpg",
+        "assets/robberg-hiking-trail/robberg-hiking-trail-04.jpg",
+        "assets/robberg-hiking-trail/robberg-hiking-trail-05.jpg",
+        "assets/robberg-hiking-trail/robberg-hiking-trail-06.jpg"
       ]
     }
   ],
@@ -1231,6 +1268,42 @@
       "name": "Bollards Bay Kanufahrt",
       "lat": -34.0662,
       "lon": 23.0638,
+      "kind": "actual"
+    },
+    {
+      "name": "Knysna east N2 link",
+      "lat": -34.0398,
+      "lon": 23.1019,
+      "kind": "actual"
+    },
+    {
+      "name": "Harkerville N2 link",
+      "lat": -34.0348,
+      "lon": 23.2167,
+      "kind": "actual"
+    },
+    {
+      "name": "Plettenberg Bay west N2 link",
+      "lat": -34.0434,
+      "lon": 23.3261,
+      "kind": "actual"
+    },
+    {
+      "name": "Plettenberg Bay Robberg Road link",
+      "lat": -34.0678,
+      "lon": 23.3583,
+      "kind": "actual"
+    },
+    {
+      "name": "Robberg Nature Reserve approach link",
+      "lat": -34.0908,
+      "lon": 23.3672,
+      "kind": "actual"
+    },
+    {
+      "name": "Robberg Hiking Trail",
+      "lat": -34.1006,
+      "lon": 23.3759,
       "kind": "actual"
     }
   ],

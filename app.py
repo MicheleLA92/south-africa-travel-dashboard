@@ -418,6 +418,7 @@ ACTIVITY_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/asse
 ART_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3a8.png"
 GOLF_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/26f3.png"
 CANOE_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f6f6.png"
+HIKING_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f97e.png"
 PENGUIN_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f427.png"
 STAY_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3e1.png"
 ELEPHANT_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f418.png"
@@ -474,6 +475,8 @@ def photo_stop_icon_url(stop):
         return GOLF_MAP_ICON_URL
     if stop.get("kind") == "canoe":
         return CANOE_MAP_ICON_URL
+    if stop.get("kind") == "hiking":
+        return HIKING_MAP_ICON_URL
     if stop.get("kind") == "activity":
         return ACTIVITY_MAP_ICON_URL
     if stop.get("kind") == "stay":
@@ -492,6 +495,8 @@ def photo_stop_menu_icon(stop):
         return "⛳"
     if stop.get("kind") == "canoe":
         return "🛶"
+    if stop.get("kind") == "hiking":
+        return "🥾"
     if stop.get("kind") == "activity":
         return "🍷"
     if stop.get("kind") == "stay":
@@ -695,7 +700,7 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
         on_select="rerun",
         key=map_key,
     )
-    st.caption("Tatsächlich gefahrene Route · kleine Symbole: 📷 Foto · 🍴 Restaurant · 🏡 Unterkunft · 🍷 Aktivität · 🎨 Art/Decor · ⛳ Golf · 🛶 Kanufahrt · 🐧 Pinguine. Symbol antippen, um Fotos zu öffnen.")
+    st.caption("Tatsächlich gefahrene Route · kleine Symbole: 📷 Foto · 🍴 Restaurant · 🏡 Unterkunft · 🍷 Aktivität · 🎨 Art/Decor · ⛳ Golf · 🛶 Kanufahrt · 🥾 Hiking · 🐧 Pinguine. Symbol antippen, um Fotos zu öffnen.")
     render_made_stops_overview(photo_stops)
 
     if photo_stops:
@@ -794,7 +799,7 @@ def render_photo_map(data, map_key="photo_map"):
         on_select="rerun",
         key=map_key,
     )
-    st.caption("📷 Foto-Spot · 🍴 Restaurant/Food · 🏡 Unterkunft · 🍷 Aktivität · 🎨 Art/Decor · ⛳ Golf · 🛶 Kanufahrt · 🐧 Pinguine · Symbol antippen, um die Fotos zu öffnen.")
+    st.caption("📷 Foto-Spot · 🍴 Restaurant/Food · 🏡 Unterkunft · 🍷 Aktivität · 🎨 Art/Decor · ⛳ Golf · 🛶 Kanufahrt · 🥾 Hiking · 🐧 Pinguine · Symbol antippen, um die Fotos zu öffnen.")
 
     selected_photo_stop_name = None
     try:
