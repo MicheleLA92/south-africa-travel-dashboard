@@ -121,13 +121,13 @@ def test_map_route_extends_to_trogon_house():
     names = [point["name"] for point in data["map_route"]]
 
     robberg_index = names.index("Robberg Hiking Trail")
-    trogon_index = names.index("Trogon House")
+    trogon_index = names.index("Trogon House and Forest Spa")
     trogon_segment = names[robberg_index:trogon_index + 1]
 
     assert robberg_index < trogon_index
     assert "Plettenberg Bay east N2 link" in trogon_segment
     assert "The Crags N2 link" in trogon_segment
-    assert "Trogon House forest road link" in trogon_segment
+    assert "Trogon House and Forest Spa forest road link" in trogon_segment
 
 
 def test_route_line_connects_cape_town_coastal_photo_stops():
@@ -198,12 +198,12 @@ def test_knysna_belle_guest_house_has_photos():
 def test_trogon_house_is_current_stay_with_photos():
     data = load_data()
     stays = data["stays"]
-    stay = next((item for item in stays if item["name"] == "Trogon House"), None)
+    stay = next((item for item in stays if item["name"] == "Trogon House and Forest Spa"), None)
 
-    assert data["stay"]["name"] == "Trogon House"
+    assert data["stay"]["name"] == "Trogon House and Forest Spa"
     assert stay is not None
     assert stay["location"] == "The Crags / Plettenberg Bay"
-    assert stay["link"] == "https://maps.app.goo.gl/SKef6WjuYroQZtmQA"
+    assert stay["link"] == "https://maps.app.goo.gl/1fj2AJuKTBAL9zUN8"
     assert stay["region"] == "Garden Route"
     assert stay["kind"] == "stay"
     assert -34.5 <= stay["lat"] <= -33.5
@@ -215,7 +215,7 @@ def test_trogon_house_is_current_stay_with_photos():
         "assets/trogon-house/trogon-house-04.jpg",
     ]
     for photo in stay["images"]:
-        assert Path(photo).exists(), f"Missing Trogon House photo: {photo}"
+        assert Path(photo).exists(), f"Missing Trogon House and Forest Spa photo: {photo}"
 
 
 def test_map_has_elephant_marker_near_port_elizabeth():

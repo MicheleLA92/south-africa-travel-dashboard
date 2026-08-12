@@ -183,8 +183,8 @@
     {
       "emoji": "🏡",
       "name": "The Crags",
-      "summary": "Unterkunftsstopp bei Trogon House mitten im grünen Waldgefühl.",
-      "detail": "Echter Garden-Route-Stopp bei The Crags: Trogon House mit Holzdeck, Pool, Kamin-Dinner und ruhiger Lodge-Stimmung im Grünen.",
+      "summary": "Unterkunftsstopp bei Trogon House and Forest Spa mitten im grünen Waldgefühl.",
+      "detail": "Echter Garden-Route-Stopp bei The Crags: Trogon House and Forest Spa mit Holzdeck, Pool, Kamin-Dinner und ruhiger Lodge-Stimmung im Grünen.",
       "tags": [
         "Unterkunft",
         "Garden Route",
@@ -194,7 +194,7 @@
       "risk": "low",
       "risk_de": "niedrig",
       "weather": "mild / grün",
-      "link": "https://maps.app.goo.gl/SKef6WjuYroQZtmQA",
+      "link": "https://maps.app.goo.gl/1fj2AJuKTBAL9zUN8",
       "lat": -33.9632,
       "lon": 23.4716
     }
@@ -347,11 +347,11 @@
     }
   ],
   "stay": {
-    "name": "Trogon House",
+    "name": "Trogon House and Forest Spa",
     "location": "The Crags / Plettenberg Bay",
     "why": "Ruhige Lodge-Unterkunft im Grünen: Holzdeck mit Pool, viel Naturblick und abends gemütliche Kamin- und Dinner-Stimmung.",
     "tip": "",
-    "link": "https://maps.app.goo.gl/SKef6WjuYroQZtmQA",
+    "link": "https://maps.app.goo.gl/1fj2AJuKTBAL9zUN8",
     "lat": -33.9632,
     "lon": 23.4716,
     "region": "Garden Route",
@@ -413,11 +413,11 @@
       ]
     },
     {
-      "name": "Trogon House",
+      "name": "Trogon House and Forest Spa",
       "location": "The Crags / Plettenberg Bay",
       "why": "Ruhige Lodge-Unterkunft im Grünen: Holzdeck mit Pool, viel Naturblick und abends gemütliche Kamin- und Dinner-Stimmung.",
       "tip": "",
-      "link": "https://maps.app.goo.gl/SKef6WjuYroQZtmQA",
+      "link": "https://maps.app.goo.gl/1fj2AJuKTBAL9zUN8",
       "lat": -33.9632,
       "lon": 23.4716,
       "region": "Garden Route",
@@ -1373,13 +1373,13 @@
       "kind": "actual"
     },
     {
-      "name": "Trogon House forest road link",
+      "name": "Trogon House and Forest Spa forest road link",
       "lat": -33.9652,
       "lon": 23.4741,
       "kind": "actual"
     },
     {
-      "name": "Trogon House",
+      "name": "Trogon House and Forest Spa",
       "lat": -33.9632,
       "lon": 23.4716,
       "kind": "actual"
