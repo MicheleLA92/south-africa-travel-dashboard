@@ -31,6 +31,7 @@ def test_route_order_matches_actual_trip():
         "Knysna",
         "Robberg Hiking Trail",
         "The Crags",
+        "Jeffreys Bay",
     ]
 
 
@@ -48,6 +49,7 @@ def test_map_route_shows_only_actual_driven_route():
         "Knysna",
         "Robberg Hiking Trail",
         "The Crags",
+        "Jeffreys Bay",
     ]
 
     assert all(point["kind"] == "actual" for point in route)
@@ -140,6 +142,20 @@ def test_map_route_extends_to_monkeyland():
 
     assert trogon_index < monkeyland_index
     assert "Monkeyland road link" in monkeyland_segment
+
+
+def test_map_route_extends_to_jeffreys_bay():
+    data = load_data()
+    names = [point["name"] for point in data["map_route"]]
+
+    monkeyland_index = names.index("Monkeyland")
+    jeffreys_index = names.index("Jeffreys Bay")
+    jeffreys_segment = names[monkeyland_index:jeffreys_index + 1]
+
+    assert monkeyland_index < jeffreys_index
+    assert "Storms River N2 link" in jeffreys_segment
+    assert "Humansdorp N2 link" in jeffreys_segment
+    assert "Jeffreys Bay R102 link" in jeffreys_segment
 
 
 def test_route_line_connects_cape_town_coastal_photo_stops():
@@ -626,6 +642,21 @@ def test_all_photo_stops_are_grouped_by_region():
     assert None not in regions
     assert "Kapstadt" in regions
     assert "Marloth Park / Kruger" in regions
+
+
+def test_jeffreys_bay_photo_stop_has_photo_and_region():
+    data = load_data()
+    stop = next((item for item in data["photo_stops"] if item["name"] == "Jeffreys Bay"), None)
+
+    assert stop is not None
+    assert stop["location"] == "Jeffreys Bay / Eastern Cape"
+    assert stop["region"] == "Garden Route"
+    assert stop["kind"] == "photo"
+    assert -35 <= stop["lat"] <= -33
+    assert 24 <= stop["lon"] <= 25
+    assert stop["photos"] == ["assets/jeffreys-bay/jeffreys-bay-01.jpg"]
+    for photo in stop["photos"]:
+        assert Path(photo).exists(), f"Missing Jeffreys Bay photo: {photo}"
 
 
 def test_accommodation_photo_stops_use_stay_kind_for_map_symbol():

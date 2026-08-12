@@ -8,8 +8,8 @@
     "metrics": [
       {
         "label": "Route",
-        "value": "9 echte Stopps",
-        "hint": "Cape Town bis The Crags"
+        "value": "10 echte Stopps",
+        "hint": "Cape Town bis Jeffreys Bay"
       },
       {
         "label": "Fokus",
@@ -29,7 +29,7 @@
     ],
     "news": [
       "Reisehinweise vor Abreise prüfen: Auswärtiges Amt, GOV.UK und US Travel Advisories führen weiterhin Hinweise zu Kriminalität, Demonstrationen und regionalen Risiken.",
-      "Für die aktuell gemachte Route gilt: Cape Town, Franschhoek, Betty's Bay, Swellendam, Mossel Bay, Wilderness, Knysna, Robberg und The Crags bewusst ruhig fahren, Fotostopps einplanen und nach Einbruch der Dunkelheit eher kurze Transfers wählen.",
+      "Für die aktuell gemachte Route gilt: Cape Town, Franschhoek, Betty's Bay, Swellendam, Mossel Bay, Wilderness, Knysna, Robberg, The Crags und Jeffreys Bay bewusst ruhig fahren, Fotostopps einplanen und nach Einbruch der Dunkelheit eher kurze Transfers wählen.",
       "Load-Shedding kann je nach Lage kurzfristig wieder Thema sein; Unterkünfte mit Backup-Strom/WLAN sind für Roadtrip-Planung und Navigation praktisch."
     ],
     "health": "Für die aktuelle Küsten- und Garden-Route-Etappe reichen Sonnenschutz, warme Schichten und wetterfeste Kleidung für wechselhafte Küstentage.",
@@ -197,6 +197,24 @@
       "link": "https://maps.app.goo.gl/1fj2AJuKTBAL9zUN8",
       "lat": -33.9632,
       "lon": 23.4716
+    },
+    {
+      "emoji": "🌊",
+      "name": "Jeffreys Bay",
+      "summary": "Fotostopp an der Surfküste mit weitem Strand, Felsen und glitzerndem Meer.",
+      "detail": "Echter Küsten-Fotostopp: Jeffreys Bay mit weitem Blick über Strand, Felsen, Wellen und die offene Küste.",
+      "tags": [
+        "Fotostopp",
+        "Garden Route",
+        "Küste",
+        "Surf"
+      ],
+      "risk": "low",
+      "risk_de": "niedrig",
+      "weather": "sonnig / windig",
+      "link": "https://www.google.com/maps/search/Jeffreys+Bay+South+Africa",
+      "lat": -34.0507,
+      "lon": 24.917
     }
   ],
   "magic_place": {
@@ -1412,6 +1430,42 @@
       "lat": -33.9639,
       "lon": 23.4818,
       "kind": "actual"
+    },
+    {
+      "name": "The Crags east N2 link",
+      "lat": -33.9556,
+      "lon": 23.605,
+      "kind": "actual"
+    },
+    {
+      "name": "Storms River N2 link",
+      "lat": -33.9693,
+      "lon": 23.8898,
+      "kind": "actual"
+    },
+    {
+      "name": "Tsitsikamma west N2 link",
+      "lat": -34.0024,
+      "lon": 24.2113,
+      "kind": "actual"
+    },
+    {
+      "name": "Humansdorp N2 link",
+      "lat": -34.029,
+      "lon": 24.7714,
+      "kind": "actual"
+    },
+    {
+      "name": "Jeffreys Bay R102 link",
+      "lat": -34.0366,
+      "lon": 24.9007,
+      "kind": "actual"
+    },
+    {
+      "name": "Jeffreys Bay",
+      "lat": -34.0507,
+      "lon": 24.917,
+      "kind": "actual"
     }
   ],
   "map_elephant_marker": {
@@ -1619,6 +1673,18 @@
         "assets/marloth-park-pool-zebra.jpg",
         "assets/marloth-park-living-kitchen.jpg",
         "assets/marloth-park-terrace-dinner.jpg"
+      ]
+    },
+    {
+      "name": "Jeffreys Bay",
+      "location": "Jeffreys Bay / Eastern Cape",
+      "description": "Sonniger Küsten-Fotostopp mit weitem Strand, schwarzen Felsen, glitzerndem Meer und Blick über die Surfküste.",
+      "lat": -34.0507,
+      "lon": 24.917,
+      "region": "Garden Route",
+      "kind": "photo",
+      "photos": [
+        "assets/jeffreys-bay/jeffreys-bay-01.jpg"
       ]
     }
   ],
