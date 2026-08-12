@@ -130,6 +130,18 @@ def test_map_route_extends_to_trogon_house():
     assert "Trogon House and Forest Spa forest road link" in trogon_segment
 
 
+def test_map_route_extends_to_monkeyland():
+    data = load_data()
+    names = [point["name"] for point in data["map_route"]]
+
+    trogon_index = names.index("Trogon House and Forest Spa")
+    monkeyland_index = names.index("Monkeyland")
+    monkeyland_segment = names[trogon_index:monkeyland_index + 1]
+
+    assert trogon_index < monkeyland_index
+    assert "Monkeyland road link" in monkeyland_segment
+
+
 def test_route_line_connects_cape_town_coastal_photo_stops():
     data = load_data()
     main_names = [point["name"] for point in data["map_route"]]
@@ -584,6 +596,27 @@ def test_robberg_hiking_activity_has_photos_and_hiking_kind():
     ]
     for photo in activity["images"]:
         assert Path(photo).exists(), f"Missing Robberg Hiking Trail photo: {photo}"
+
+
+def test_monkeyland_activity_has_photos_and_monkey_kind():
+    data = load_data()
+    activity = next((item for item in data.get("activities", []) if item["name"] == "Monkeyland"), None)
+
+    assert activity is not None
+    assert activity["location"] == "The Crags / Plettenberg Bay"
+    assert activity["link"] == "https://maps.app.goo.gl/TGhWGNkZ5JqciSJG8"
+    assert activity["region"] == "Garden Route"
+    assert activity["kind"] == "monkey"
+    assert -34.5 <= activity["lat"] <= -33.5
+    assert 23 <= activity["lon"] <= 24
+    assert activity["images"] == [
+        "assets/monkeyland/monkeyland-01.jpg",
+        "assets/monkeyland/monkeyland-02.jpg",
+        "assets/monkeyland/monkeyland-03.jpg",
+        "assets/monkeyland/monkeyland-04.jpg",
+    ]
+    for photo in activity["images"]:
+        assert Path(photo).exists(), f"Missing Monkeyland photo: {photo}"
 
 
 def test_all_photo_stops_are_grouped_by_region():

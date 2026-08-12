@@ -525,6 +525,23 @@
         "assets/robberg-hiking-trail/robberg-hiking-trail-05.jpg",
         "assets/robberg-hiking-trail/robberg-hiking-trail-06.jpg"
       ]
+    },
+    {
+      "name": "Monkeyland",
+      "location": "The Crags / Plettenberg Bay",
+      "why": "Tier- und Waldaktivität bei The Crags: Affen, Gibbons und Lemuren frei im grünen Wald beobachten – sehr nah an der Natur und ruhig zwischen Bäumen und Ästen.",
+      "tip": "",
+      "link": "https://maps.app.goo.gl/TGhWGNkZ5JqciSJG8",
+      "lat": -33.9639,
+      "lon": 23.4818,
+      "region": "Garden Route",
+      "kind": "monkey",
+      "images": [
+        "assets/monkeyland/monkeyland-01.jpg",
+        "assets/monkeyland/monkeyland-02.jpg",
+        "assets/monkeyland/monkeyland-03.jpg",
+        "assets/monkeyland/monkeyland-04.jpg"
+      ]
     }
   ],
   "preparation": [
@@ -1382,6 +1399,18 @@
       "name": "Trogon House and Forest Spa",
       "lat": -33.9632,
       "lon": 23.4716,
+      "kind": "actual"
+    },
+    {
+      "name": "Monkeyland road link",
+      "lat": -33.9637,
+      "lon": 23.4777,
+      "kind": "actual"
+    },
+    {
+      "name": "Monkeyland",
+      "lat": -33.9639,
+      "lon": 23.4818,
       "kind": "actual"
     }
   ],
