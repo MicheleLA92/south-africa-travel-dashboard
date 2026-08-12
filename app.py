@@ -522,7 +522,14 @@ def render_made_stops_overview(photo_stops):
 
 
 def get_photo_stop_entries(data):
-    photo_stops = [stop for stop in data.get("photo_stops", []) if stop.get("photos")]
+    photo_stops = [
+        {
+            **stop,
+            "summary": stop.get("summary") or stop.get("description") or "Bilder von diesem Reisestopp.",
+        }
+        for stop in data.get("photo_stops", [])
+        if stop.get("photos")
+    ]
     existing_names = {stop["name"] for stop in photo_stops}
 
     recommendation_sources = [

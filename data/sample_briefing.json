@@ -201,13 +201,14 @@
     {
       "emoji": "🌊",
       "name": "Jeffreys Bay",
-      "summary": "Fotostopp an der Surfküste mit weitem Strand, Felsen und glitzerndem Meer.",
-      "detail": "Echter Küsten-Fotostopp: Jeffreys Bay mit weitem Blick über Strand, Felsen, Wellen und die offene Küste.",
+      "summary": "Fotostopp an der Surfküste: cooler Surfer-Spot mit weitem Strand, Felsen und glitzerndem Meer.",
+      "detail": "Echter Küsten-Fotostopp: Jeffreys Bay ist ein cooler Surfer-Spot mit weitem Blick über Strand, Felsen, Wellen und die offene Küste.",
       "tags": [
         "Fotostopp",
         "Garden Route",
         "Küste",
-        "Surf"
+        "Surf",
+        "Surfer-Spot"
       ],
       "risk": "low",
       "risk_de": "niedrig",
@@ -1678,7 +1679,7 @@
     {
       "name": "Jeffreys Bay",
       "location": "Jeffreys Bay / Eastern Cape",
-      "description": "Sonniger Küsten-Fotostopp mit weitem Strand, schwarzen Felsen, glitzerndem Meer und Blick über die Surfküste.",
+      "description": "Sonniger Küsten-Fotostopp und cooler Surfer-Spot mit weitem Strand, schwarzen Felsen, glitzerndem Meer und Blick über die Surfküste.",
       "lat": -34.0507,
       "lon": 24.917,
       "region": "Garden Route",
