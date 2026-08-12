@@ -30,6 +30,7 @@ def test_route_order_matches_actual_trip():
         "Wilderness",
         "Knysna",
         "Robberg Hiking Trail",
+        "The Crags",
     ]
 
 
@@ -46,6 +47,7 @@ def test_map_route_shows_only_actual_driven_route():
         "Wilderness",
         "Knysna",
         "Robberg Hiking Trail",
+        "The Crags",
     ]
 
     assert all(point["kind"] == "actual" for point in route)
@@ -114,6 +116,20 @@ def test_map_route_extends_to_robberg_hiking_trail():
     assert "Robberg Nature Reserve approach link" in hiking_segment
 
 
+def test_map_route_extends_to_trogon_house():
+    data = load_data()
+    names = [point["name"] for point in data["map_route"]]
+
+    robberg_index = names.index("Robberg Hiking Trail")
+    trogon_index = names.index("Trogon House")
+    trogon_segment = names[robberg_index:trogon_index + 1]
+
+    assert robberg_index < trogon_index
+    assert "Plettenberg Bay east N2 link" in trogon_segment
+    assert "The Crags N2 link" in trogon_segment
+    assert "Trogon House forest road link" in trogon_segment
+
+
 def test_route_line_connects_cape_town_coastal_photo_stops():
     data = load_data()
     main_names = [point["name"] for point in data["map_route"]]
@@ -158,12 +174,11 @@ def test_moontide_riverside_lodge_replaces_rhino_post_stay():
         assert Path(video).exists(), f"Missing Moontide Riverside Lodge video: {video}"
 
 
-def test_knysna_belle_guest_house_is_current_stay_with_photos():
+def test_knysna_belle_guest_house_has_photos():
     data = load_data()
     stays = data["stays"]
     stay = next((item for item in stays if item["name"] == "The Knysna Belle Guest House"), None)
 
-    assert data["stay"]["name"] == "The Knysna Belle Guest House"
     assert stay is not None
     assert stay["location"] == "Knysna / Leisure Island"
     assert stay["link"] == "https://maps.app.goo.gl/1eKptN5MPdNgRD6h6"
@@ -178,6 +193,28 @@ def test_knysna_belle_guest_house_is_current_stay_with_photos():
     ]
     for photo in stay["images"]:
         assert Path(photo).exists(), f"Missing The Knysna Belle Guest House photo: {photo}"
+
+
+def test_trogon_house_is_current_stay_with_photos():
+    data = load_data()
+    stays = data["stays"]
+    stay = next((item for item in stays if item["name"] == "Trogon House"), None)
+
+    assert data["stay"]["name"] == "Trogon House"
+    assert stay is not None
+    assert stay["location"] == "The Crags / Plettenberg Bay"
+    assert stay["link"] == "https://maps.app.goo.gl/SKef6WjuYroQZtmQA"
+    assert stay["region"] == "Garden Route"
+    assert stay["kind"] == "stay"
+    assert -34.5 <= stay["lat"] <= -33.5
+    assert 23 <= stay["lon"] <= 24
+    assert stay["images"] == [
+        "assets/trogon-house/trogon-house-01.jpg",
+        "assets/trogon-house/trogon-house-02.jpg",
+        "assets/trogon-house/trogon-house-03.jpg",
+    ]
+    for photo in stay["images"]:
+        assert Path(photo).exists(), f"Missing Trogon House photo: {photo}"
 
 
 def test_map_has_elephant_marker_near_port_elizabeth():

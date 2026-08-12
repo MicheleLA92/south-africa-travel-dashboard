@@ -8,8 +8,8 @@
     "metrics": [
       {
         "label": "Route",
-        "value": "8 echte Stopps",
-        "hint": "Cape Town bis Robberg"
+        "value": "9 echte Stopps",
+        "hint": "Cape Town bis The Crags"
       },
       {
         "label": "Fokus",
@@ -29,7 +29,7 @@
     ],
     "news": [
       "Reisehinweise vor Abreise prüfen: Auswärtiges Amt, GOV.UK und US Travel Advisories führen weiterhin Hinweise zu Kriminalität, Demonstrationen und regionalen Risiken.",
-      "Für die aktuell gemachte Route gilt: Cape Town, Franschhoek, Betty's Bay, Swellendam, Mossel Bay, Wilderness, Knysna und Robberg bewusst ruhig fahren, Fotostopps einplanen und nach Einbruch der Dunkelheit eher kurze Transfers wählen.",
+      "Für die aktuell gemachte Route gilt: Cape Town, Franschhoek, Betty's Bay, Swellendam, Mossel Bay, Wilderness, Knysna, Robberg und The Crags bewusst ruhig fahren, Fotostopps einplanen und nach Einbruch der Dunkelheit eher kurze Transfers wählen.",
       "Load-Shedding kann je nach Lage kurzfristig wieder Thema sein; Unterkünfte mit Backup-Strom/WLAN sind für Roadtrip-Planung und Navigation praktisch."
     ],
     "health": "Für die aktuelle Küsten- und Garden-Route-Etappe reichen Sonnenschutz, warme Schichten und wetterfeste Kleidung für wechselhafte Küstentage.",
@@ -179,6 +179,24 @@
       "link": "https://maps.app.goo.gl/cqSLHAf8n1jZwT8ZA",
       "lat": -34.1006,
       "lon": 23.3759
+    },
+    {
+      "emoji": "🏡",
+      "name": "The Crags",
+      "summary": "Unterkunftsstopp bei Trogon House mitten im grünen Waldgefühl.",
+      "detail": "Echter Garden-Route-Stopp bei The Crags: Trogon House mit Holzdeck, Pool, Kamin-Dinner und ruhiger Lodge-Stimmung im Grünen.",
+      "tags": [
+        "Unterkunft",
+        "Garden Route",
+        "The Crags",
+        "Lodge"
+      ],
+      "risk": "low",
+      "risk_de": "niedrig",
+      "weather": "mild / grün",
+      "link": "https://maps.app.goo.gl/SKef6WjuYroQZtmQA",
+      "lat": -33.9632,
+      "lon": 23.4716
     }
   ],
   "magic_place": {
@@ -329,19 +347,19 @@
     }
   ],
   "stay": {
-    "name": "The Knysna Belle Guest House",
-    "location": "Knysna / Leisure Island",
-    "why": "Ruhige Unterkunft auf Leisure Island in Knysna – helles Zimmer, schöner Blick über die Lagune und Garten mit Pool.",
+    "name": "Trogon House",
+    "location": "The Crags / Plettenberg Bay",
+    "why": "Ruhige Lodge-Unterkunft im Grünen: Holzdeck mit Pool, viel Naturblick und abends gemütliche Kamin- und Dinner-Stimmung.",
     "tip": "",
-    "link": "https://maps.app.goo.gl/1eKptN5MPdNgRD6h6",
-    "lat": -34.0646,
-    "lon": 23.0602,
+    "link": "https://maps.app.goo.gl/SKef6WjuYroQZtmQA",
+    "lat": -33.9632,
+    "lon": 23.4716,
     "region": "Garden Route",
     "kind": "stay",
     "images": [
-      "assets/knysna-belle-guest-house/knysna-belle-guest-house-01.jpg",
-      "assets/knysna-belle-guest-house/knysna-belle-guest-house-02.jpg",
-      "assets/knysna-belle-guest-house/knysna-belle-guest-house-03.jpg"
+      "assets/trogon-house/trogon-house-01.jpg",
+      "assets/trogon-house/trogon-house-02.jpg",
+      "assets/trogon-house/trogon-house-03.jpg"
     ]
   },
   "stays": [
@@ -391,6 +409,22 @@
         "assets/knysna-belle-guest-house/knysna-belle-guest-house-01.jpg",
         "assets/knysna-belle-guest-house/knysna-belle-guest-house-02.jpg",
         "assets/knysna-belle-guest-house/knysna-belle-guest-house-03.jpg"
+      ]
+    },
+    {
+      "name": "Trogon House",
+      "location": "The Crags / Plettenberg Bay",
+      "why": "Ruhige Lodge-Unterkunft im Grünen: Holzdeck mit Pool, viel Naturblick und abends gemütliche Kamin- und Dinner-Stimmung.",
+      "tip": "",
+      "link": "https://maps.app.goo.gl/SKef6WjuYroQZtmQA",
+      "lat": -33.9632,
+      "lon": 23.4716,
+      "region": "Garden Route",
+      "kind": "stay",
+      "images": [
+        "assets/trogon-house/trogon-house-01.jpg",
+        "assets/trogon-house/trogon-house-02.jpg",
+        "assets/trogon-house/trogon-house-03.jpg"
       ]
     }
   ],
@@ -1304,6 +1338,48 @@
       "name": "Robberg Hiking Trail",
       "lat": -34.1006,
       "lon": 23.3759,
+      "kind": "actual"
+    },
+    {
+      "name": "Robberg Road return link",
+      "lat": -34.0664,
+      "lon": 23.3588,
+      "kind": "actual"
+    },
+    {
+      "name": "Plettenberg Bay east N2 link",
+      "lat": -34.0202,
+      "lon": 23.3935,
+      "kind": "actual"
+    },
+    {
+      "name": "Keurboomstrand N2 link",
+      "lat": -33.9875,
+      "lon": 23.4422,
+      "kind": "actual"
+    },
+    {
+      "name": "The Crags N2 link",
+      "lat": -33.9628,
+      "lon": 23.4657,
+      "kind": "actual"
+    },
+    {
+      "name": "The Crags",
+      "lat": -33.9632,
+      "lon": 23.4716,
+      "kind": "actual"
+    },
+    {
+      "name": "Trogon House forest road link",
+      "lat": -33.9652,
+      "lon": 23.4741,
+      "kind": "actual"
+    },
+    {
+      "name": "Trogon House",
+      "lat": -33.9632,
+      "lon": 23.4716,
       "kind": "actual"
     }
   ],
