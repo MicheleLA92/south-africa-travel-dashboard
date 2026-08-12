@@ -359,7 +359,8 @@
     "images": [
       "assets/trogon-house/trogon-house-01.jpg",
       "assets/trogon-house/trogon-house-02.jpg",
-      "assets/trogon-house/trogon-house-03.jpg"
+      "assets/trogon-house/trogon-house-03.jpg",
+      "assets/trogon-house/trogon-house-04.jpg"
     ]
   },
   "stays": [
@@ -424,7 +425,8 @@
       "images": [
         "assets/trogon-house/trogon-house-01.jpg",
         "assets/trogon-house/trogon-house-02.jpg",
-        "assets/trogon-house/trogon-house-03.jpg"
+        "assets/trogon-house/trogon-house-03.jpg",
+        "assets/trogon-house/trogon-house-04.jpg"
       ]
     }
   ],

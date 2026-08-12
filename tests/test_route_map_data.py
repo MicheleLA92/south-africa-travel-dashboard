@@ -212,6 +212,7 @@ def test_trogon_house_is_current_stay_with_photos():
         "assets/trogon-house/trogon-house-01.jpg",
         "assets/trogon-house/trogon-house-02.jpg",
         "assets/trogon-house/trogon-house-03.jpg",
+        "assets/trogon-house/trogon-house-04.jpg",
     ]
     for photo in stay["images"]:
         assert Path(photo).exists(), f"Missing Trogon House photo: {photo}"
