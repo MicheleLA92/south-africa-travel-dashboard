@@ -8,8 +8,8 @@
     "metrics": [
       {
         "label": "Route",
-        "value": "10 echte Stopps",
-        "hint": "Cape Town bis Jeffreys Bay"
+        "value": "11 echte Stopps",
+        "hint": "Cape Town bis Alexandria Dune Field"
       },
       {
         "label": "Fokus",
@@ -29,7 +29,7 @@
     ],
     "news": [
       "Reisehinweise vor Abreise prüfen: Auswärtiges Amt, GOV.UK und US Travel Advisories führen weiterhin Hinweise zu Kriminalität, Demonstrationen und regionalen Risiken.",
-      "Für die aktuell gemachte Route gilt: Cape Town, Franschhoek, Betty's Bay, Swellendam, Mossel Bay, Wilderness, Knysna, Robberg, The Crags und Jeffreys Bay bewusst ruhig fahren, Fotostopps einplanen und nach Einbruch der Dunkelheit eher kurze Transfers wählen.",
+      "Für die aktuell gemachte Route gilt: Cape Town, Franschhoek, Betty's Bay, Swellendam, Mossel Bay, Wilderness, Knysna, Robberg, The Crags, Jeffreys Bay und Alexandria Dune Field bewusst ruhig fahren, Fotostopps einplanen und nach Einbruch der Dunkelheit eher kurze Transfers wählen.",
       "Load-Shedding kann je nach Lage kurzfristig wieder Thema sein; Unterkünfte mit Backup-Strom/WLAN sind für Roadtrip-Planung und Navigation praktisch."
     ],
     "health": "Für die aktuelle Küsten- und Garden-Route-Etappe reichen Sonnenschutz, warme Schichten und wetterfeste Kleidung für wechselhafte Küstentage.",
@@ -216,6 +216,24 @@
       "link": "https://www.google.com/maps/search/Jeffreys+Bay+South+Africa",
       "lat": -34.0507,
       "lon": 24.917
+    },
+    {
+      "emoji": "🏃‍♀️",
+      "name": "Alexandria Dune Field Running",
+      "summary": "Running-Fotostopp bei den Dünen: Sand, Lagune, Sonnenlicht und weite Naturstimmung.",
+      "detail": "Echter Running-Stopp beim Alexandria Dune Field: helle Dünenlandschaft, glitzerndes Wasser und weite Küsten-/Lagunenblicke.",
+      "tags": [
+        "Running",
+        "Fotostopp",
+        "Dünen",
+        "Eastern Cape"
+      ],
+      "risk": "low",
+      "risk_de": "niedrig",
+      "weather": "sonnig / hell",
+      "link": "https://maps.app.goo.gl/bWzJhtv8igLA5c1i9?g_st=ac",
+      "lat": -33.7487,
+      "lon": 26.3444
     }
   ],
   "magic_place": {
@@ -1467,6 +1485,36 @@
       "lat": -34.0507,
       "lon": 24.917,
       "kind": "actual"
+    },
+    {
+      "name": "Humansdorp east N2 link",
+      "lat": -34.0062,
+      "lon": 25.0393,
+      "kind": "actual"
+    },
+    {
+      "name": "Gamtoos River N2 link",
+      "lat": -33.9093,
+      "lon": 25.1549,
+      "kind": "actual"
+    },
+    {
+      "name": "Gqeberha west N2 link",
+      "lat": -33.8585,
+      "lon": 25.4545,
+      "kind": "actual"
+    },
+    {
+      "name": "Alexandria Dune Field access link",
+      "lat": -33.7809,
+      "lon": 26.0807,
+      "kind": "actual"
+    },
+    {
+      "name": "Alexandria Dune Field Running",
+      "lat": -33.7487,
+      "lon": 26.3444,
+      "kind": "actual"
     }
   ],
   "map_elephant_marker": {
@@ -1686,6 +1734,19 @@
       "kind": "photo",
       "photos": [
         "assets/jeffreys-bay/jeffreys-bay-01.jpg"
+      ]
+    },
+    {
+      "name": "Alexandria Dune Field Running",
+      "location": "Alexandria Dune Field / Eastern Cape",
+      "summary": "Running-Stopp an den Dünen: heller Sand, ruhiges Wasser, glitzernde Sonne und weite Landschaft – perfekt als aktiver Naturmoment.",
+      "lat": -33.7487,
+      "lon": 26.3444,
+      "region": "Eastern Cape / Addo",
+      "kind": "running",
+      "photos": [
+        "assets/alexandria-dune-field-running/alexandria-dune-field-running-01.jpg",
+        "assets/alexandria-dune-field-running/alexandria-dune-field-running-02.jpg"
       ]
     }
   ],

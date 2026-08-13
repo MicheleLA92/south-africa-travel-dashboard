@@ -32,6 +32,7 @@ def test_route_order_matches_actual_trip():
         "Robberg Hiking Trail",
         "The Crags",
         "Jeffreys Bay",
+        "Alexandria Dune Field Running",
     ]
 
 
@@ -50,6 +51,7 @@ def test_map_route_shows_only_actual_driven_route():
         "Robberg Hiking Trail",
         "The Crags",
         "Jeffreys Bay",
+        "Alexandria Dune Field Running",
     ]
 
     assert all(point["kind"] == "actual" for point in route)
@@ -156,6 +158,20 @@ def test_map_route_extends_to_jeffreys_bay():
     assert "Storms River N2 link" in jeffreys_segment
     assert "Humansdorp N2 link" in jeffreys_segment
     assert "Jeffreys Bay R102 link" in jeffreys_segment
+
+
+def test_map_route_extends_to_alexandria_dune_field_running():
+    data = load_data()
+    names = [point["name"] for point in data["map_route"]]
+
+    jeffreys_index = names.index("Jeffreys Bay")
+    running_index = names.index("Alexandria Dune Field Running")
+    running_segment = names[jeffreys_index:running_index + 1]
+
+    assert jeffreys_index < running_index
+    assert "Gamtoos River N2 link" in running_segment
+    assert "Gqeberha west N2 link" in running_segment
+    assert "Alexandria Dune Field access link" in running_segment
 
 
 def test_route_line_connects_cape_town_coastal_photo_stops():
@@ -657,6 +673,24 @@ def test_jeffreys_bay_photo_stop_has_photo_and_region():
     assert stop["photos"] == ["assets/jeffreys-bay/jeffreys-bay-01.jpg"]
     for photo in stop["photos"]:
         assert Path(photo).exists(), f"Missing Jeffreys Bay photo: {photo}"
+
+
+def test_alexandria_dune_field_running_photo_stop_has_photos_and_running_kind():
+    data = load_data()
+    stop = next((item for item in data["photo_stops"] if item["name"] == "Alexandria Dune Field Running"), None)
+
+    assert stop is not None
+    assert stop["location"] == "Alexandria Dune Field / Eastern Cape"
+    assert stop["region"] == "Eastern Cape / Addo"
+    assert stop["kind"] == "running"
+    assert -34 <= stop["lat"] <= -33
+    assert 26 <= stop["lon"] <= 27
+    assert stop["photos"] == [
+        "assets/alexandria-dune-field-running/alexandria-dune-field-running-01.jpg",
+        "assets/alexandria-dune-field-running/alexandria-dune-field-running-02.jpg",
+    ]
+    for photo in stop["photos"]:
+        assert Path(photo).exists(), f"Missing Alexandria Dune Field Running photo: {photo}"
 
 
 def test_accommodation_photo_stops_use_stay_kind_for_map_symbol():
