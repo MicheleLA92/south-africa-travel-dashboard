@@ -558,7 +558,7 @@ def test_schotia_safaris_is_top_activity_with_elephant_symbol_and_photos():
 
     assert activities[0]["name"] == "Schotia Safaris"
     assert activity is not None
-    assert activity["location"] == "Schotia Safaris Reception / Kirkwood, Addo"
+    assert activity["location"] == "Schotia Safaris, Addo"
     assert activity["link"] == "https://maps.app.goo.gl/xBRNp14mRPJWq9Zz8?g_st=ac"
     assert activity["region"] == "Eastern Cape / Addo"
     assert activity["kind"] == "elephant"
