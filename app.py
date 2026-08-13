@@ -1248,18 +1248,19 @@ with r2:
 with r3:
     st.markdown('<div id="top-aktivitaeten"></div>', unsafe_allow_html=True)
     if activities:
-        activity = activities[0]
         with st.container(border=True):
-            st.markdown('<p class="small"><b>Aktivitäten</b></p>', unsafe_allow_html=True)
-            st.markdown(f"### {activity['name']}")
-            st.write(activity.get('why', 'Ausgewählte Aktivität für die Reise.'))
-            if activity.get("tip"):
-                st.caption(activity["tip"])
-            if activity.get("link"):
-                st.link_button("Aktivität öffnen", activity["link"])
+            st.markdown('<p class="small"><b>Top Aktivitäten</b></p>', unsafe_allow_html=True)
+            for index, activity in enumerate(activities[:4]):
+                icon = photo_stop_menu_icon(activity)
+                st.markdown(f"### {icon} {activity['name']}")
+                st.write(activity.get('why', 'Ausgewählte Aktivität für die Reise.'))
+                if activity.get("link"):
+                    st.link_button("Aktivität öffnen", activity["link"], key=f"top_activity_link_{index}")
+                if index < min(len(activities[:4]), 4) - 1:
+                    st.divider()
     else:
         with st.container(border=True):
-            st.markdown('<p class="small"><b>Aktivitäten</b></p>', unsafe_allow_html=True)
+            st.markdown('<p class="small"><b>Top Aktivitäten</b></p>', unsafe_allow_html=True)
             st.markdown("### Noch offen")
             st.write("Hier ergänzen wir schöne Ausflüge, Aussichtspunkte und besondere Stopps.")
 
