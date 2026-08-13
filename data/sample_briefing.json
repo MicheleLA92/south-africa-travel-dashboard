@@ -1487,6 +1487,12 @@
       "kind": "actual"
     },
     {
+      "name": "Jeffreys Bay north R102 link",
+      "lat": -34.0108,
+      "lon": 24.9318,
+      "kind": "actual"
+    },
+    {
       "name": "Humansdorp east N2 link",
       "lat": -34.0062,
       "lon": 25.0393,
@@ -1499,15 +1505,51 @@
       "kind": "actual"
     },
     {
-      "name": "Gqeberha west N2 link",
-      "lat": -33.8585,
+      "name": "Van Stadens N2 link",
+      "lat": -33.913,
+      "lon": 25.223,
+      "kind": "actual"
+    },
+    {
+      "name": "Gqeberha inland N2 link",
+      "lat": -33.8595,
       "lon": 25.4545,
       "kind": "actual"
     },
     {
-      "name": "Alexandria Dune Field access link",
-      "lat": -33.7809,
-      "lon": 26.0807,
+      "name": "Bluewater Bay N2 link",
+      "lat": -33.8552,
+      "lon": 25.6206,
+      "kind": "actual"
+    },
+    {
+      "name": "Coega N2 link",
+      "lat": -33.7998,
+      "lon": 25.6756,
+      "kind": "actual"
+    },
+    {
+      "name": "Colchester N2 link",
+      "lat": -33.705,
+      "lon": 25.798,
+      "kind": "actual"
+    },
+    {
+      "name": "Sundays River north bank link",
+      "lat": -33.7158,
+      "lon": 25.8418,
+      "kind": "actual"
+    },
+    {
+      "name": "Alexandria Dune Field west access link",
+      "lat": -33.7395,
+      "lon": 26.051,
+      "kind": "actual"
+    },
+    {
+      "name": "Alexandria Dune Field inland ridge link",
+      "lat": -33.7415,
+      "lon": 26.218,
       "kind": "actual"
     },
     {
@@ -1745,7 +1787,8 @@
       "region": "Eastern Cape / Addo",
       "kind": "running",
       "photos": [
-        "assets/alexandria-dune-field-running/alexandria-dune-field-running-01.jpg"
+        "assets/alexandria-dune-field-running/alexandria-dune-field-running-01.jpg",
+        "assets/alexandria-dune-field-running/alexandria-dune-field-running-02.jpg"
       ]
     }
   ],

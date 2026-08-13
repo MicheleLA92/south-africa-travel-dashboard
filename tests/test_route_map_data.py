@@ -170,8 +170,11 @@ def test_map_route_extends_to_alexandria_dune_field_running():
 
     assert jeffreys_index < running_index
     assert "Gamtoos River N2 link" in running_segment
-    assert "Gqeberha west N2 link" in running_segment
-    assert "Alexandria Dune Field access link" in running_segment
+    assert "Van Stadens N2 link" in running_segment
+    assert "Gqeberha inland N2 link" in running_segment
+    assert "Colchester N2 link" in running_segment
+    assert "Sundays River north bank link" in running_segment
+    assert "Alexandria Dune Field inland ridge link" in running_segment
 
 
 def test_route_line_connects_cape_town_coastal_photo_stops():
@@ -687,6 +690,7 @@ def test_alexandria_dune_field_running_photo_stop_has_photos_and_running_kind():
     assert 26 <= stop["lon"] <= 27
     assert stop["photos"] == [
         "assets/alexandria-dune-field-running/alexandria-dune-field-running-01.jpg",
+        "assets/alexandria-dune-field-running/alexandria-dune-field-running-02.jpg",
     ]
     for photo in stop["photos"]:
         assert Path(photo).exists(), f"Missing Alexandria Dune Field Running photo: {photo}"
