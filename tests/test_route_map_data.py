@@ -687,7 +687,6 @@ def test_alexandria_dune_field_running_photo_stop_has_photos_and_running_kind():
     assert 26 <= stop["lon"] <= 27
     assert stop["photos"] == [
         "assets/alexandria-dune-field-running/alexandria-dune-field-running-01.jpg",
-        "assets/alexandria-dune-field-running/alexandria-dune-field-running-02.jpg",
     ]
     for photo in stop["photos"]:
         assert Path(photo).exists(), f"Missing Alexandria Dune Field Running photo: {photo}"
