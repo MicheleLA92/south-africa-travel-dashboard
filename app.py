@@ -483,6 +483,8 @@ def photo_stop_icon_url(stop):
         return MONKEY_MAP_ICON_URL
     if stop.get("kind") == "running":
         return RUNNING_MAP_ICON_URL
+    if stop.get("kind") == "elephant":
+        return ELEPHANT_MAP_ICON_URL
     if stop.get("kind") == "activity":
         return ACTIVITY_MAP_ICON_URL
     if stop.get("kind") == "stay":
@@ -507,6 +509,8 @@ def photo_stop_menu_icon(stop):
         return "🐒"
     if stop.get("kind") == "running":
         return "🏃‍♀️"
+    if stop.get("kind") == "elephant":
+        return "🐘"
     if stop.get("kind") == "activity":
         return "🍷"
     if stop.get("kind") == "stay":
@@ -717,7 +721,7 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
         on_select="rerun",
         key=map_key,
     )
-    st.caption("Tatsächlich gefahrene Route · kleine Symbole: 📷 Foto · 🍴 Restaurant · 🏡 Unterkunft · 🍷 Aktivität · 🎨 Art/Decor · ⛳ Golf · 🛶 Kanufahrt · 🥾 Hiking · 🐒 Monkeyland · 🏃‍♀️ Running · 🐧 Pinguine. Symbol antippen, um Fotos zu öffnen.")
+    st.caption("Tatsächlich gefahrene Route · kleine Symbole: 📷 Foto · 🍴 Restaurant · 🏡 Unterkunft · 🍷 Aktivität · 🎨 Art/Decor · ⛳ Golf · 🛶 Kanufahrt · 🥾 Hiking · 🐒 Monkeyland · 🏃‍♀️ Running · 🐘 Safari · 🐧 Pinguine. Symbol antippen, um Fotos zu öffnen.")
     render_made_stops_overview(photo_stops)
 
     if photo_stops:
@@ -816,7 +820,7 @@ def render_photo_map(data, map_key="photo_map"):
         on_select="rerun",
         key=map_key,
     )
-    st.caption("📷 Foto-Spot · 🍴 Restaurant/Food · 🏡 Unterkunft · 🍷 Aktivität · 🎨 Art/Decor · ⛳ Golf · 🛶 Kanufahrt · 🥾 Hiking · 🐒 Monkeyland · 🏃‍♀️ Running · 🐧 Pinguine · Symbol antippen, um die Fotos zu öffnen.")
+    st.caption("📷 Foto-Spot · 🍴 Restaurant/Food · 🏡 Unterkunft · 🍷 Aktivität · 🎨 Art/Decor · ⛳ Golf · 🛶 Kanufahrt · 🥾 Hiking · 🐒 Monkeyland · 🏃‍♀️ Running · 🐘 Safari · 🐧 Pinguine · Symbol antippen, um die Fotos zu öffnen.")
 
     selected_photo_stop_name = None
     try:

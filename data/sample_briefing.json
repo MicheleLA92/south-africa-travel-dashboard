@@ -8,8 +8,8 @@
     "metrics": [
       {
         "label": "Route",
-        "value": "11 echte Stopps",
-        "hint": "Cape Town bis Alexandria Dune Field"
+        "value": "12 echte Stopps",
+        "hint": "Cape Town bis Schotia Safaris / Addo"
       },
       {
         "label": "Fokus",
@@ -29,7 +29,7 @@
     ],
     "news": [
       "Reisehinweise vor Abreise prüfen: Auswärtiges Amt, GOV.UK und US Travel Advisories führen weiterhin Hinweise zu Kriminalität, Demonstrationen und regionalen Risiken.",
-      "Für die aktuell gemachte Route gilt: Cape Town, Franschhoek, Betty's Bay, Swellendam, Mossel Bay, Wilderness, Knysna, Robberg, The Crags, Jeffreys Bay und Alexandria Dune Field bewusst ruhig fahren, Fotostopps einplanen und nach Einbruch der Dunkelheit eher kurze Transfers wählen.",
+      "Für die aktuell gemachte Route gilt: Cape Town, Franschhoek, Betty's Bay, Swellendam, Mossel Bay, Wilderness, Knysna, Robberg, The Crags, Jeffreys Bay, Alexandria Dune Field und Schotia Safaris bewusst ruhig fahren, Fotostopps einplanen und nach Einbruch der Dunkelheit eher kurze Transfers wählen.",
       "Load-Shedding kann je nach Lage kurzfristig wieder Thema sein; Unterkünfte mit Backup-Strom/WLAN sind für Roadtrip-Planung und Navigation praktisch."
     ],
     "health": "Für die aktuelle Küsten- und Garden-Route-Etappe reichen Sonnenschutz, warme Schichten und wetterfeste Kleidung für wechselhafte Küstentage.",
@@ -234,6 +234,24 @@
       "link": "https://maps.app.goo.gl/bWzJhtv8igLA5c1i9?g_st=ac",
       "lat": -33.7487,
       "lon": 26.3444
+    },
+    {
+      "emoji": "🐘",
+      "name": "Schotia Safaris",
+      "summary": "Safari-Tour bei Addo/Kirkwood mit tollem Guide, Nachtessen und Elefant als starkem Safari-Symbol.",
+      "detail": "Top-Aktivität im Eastern Cape: Schotia Safaris mit Elefanten, Löwen, Giraffen, Nashörnern, Sonnenuntergang und Nachtessen nach der Tour.",
+      "tags": [
+        "Safari",
+        "Top Aktivität",
+        "Addo",
+        "Nachtessen"
+      ],
+      "risk": "low",
+      "risk_de": "niedrig",
+      "weather": "Safari-Wetter / Abendstimmung",
+      "link": "https://maps.app.goo.gl/xBRNp14mRPJWq9Zz8?g_st=ac",
+      "lat": -33.483,
+      "lon": 25.7419
     }
   ],
   "magic_place": {
@@ -468,6 +486,25 @@
     }
   ],
   "activities": [
+    {
+      "name": "Schotia Safaris",
+      "location": "Schotia Safaris Reception / Kirkwood, Addo",
+      "why": "Safari-Tour mit tollem Guide und Nachtessen: Elefant, Löwen, Giraffen, Nashörner und Sonnenuntergang – ein einmaliges erstes Safari-Erlebnis und klare Top-Empfehlung.",
+      "tip": "",
+      "link": "https://maps.app.goo.gl/xBRNp14mRPJWq9Zz8?g_st=ac",
+      "lat": -33.483,
+      "lon": 25.7419,
+      "region": "Eastern Cape / Addo",
+      "kind": "elephant",
+      "images": [
+        "assets/schotia-safaris/schotia-safaris-01.jpg",
+        "assets/schotia-safaris/schotia-safaris-02.jpg",
+        "assets/schotia-safaris/schotia-safaris-03.jpg",
+        "assets/schotia-safaris/schotia-safaris-04.jpg",
+        "assets/schotia-safaris/schotia-safaris-05.jpg",
+        "assets/schotia-safaris/schotia-safaris-06.jpg"
+      ]
+    },
     {
       "name": "Franschhoek Wine Tram",
       "location": "Franschhoek",
@@ -1556,6 +1593,30 @@
       "name": "Alexandria Dune Field Running",
       "lat": -33.7487,
       "lon": 26.3444,
+      "kind": "actual"
+    },
+    {
+      "name": "Alexandria west R72 link",
+      "lat": -33.6628,
+      "lon": 26.1517,
+      "kind": "actual"
+    },
+    {
+      "name": "Paterson R342 link",
+      "lat": -33.445,
+      "lon": 25.965,
+      "kind": "actual"
+    },
+    {
+      "name": "Schotia Safaris access link",
+      "lat": -33.4715,
+      "lon": 25.8075,
+      "kind": "actual"
+    },
+    {
+      "name": "Schotia Safaris",
+      "lat": -33.483,
+      "lon": 25.7419,
       "kind": "actual"
     }
   ],

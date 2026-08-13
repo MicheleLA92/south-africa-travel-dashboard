@@ -33,6 +33,7 @@ def test_route_order_matches_actual_trip():
         "The Crags",
         "Jeffreys Bay",
         "Alexandria Dune Field Running",
+        "Schotia Safaris",
     ]
 
 
@@ -52,6 +53,7 @@ def test_map_route_shows_only_actual_driven_route():
         "The Crags",
         "Jeffreys Bay",
         "Alexandria Dune Field Running",
+        "Schotia Safaris",
     ]
 
     assert all(point["kind"] == "actual" for point in route)
@@ -175,6 +177,20 @@ def test_map_route_extends_to_alexandria_dune_field_running():
     assert "Colchester N2 link" in running_segment
     assert "Sundays River north bank link" in running_segment
     assert "Alexandria Dune Field inland ridge link" in running_segment
+
+
+def test_map_route_extends_to_schotia_safaris():
+    data = load_data()
+    names = [point["name"] for point in data["map_route"]]
+
+    running_index = names.index("Alexandria Dune Field Running")
+    schotia_index = names.index("Schotia Safaris")
+    schotia_segment = names[running_index:schotia_index + 1]
+
+    assert running_index < schotia_index
+    assert "Alexandria west R72 link" in schotia_segment
+    assert "Paterson R342 link" in schotia_segment
+    assert "Schotia Safaris access link" in schotia_segment
 
 
 def test_route_line_connects_cape_town_coastal_photo_stops():
@@ -533,6 +549,33 @@ def test_franschhoek_wine_tram_activity_has_photo_and_map_coordinates():
     ]
     for photo in activity["images"]:
         assert Path(photo).exists(), f"Missing Franschhoek Wine Tram photo: {photo}"
+
+
+def test_schotia_safaris_is_top_activity_with_elephant_symbol_and_photos():
+    data = load_data()
+    activities = data.get("activities", [])
+    activity = next((item for item in activities if item["name"] == "Schotia Safaris"), None)
+
+    assert activities[0]["name"] == "Schotia Safaris"
+    assert activity is not None
+    assert activity["location"] == "Schotia Safaris Reception / Kirkwood, Addo"
+    assert activity["link"] == "https://maps.app.goo.gl/xBRNp14mRPJWq9Zz8?g_st=ac"
+    assert activity["region"] == "Eastern Cape / Addo"
+    assert activity["kind"] == "elephant"
+    assert "tollem Guide" in activity["why"]
+    assert "Nachtessen" in activity["why"]
+    assert -34 <= activity["lat"] <= -33
+    assert 25 <= activity["lon"] <= 26
+    assert activity["images"] == [
+        "assets/schotia-safaris/schotia-safaris-01.jpg",
+        "assets/schotia-safaris/schotia-safaris-02.jpg",
+        "assets/schotia-safaris/schotia-safaris-03.jpg",
+        "assets/schotia-safaris/schotia-safaris-04.jpg",
+        "assets/schotia-safaris/schotia-safaris-05.jpg",
+        "assets/schotia-safaris/schotia-safaris-06.jpg",
+    ]
+    for photo in activity["images"]:
+        assert Path(photo).exists(), f"Missing Schotia Safaris photo: {photo}"
 
 
 def test_stony_point_penguin_activity_has_photos_and_penguin_kind():
