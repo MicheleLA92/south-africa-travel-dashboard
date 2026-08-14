@@ -533,7 +533,9 @@
       "lon": 26.6795,
       "region": "Eastern Cape / Addo",
       "kind": "kite",
-      "images": []
+      "images": [
+        "assets/middle-beach-kite-spot/middle-beach-kite-spot-01.jpg"
+      ]
     },
     {
       "name": "Franschhoek Wine Tram",

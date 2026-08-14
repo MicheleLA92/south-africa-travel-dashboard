@@ -607,6 +607,11 @@ def test_middle_beach_kite_spot_activity_has_kite_kind():
     assert activity["kind"] == "kite"
     assert "Kite fliegen" in activity["why"]
     assert "Kiten lernen" not in activity["why"]
+    assert activity["images"] == [
+        "assets/middle-beach-kite-spot/middle-beach-kite-spot-01.jpg",
+    ]
+    for photo in activity["images"]:
+        assert Path(photo).exists(), f"Missing Middle Beach Kite Spot photo: {photo}"
     assert -34 <= activity["lat"] <= -33
     assert 26 <= activity["lon"] <= 27
 
