@@ -8,8 +8,8 @@
     "metrics": [
       {
         "label": "Route",
-        "value": "12 echte Stopps",
-        "hint": "Cape Town bis Schotia Safaris / Addo"
+        "value": "13 echte Stopps",
+        "hint": "Cape Town bis Middle Beach, Kenton-on-Sea"
       },
       {
         "label": "Fokus",
@@ -29,7 +29,7 @@
     ],
     "news": [
       "Reisehinweise vor Abreise prüfen: Auswärtiges Amt, GOV.UK und US Travel Advisories führen weiterhin Hinweise zu Kriminalität, Demonstrationen und regionalen Risiken.",
-      "Für die aktuell gemachte Route gilt: Cape Town, Franschhoek, Betty's Bay, Swellendam, Mossel Bay, Wilderness, Knysna, Robberg, The Crags, Jeffreys Bay, Alexandria Dune Field und Schotia Safaris bewusst ruhig fahren, Fotostopps einplanen und nach Einbruch der Dunkelheit eher kurze Transfers wählen.",
+      "Für die aktuell gemachte Route gilt: Cape Town, Franschhoek, Betty's Bay, Swellendam, Mossel Bay, Wilderness, Knysna, Robberg, The Crags, Jeffreys Bay, Alexandria Dune Field, Schotia Safaris und Kenton-on-Sea bewusst ruhig fahren, Fotostopps einplanen und nach Einbruch der Dunkelheit eher kurze Transfers wählen.",
       "Load-Shedding kann je nach Lage kurzfristig wieder Thema sein; Unterkünfte mit Backup-Strom/WLAN sind für Roadtrip-Planung und Navigation praktisch."
     ],
     "health": "Für die aktuelle Küsten- und Garden-Route-Etappe reichen Sonnenschutz, warme Schichten und wetterfeste Kleidung für wechselhafte Küstentage.",
@@ -252,6 +252,24 @@
       "link": "https://maps.app.goo.gl/xBRNp14mRPJWq9Zz8?g_st=ac",
       "lat": -33.483,
       "lon": 25.7419
+    },
+    {
+      "emoji": "🪁",
+      "name": "Middle Beach Kite Spot",
+      "summary": "Middle Beach, Kenton-on-Sea: perfekter Strand zum Kiten lernen.",
+      "detail": "Entspannter Kite-/Beach-Stopp in Kenton-on-Sea mit offenem Strandgefühl und viel Platz zum Lernen.",
+      "tags": [
+        "Kiten",
+        "Strand",
+        "Kenton-on-Sea",
+        "Lernen"
+      ],
+      "risk": "low",
+      "risk_de": "niedrig",
+      "weather": "Wind und Beach-Wetter prüfen",
+      "link": "https://maps.app.goo.gl/J7bQ5WHK5PGQH318A",
+      "lat": -33.6865,
+      "lon": 26.6795
     }
   ],
   "magic_place": {
@@ -504,6 +522,18 @@
         "assets/schotia-safaris/schotia-safaris-05.jpg",
         "assets/schotia-safaris/schotia-safaris-06.jpg"
       ]
+    },
+    {
+      "name": "Middle Beach Kite Spot",
+      "location": "Middle Beach, Kenton-on-Sea",
+      "why": "Perfekter Strand zum Kiten lernen: weit, offen und ideal als entspannter Kite-/Beach-Stopp in Kenton-on-Sea.",
+      "tip": "",
+      "link": "https://maps.app.goo.gl/J7bQ5WHK5PGQH318A",
+      "lat": -33.6865,
+      "lon": 26.6795,
+      "region": "Eastern Cape / Addo",
+      "kind": "kite",
+      "images": []
     },
     {
       "name": "Franschhoek Wine Tram",
@@ -1617,6 +1647,30 @@
       "name": "Schotia Safaris",
       "lat": -33.483,
       "lon": 25.7419,
+      "kind": "actual"
+    },
+    {
+      "name": "Paterson south R72 link",
+      "lat": -33.4662,
+      "lon": 25.9848,
+      "kind": "actual"
+    },
+    {
+      "name": "Alexandria R72 east link",
+      "lat": -33.6468,
+      "lon": 26.4212,
+      "kind": "actual"
+    },
+    {
+      "name": "Kenton-on-Sea R72 link",
+      "lat": -33.6814,
+      "lon": 26.6642,
+      "kind": "actual"
+    },
+    {
+      "name": "Middle Beach Kite Spot",
+      "lat": -33.6865,
+      "lon": 26.6795,
       "kind": "actual"
     }
   ],

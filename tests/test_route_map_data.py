@@ -34,6 +34,7 @@ def test_route_order_matches_actual_trip():
         "Jeffreys Bay",
         "Alexandria Dune Field Running",
         "Schotia Safaris",
+        "Middle Beach Kite Spot",
     ]
 
 
@@ -54,6 +55,7 @@ def test_map_route_shows_only_actual_driven_route():
         "Jeffreys Bay",
         "Alexandria Dune Field Running",
         "Schotia Safaris",
+        "Middle Beach Kite Spot",
     ]
 
     assert all(point["kind"] == "actual" for point in route)
@@ -191,6 +193,20 @@ def test_map_route_extends_to_schotia_safaris():
     assert "Alexandria west R72 link" in schotia_segment
     assert "Paterson R342 link" in schotia_segment
     assert "Schotia Safaris access link" in schotia_segment
+
+
+def test_map_route_extends_to_middle_beach_kite_spot():
+    data = load_data()
+    names = [point["name"] for point in data["map_route"]]
+
+    schotia_index = names.index("Schotia Safaris")
+    kite_index = names.index("Middle Beach Kite Spot")
+    kite_segment = names[schotia_index:kite_index + 1]
+
+    assert schotia_index < kite_index
+    assert "Paterson south R72 link" in kite_segment
+    assert "Alexandria R72 east link" in kite_segment
+    assert "Kenton-on-Sea R72 link" in kite_segment
 
 
 def test_route_line_connects_cape_town_coastal_photo_stops():
@@ -576,6 +592,22 @@ def test_schotia_safaris_is_top_activity_with_elephant_symbol_and_photos():
     ]
     for photo in activity["images"]:
         assert Path(photo).exists(), f"Missing Schotia Safaris photo: {photo}"
+
+
+def test_middle_beach_kite_spot_activity_has_kite_kind():
+    data = load_data()
+    activities = data.get("activities", [])
+    activity = next((item for item in activities if item["name"] == "Middle Beach Kite Spot"), None)
+
+    assert activity is not None
+    assert activities[1]["name"] == "Middle Beach Kite Spot"
+    assert activity["location"] == "Middle Beach, Kenton-on-Sea"
+    assert activity["link"] == "https://maps.app.goo.gl/J7bQ5WHK5PGQH318A"
+    assert activity["region"] == "Eastern Cape / Addo"
+    assert activity["kind"] == "kite"
+    assert "Kiten lernen" in activity["why"]
+    assert -34 <= activity["lat"] <= -33
+    assert 26 <= activity["lon"] <= 27
 
 
 def test_stony_point_penguin_activity_has_photos_and_penguin_kind():
