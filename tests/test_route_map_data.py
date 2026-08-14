@@ -606,6 +606,7 @@ def test_middle_beach_kite_spot_activity_has_kite_kind():
     assert activity["region"] == "Eastern Cape / Addo"
     assert activity["kind"] == "kite"
     assert "Kiten lernen" in activity["why"]
+    assert "Kite fliegen" in activity["why"]
     assert -34 <= activity["lat"] <= -33
     assert 26 <= activity["lon"] <= 27
 
