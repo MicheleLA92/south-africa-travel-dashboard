@@ -621,7 +621,7 @@ def test_terry_fitzgerald_trailrunning_is_photo_stop_not_top_activity():
     assert stop["link"] == "https://maps.app.goo.gl/JNZV7nbNhgyrKhBS9"
     assert stop["region"] == "Eastern Cape / Addo"
     assert stop["kind"] == "running"
-    assert "Trailrunning" in stop["summary"]
+    assert stop["summary"] == "Trailrunning Ort."
     assert stop["photos"] == [
         "assets/terry-fitzgerald-trailrunning/terry-fitzgerald-trailrunning-01.jpg",
     ]
