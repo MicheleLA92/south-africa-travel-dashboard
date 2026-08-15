@@ -75,6 +75,8 @@ CSS = """
 .quiz-score { font-size: 1.35rem; font-weight: 800; color: var(--green); margin: .2rem 0 .6rem 0; }
 .quiz-answer { padding: .7rem .85rem; border-radius: 16px; margin: .4rem 0; background: rgba(234,216,183,.34); border: 1px solid rgba(49,92,69,.10); }
 .quiz-answer strong { color: var(--green); }
+.overview-card-label { min-height: 2.6em; margin-bottom: .35rem; }
+.overview-card-title { min-height: 3.05em; margin: 0 0 .65rem 0; color: var(--ink); line-height: 1.18; }
 .quiz-teaser {
   background: linear-gradient(120deg, rgba(255,250,241,.92), rgba(242,228,203,.94));
   border: 1px solid rgba(197,139,54,.26);
@@ -1222,56 +1224,52 @@ render_route_map_and_timeline(data, selected_photo_stop_name, map_key="route_pho
 st.write("")
 st.markdown('<div id="top-empfehlungen"></div>', unsafe_allow_html=True)
 st.subheader("⭐ Top Empfehlungen")
-r1, r2, r3 = st.columns(3)
 restaurant = data["restaurant"]
 restaurants = data.get("restaurants") or [restaurant]
 stay = data["stay"]
 stays = data.get("stays") or [stay]
-activities = data.get("activities", [])
-with r1:
-    st.markdown('<div id="top-restaurant"></div>', unsafe_allow_html=True)
-    for index, restaurant_item in enumerate(restaurants):
-        with st.container():
-            st.markdown(f"<p class=\"small\"><b>Restaurant · {restaurant_item.get('location', '')}</b></p>", unsafe_allow_html=True)
-            st.markdown(f"### {restaurant_item['name']}")
-            gallery_images = recommendation_images(restaurant_item)
-            if gallery_images:
-                render_image_carousel(gallery_images, f"overview-restaurant-carousel-{index}", object_fit="contain", height_px=300)
-            st.write(restaurant_item["why"])
-            if restaurant_item.get("link"):
-                st.link_button("Restaurant öffnen", restaurant_item["link"], key=f"restaurant_link_{index}")
-with r2:
-    st.markdown('<div id="top-unterkunft"></div>', unsafe_allow_html=True)
-    for index, stay_item in enumerate(stays):
+activities = data.get("activities", [])[:4]
+
+
+def render_overview_recommendation_card(item, category, index):
+    if not item:
+        st.empty()
+        return
+    label = category
+    if category != "Top Aktivität":
+        label = f"{category} · {item.get('location', '')}"
+    st.markdown(f"<p class=\"small overview-card-label\"><b>{label}</b></p>", unsafe_allow_html=True)
+    icon = f"{photo_stop_menu_icon(item)} " if category == "Top Aktivität" else ""
+    st.markdown(f"<h3 class=\"overview-card-title\">{icon}{item['name']}</h3>", unsafe_allow_html=True)
+    gallery_images = recommendation_images(item)
+    if gallery_images:
+        render_image_carousel(
+            gallery_images,
+            f"overview-{category.lower().replace(' ', '-')}-carousel-{index}",
+            object_fit="contain",
+            height_px=300,
+        )
+    st.write(item.get("why", "Ausgewählte Empfehlung für die Reise."))
+    if item.get("link"):
+        button_label = {
+            "Restaurant": "Restaurant öffnen",
+            "Unterkunft": "Unterkunft öffnen",
+            "Top Aktivität": "Aktivität öffnen",
+        }[category]
+        st.link_button(button_label, item["link"], key=f"overview_{category.lower().replace(' ', '_')}_link_{index}")
+
+
+st.markdown('<div id="top-restaurant"></div><div id="top-unterkunft"></div><div id="top-aktivitaeten"></div>', unsafe_allow_html=True)
+recommendation_rows = max(len(restaurants), len(stays), len(activities))
+for index in range(recommendation_rows):
+    r1, r2, r3 = st.columns(3)
+    with r1:
         with st.container(border=True):
-            st.markdown(f"<p class=\"small\"><b>Unterkunft · {stay_item.get('location', '')}</b></p>", unsafe_allow_html=True)
-            st.markdown(f"### {stay_item['name']}")
-            gallery_images = recommendation_images(stay_item)
-            if gallery_images:
-                render_image_carousel(gallery_images, f"stay-carousel-{index}", object_fit="contain", height_px=300)
-            render_recommendation_videos(stay_item, f"stay-video-{index}")
-            st.write(stay_item["why"])
-            if stay_item.get("link"):
-                st.link_button("Unterkunft öffnen", stay_item["link"], key=f"stay_link_{index}")
-with r3:
-    st.markdown('<div id="top-aktivitaeten"></div>', unsafe_allow_html=True)
-    if activities:
+            render_overview_recommendation_card(restaurants[index] if index < len(restaurants) else None, "Restaurant", index)
+    with r2:
         with st.container(border=True):
-            st.markdown('<p class="small"><b>Top Aktivitäten</b></p>', unsafe_allow_html=True)
-            for index, activity in enumerate(activities[:4]):
-                icon = photo_stop_menu_icon(activity)
-                st.markdown(f"### {icon} {activity['name']}")
-                gallery_images = recommendation_images(activity)
-                if gallery_images:
-                    render_image_carousel(gallery_images, f"overview-activity-carousel-{index}", object_fit="contain", height_px=300)
-                st.write(activity.get('why', 'Ausgewählte Aktivität für die Reise.'))
-                if activity.get("link"):
-                    st.link_button("Aktivität öffnen", activity["link"], key=f"top_activity_link_{index}")
-                if index < min(len(activities[:4]), 4) - 1:
-                    st.divider()
-    else:
+            render_overview_recommendation_card(stays[index] if index < len(stays) else None, "Unterkunft", index)
+    with r3:
         with st.container(border=True):
-            st.markdown('<p class="small"><b>Top Aktivitäten</b></p>', unsafe_allow_html=True)
-            st.markdown("### Noch offen")
-            st.write("Hier ergänzen wir schöne Ausflüge, Aussichtspunkte und besondere Stopps.")
+            render_overview_recommendation_card(activities[index] if index < len(activities) else None, "Top Aktivität", index)
 
