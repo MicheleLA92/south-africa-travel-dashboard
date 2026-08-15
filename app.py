@@ -1080,11 +1080,9 @@ if selected_page:
                     st.markdown(f"### {stay_item['name']}")
                     gallery_images = stay_item.get("images") or ([stay_item["image"]] if stay_item.get("image") else [])
                     if gallery_images:
-                        render_image_carousel(gallery_images, f"stay-page-carousel-{index}")
+                        render_image_carousel(gallery_images, f"stay-page-carousel-{index}", object_fit="contain", height_px=430)
                     render_recommendation_videos(stay_item, f"stay-page-video-{index}")
                     st.write(stay_item["why"])
-                    if stay_item.get("tip"):
-                        st.caption(stay_item["tip"])
                     if stay_item.get("link"):
                         st.link_button("Unterkunft öffnen", stay_item["link"], key=f"stay_page_link_{index}")
         else:
