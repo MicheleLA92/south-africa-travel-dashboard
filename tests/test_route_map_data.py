@@ -259,13 +259,9 @@ def test_moontide_riverside_lodge_replaces_rhino_post_stay():
         "assets/moontide-riverside-lodge/moontide-riverside-lodge-01.jpg",
         "assets/moontide-riverside-lodge/moontide-riverside-lodge-02.jpg",
     ]
-    assert moontide["videos"] == [
-        "assets/moontide-riverside-lodge/moontide-riverside-lodge-room-tour.mp4",
-    ]
+    assert "videos" not in moontide
     for photo in moontide["images"]:
         assert Path(photo).exists(), f"Missing Moontide Riverside Lodge photo: {photo}"
-    for video in moontide["videos"]:
-        assert Path(video).exists(), f"Missing Moontide Riverside Lodge video: {video}"
 
 
 def test_knysna_belle_guest_house_has_photos():
