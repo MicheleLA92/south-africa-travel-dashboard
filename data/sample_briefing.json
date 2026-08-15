@@ -8,8 +8,8 @@
     "metrics": [
       {
         "label": "Route",
-        "value": "13 echte Stopps",
-        "hint": "Cape Town bis Middle Beach, Kenton-on-Sea"
+        "value": "14 echte Stopps",
+        "hint": "Cape Town bis Terry Fitzgerald / Port Alfred"
       },
       {
         "label": "Fokus",
@@ -29,7 +29,7 @@
     ],
     "news": [
       "Reisehinweise vor Abreise prüfen: Auswärtiges Amt, GOV.UK und US Travel Advisories führen weiterhin Hinweise zu Kriminalität, Demonstrationen und regionalen Risiken.",
-      "Für die aktuell gemachte Route gilt: Cape Town, Franschhoek, Betty's Bay, Swellendam, Mossel Bay, Wilderness, Knysna, Robberg, The Crags, Jeffreys Bay, Alexandria Dune Field, Schotia Safaris und Kenton-on-Sea bewusst ruhig fahren, Fotostopps einplanen und nach Einbruch der Dunkelheit eher kurze Transfers wählen.",
+      "Für die aktuell gemachte Route gilt: Cape Town, Franschhoek, Betty's Bay, Swellendam, Mossel Bay, Wilderness, Knysna, Robberg, The Crags, Jeffreys Bay, Alexandria Dune Field, Schotia Safaris, Kenton-on-Sea und Port Alfred bewusst ruhig fahren, Fotostopps einplanen und nach Einbruch der Dunkelheit eher kurze Transfers wählen.",
       "Load-Shedding kann je nach Lage kurzfristig wieder Thema sein; Unterkünfte mit Backup-Strom/WLAN sind für Roadtrip-Planung und Navigation praktisch."
     ],
     "health": "Für die aktuelle Küsten- und Garden-Route-Etappe reichen Sonnenschutz, warme Schichten und wetterfeste Kleidung für wechselhafte Küstentage.",
@@ -270,6 +270,24 @@
       "link": "https://maps.app.goo.gl/J7bQ5WHK5PGQH318A",
       "lat": -33.6865,
       "lon": 26.6795
+    },
+    {
+      "emoji": "🏃‍♀️",
+      "name": "Terry Fitzgerald Trailrunning",
+      "summary": "Trailrunning-Ort bei der Terry Fitzgerald Private Nature Reserve: grün, ruhig und schattig unter alten Bäumen.",
+      "detail": "Natur- und Trailrunning-Stopp mit viel Grün, Schatten und ruhiger Waldstimmung.",
+      "tags": [
+        "Trailrunning",
+        "Natur",
+        "Port Alfred",
+        "Eastern Cape"
+      ],
+      "risk": "low",
+      "risk_de": "niedrig",
+      "weather": "Sonnenschutz und Wasser einplanen",
+      "link": "https://maps.app.goo.gl/JNZV7nbNhgyrKhBS9",
+      "lat": -33.5367974,
+      "lon": 26.8172736
     }
   ],
   "magic_place": {
@@ -1674,6 +1692,24 @@
       "lat": -33.6865,
       "lon": 26.6795,
       "kind": "actual"
+    },
+    {
+      "name": "Port Alfred R72 link",
+      "lat": -33.5905,
+      "lon": 26.8886,
+      "kind": "actual"
+    },
+    {
+      "name": "Terry Fitzgerald access link",
+      "lat": -33.5525,
+      "lon": 26.845,
+      "kind": "actual"
+    },
+    {
+      "name": "Terry Fitzgerald Trailrunning",
+      "lat": -33.5367974,
+      "lon": 26.8172736,
+      "kind": "actual"
     }
   ],
   "map_elephant_marker": {
@@ -1907,6 +1943,19 @@
         "assets/alexandria-dune-field-running/alexandria-dune-field-running-01.jpg",
         "assets/alexandria-dune-field-running/alexandria-dune-field-running-02.jpg"
       ]
+    },
+    {
+      "name": "Terry Fitzgerald Trailrunning",
+      "location": "Terry Fitzgerald Private Nature Reserve / Port Alfred",
+      "summary": "Trailrunning-Fotostopp im Grünen: alte Bäume, Schatten und Sonnenlicht zwischen den Baumkronen.",
+      "lat": -33.5367974,
+      "lon": 26.8172736,
+      "region": "Eastern Cape / Addo",
+      "kind": "running",
+      "photos": [
+        "assets/terry-fitzgerald-trailrunning/terry-fitzgerald-trailrunning-01.jpg"
+      ],
+      "link": "https://maps.app.goo.gl/JNZV7nbNhgyrKhBS9"
     }
   ],
   "map_route_extensions": [

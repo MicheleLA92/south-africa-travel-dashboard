@@ -35,6 +35,7 @@ def test_route_order_matches_actual_trip():
         "Alexandria Dune Field Running",
         "Schotia Safaris",
         "Middle Beach Kite Spot",
+        "Terry Fitzgerald Trailrunning",
     ]
 
 
@@ -56,6 +57,7 @@ def test_map_route_shows_only_actual_driven_route():
         "Alexandria Dune Field Running",
         "Schotia Safaris",
         "Middle Beach Kite Spot",
+        "Terry Fitzgerald Trailrunning",
     ]
 
     assert all(point["kind"] == "actual" for point in route)
@@ -207,6 +209,19 @@ def test_map_route_extends_to_middle_beach_kite_spot():
     assert "Paterson south R72 link" in kite_segment
     assert "Alexandria R72 east link" in kite_segment
     assert "Kenton-on-Sea R72 link" in kite_segment
+
+
+def test_map_route_extends_to_terry_fitzgerald_trailrunning():
+    data = load_data()
+    names = [point["name"] for point in data["map_route"]]
+
+    kite_index = names.index("Middle Beach Kite Spot")
+    trail_index = names.index("Terry Fitzgerald Trailrunning")
+    trail_segment = names[kite_index:trail_index + 1]
+
+    assert kite_index < trail_index
+    assert "Port Alfred R72 link" in trail_segment
+    assert "Terry Fitzgerald access link" in trail_segment
 
 
 def test_route_line_connects_cape_town_coastal_photo_stops():
@@ -592,6 +607,28 @@ def test_schotia_safaris_is_top_activity_with_elephant_symbol_and_photos():
     ]
     for photo in activity["images"]:
         assert Path(photo).exists(), f"Missing Schotia Safaris photo: {photo}"
+
+
+def test_terry_fitzgerald_trailrunning_is_photo_stop_not_top_activity():
+    data = load_data()
+    name = "Terry Fitzgerald Trailrunning"
+    activity_names = [item["name"] for item in data.get("activities", [])]
+    stop = next((item for item in data.get("photo_stops", []) if item["name"] == name), None)
+
+    assert name not in activity_names
+    assert stop is not None
+    assert stop["location"] == "Terry Fitzgerald Private Nature Reserve / Port Alfred"
+    assert stop["link"] == "https://maps.app.goo.gl/JNZV7nbNhgyrKhBS9"
+    assert stop["region"] == "Eastern Cape / Addo"
+    assert stop["kind"] == "running"
+    assert "Trailrunning" in stop["summary"]
+    assert stop["photos"] == [
+        "assets/terry-fitzgerald-trailrunning/terry-fitzgerald-trailrunning-01.jpg",
+    ]
+    for photo in stop["photos"]:
+        assert Path(photo).exists(), f"Missing Terry Fitzgerald Trailrunning photo: {photo}"
+    assert -34 <= stop["lat"] <= -33
+    assert 26 <= stop["lon"] <= 27
 
 
 def test_middle_beach_kite_spot_activity_has_kite_kind():
