@@ -1234,6 +1234,9 @@ with r1:
         with st.container():
             st.markdown(f"<p class=\"small\"><b>Restaurant · {restaurant_item.get('location', '')}</b></p>", unsafe_allow_html=True)
             st.markdown(f"### {restaurant_item['name']}")
+            gallery_images = recommendation_images(restaurant_item)
+            if gallery_images:
+                render_image_carousel(gallery_images, f"overview-restaurant-carousel-{index}", object_fit="contain", height_px=300)
             st.write(restaurant_item["why"])
             if restaurant_item.get("link"):
                 st.link_button("Restaurant öffnen", restaurant_item["link"], key=f"restaurant_link_{index}")
@@ -1243,13 +1246,11 @@ with r2:
         with st.container(border=True):
             st.markdown(f"<p class=\"small\"><b>Unterkunft · {stay_item.get('location', '')}</b></p>", unsafe_allow_html=True)
             st.markdown(f"### {stay_item['name']}")
-            gallery_images = stay_item.get("images") or ([stay_item["image"]] if stay_item.get("image") else [])
+            gallery_images = recommendation_images(stay_item)
             if gallery_images:
-                render_image_carousel(gallery_images, f"stay-carousel-{index}")
+                render_image_carousel(gallery_images, f"stay-carousel-{index}", object_fit="contain", height_px=300)
             render_recommendation_videos(stay_item, f"stay-video-{index}")
             st.write(stay_item["why"])
-            if stay_item.get("tip"):
-                st.caption(stay_item["tip"])
             if stay_item.get("link"):
                 st.link_button("Unterkunft öffnen", stay_item["link"], key=f"stay_link_{index}")
 with r3:
@@ -1260,6 +1261,9 @@ with r3:
             for index, activity in enumerate(activities[:4]):
                 icon = photo_stop_menu_icon(activity)
                 st.markdown(f"### {icon} {activity['name']}")
+                gallery_images = recommendation_images(activity)
+                if gallery_images:
+                    render_image_carousel(gallery_images, f"overview-activity-carousel-{index}", object_fit="contain", height_px=300)
                 st.write(activity.get('why', 'Ausgewählte Aktivität für die Reise.'))
                 if activity.get("link"):
                     st.link_button("Aktivität öffnen", activity["link"], key=f"top_activity_link_{index}")
