@@ -254,8 +254,12 @@ def test_map_route_extends_to_cove_view_bnb():
     cove_segment = names[beach_index:cove_index + 1]
 
     assert beach_index < cove_index
-    assert "Cove Rock coastal link" in cove_segment
+    assert "Kidds Beach inland return link" in cove_segment
+    assert "Kidds Beach R72 east link" in cove_segment
+    assert "Gulu River R72 land link" in cove_segment
+    assert "Cove Rock estate land link" in cove_segment
     assert "Cove Rock" in cove_segment
+    assert "Cove Rock coastal link" not in cove_segment
 
 
 def test_route_line_connects_cape_town_coastal_photo_stops():

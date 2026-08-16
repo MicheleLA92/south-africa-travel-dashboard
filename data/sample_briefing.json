@@ -1796,9 +1796,27 @@
       "kind": "actual"
     },
     {
-      "name": "Cove Rock coastal link",
-      "lat": -33.0915,
-      "lon": 27.8042,
+      "name": "Kidds Beach inland return link",
+      "lat": -33.1548,
+      "lon": 27.6986,
+      "kind": "actual"
+    },
+    {
+      "name": "Kidds Beach R72 east link",
+      "lat": -33.1486,
+      "lon": 27.7295,
+      "kind": "actual"
+    },
+    {
+      "name": "Gulu River R72 land link",
+      "lat": -33.1178,
+      "lon": 27.7734,
+      "kind": "actual"
+    },
+    {
+      "name": "Cove Rock estate land link",
+      "lat": -33.0806,
+      "lon": 27.8183,
       "kind": "actual"
     },
     {
