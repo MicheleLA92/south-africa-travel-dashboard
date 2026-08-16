@@ -903,8 +903,8 @@ def test_cove_rock_is_beach_photo_stop_with_photos():
     assert stop["photos"] == [
         "assets/cove-rock/cove-rock-04.jpg",
         "assets/cove-rock/cove-rock-01.jpg",
-        "assets/cove-rock/cove-rock-02.jpg",
         "assets/cove-rock/cove-rock-03.jpg",
+        "assets/cove-rock/cove-rock-02.jpg",
     ]
     for photo in stop["photos"]:
         assert Path(photo).exists(), f"Missing Cove Rock photo: {photo}"
