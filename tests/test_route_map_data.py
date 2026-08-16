@@ -37,6 +37,7 @@ def test_route_order_matches_actual_trip():
         "Middle Beach Kite Spot",
         "Terry Fitzgerald Trailrunning",
         "Kidds Beach",
+        "Cove Rock",
         "Cove View B&B",
     ]
 
@@ -61,6 +62,7 @@ def test_map_route_shows_only_actual_driven_route():
         "Middle Beach Kite Spot",
         "Terry Fitzgerald Trailrunning",
         "Kidds Beach",
+        "Cove Rock",
         "Cove View B&B",
     ]
 
@@ -253,6 +255,7 @@ def test_map_route_extends_to_cove_view_bnb():
 
     assert beach_index < cove_index
     assert "Cove Rock coastal link" in cove_segment
+    assert "Cove Rock" in cove_segment
 
 
 def test_route_line_connects_cape_town_coastal_photo_stops():
@@ -880,6 +883,27 @@ def test_kidds_beach_is_beach_photo_stop_not_top_activity():
     assert stop["photos"] == ["assets/kidds-beach-stop/kidds-beach-stop-01.jpg"]
     for photo in stop["photos"]:
         assert Path(photo).exists(), f"Missing Kidds Beach photo: {photo}"
+
+
+def test_cove_rock_is_beach_photo_stop_with_photos():
+    data = load_data()
+    name = "Cove Rock"
+    stop = next((item for item in data.get("photo_stops", []) if item["name"] == name), None)
+
+    assert stop is not None
+    assert stop["location"] == "Cove Rock / East London"
+    assert stop["summary"] == "Beach-Stopp mit Felsen, Meerblick und ruhiger Küstenstimmung."
+    assert stop["kind"] == "beach"
+    assert stop["region"] == "Eastern Cape / Addo"
+    assert stop["link"] == "https://maps.app.goo.gl/hFCKS6yqQuJzAmck8?g_st=ac"
+    assert stop["photos"] == [
+        "assets/cove-rock/cove-rock-01.jpg",
+        "assets/cove-rock/cove-rock-02.jpg",
+        "assets/cove-rock/cove-rock-03.jpg",
+        "assets/cove-rock/cove-rock-04.jpg",
+    ]
+    for photo in stop["photos"]:
+        assert Path(photo).exists(), f"Missing Cove Rock photo: {photo}"
 
 
 def test_accommodation_photo_stops_use_stay_kind_for_map_symbol():

@@ -303,6 +303,20 @@
       "lon": 27.7018952
     },
     {
+      "emoji": "🏖️",
+      "name": "Cove Rock",
+      "summary": "Beach-Stopp mit Felsen, Meerblick und ruhiger Küstenstimmung.",
+      "detail": "Cove Rock bei East London: felsige Küste, weiter Meerblick und schöne ruhige Beach-Stimmung.",
+      "tags": [
+        "Beach",
+        "Felsküste",
+        "Meerblick",
+        "East London"
+      ],
+      "lat": -33.0846203,
+      "lon": 27.8248325
+    },
+    {
       "emoji": "🏡",
       "name": "Cove View B&B",
       "summary": "Ruhige Unterkunft mit schönem Meerblick bei East London.",
@@ -1788,6 +1802,12 @@
       "kind": "actual"
     },
     {
+      "name": "Cove Rock",
+      "lat": -33.0846203,
+      "lon": 27.8248325,
+      "kind": "actual"
+    },
+    {
       "name": "Cove View B&B",
       "lat": -33.0726461,
       "lon": 27.8291617,
@@ -2051,6 +2071,22 @@
         "assets/kidds-beach-stop/kidds-beach-stop-01.jpg"
       ],
       "link": "https://maps.app.goo.gl/PnvH84JAtTFiqNQT6?g_st=ac"
+    },
+    {
+      "name": "Cove Rock",
+      "location": "Cove Rock / East London",
+      "summary": "Beach-Stopp mit Felsen, Meerblick und ruhiger Küstenstimmung.",
+      "lat": -33.0846203,
+      "lon": 27.8248325,
+      "region": "Eastern Cape / Addo",
+      "kind": "beach",
+      "photos": [
+        "assets/cove-rock/cove-rock-01.jpg",
+        "assets/cove-rock/cove-rock-02.jpg",
+        "assets/cove-rock/cove-rock-03.jpg",
+        "assets/cove-rock/cove-rock-04.jpg"
+      ],
+      "link": "https://maps.app.goo.gl/hFCKS6yqQuJzAmck8?g_st=ac"
     }
   ],
   "map_route_extensions": [
