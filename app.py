@@ -501,13 +501,17 @@ def photo_stop_icon_url(stop):
 
 
 def photo_stop_icon_data(stop):
-    icon_size = 92 if stop.get("kind") == "kite" else 72
+    icon_size = 128 if stop.get("kind") == "kite" else 72
     return {
         "url": photo_stop_icon_url(stop),
         "width": icon_size,
         "height": icon_size,
         "anchorY": icon_size / 2,
     }
+
+
+def photo_stop_map_size(stop):
+    return 2.4 if stop.get("kind") == "kite" else 1.0
 
 
 def photo_stop_menu_icon(stop):
@@ -683,6 +687,7 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
             "label_text": stop["name"],
             "photo_count": len(stop.get("photos", [])),
             "icon_data": photo_stop_icon_data(stop),
+            "icon_size_multiplier": photo_stop_map_size(stop),
         }
         for stop in get_photo_stop_entries(data)
         if stop.get("photos")
@@ -725,7 +730,7 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
                     photo_stops,
                     get_icon="icon_data",
                     get_position="position",
-                    get_size=1.0,
+                    get_size="icon_size_multiplier",
                     size_scale=12,
                     pickable=True,
                 ),
@@ -801,6 +806,7 @@ def render_photo_map(data, map_key="photo_map"):
             "label_text": stop["name"],
             "photo_count": len(stop.get("photos", [])),
             "icon_data": photo_stop_icon_data(stop),
+            "icon_size_multiplier": photo_stop_map_size(stop),
         }
         for stop in get_photo_stop_entries(data)
         if stop.get("photos")
@@ -819,7 +825,7 @@ def render_photo_map(data, map_key="photo_map"):
                     photo_stops,
                     get_icon="icon_data",
                     get_position="position",
-                    get_size=1.0,
+                    get_size="icon_size_multiplier",
                     size_scale=12,
                     pickable=True,
                 ),
