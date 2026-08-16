@@ -37,6 +37,7 @@ def test_route_order_matches_actual_trip():
         "Middle Beach Kite Spot",
         "Terry Fitzgerald Trailrunning",
         "Kidds Beach",
+        "Cove View B&B",
     ]
 
 
@@ -60,6 +61,7 @@ def test_map_route_shows_only_actual_driven_route():
         "Middle Beach Kite Spot",
         "Terry Fitzgerald Trailrunning",
         "Kidds Beach",
+        "Cove View B&B",
     ]
 
     assert all(point["kind"] == "actual" for point in route)
@@ -241,6 +243,18 @@ def test_map_route_extends_to_kidds_beach_stop():
     assert "Kidds Beach R72 link" in beach_segment
 
 
+def test_map_route_extends_to_cove_view_bnb():
+    data = load_data()
+    names = [point["name"] for point in data["map_route"]]
+
+    beach_index = names.index("Kidds Beach")
+    cove_index = names.index("Cove View B&B")
+    cove_segment = names[beach_index:cove_index + 1]
+
+    assert beach_index < cove_index
+    assert "Cove Rock coastal link" in cove_segment
+
+
 def test_route_line_connects_cape_town_coastal_photo_stops():
     data = load_data()
     main_names = [point["name"] for point in data["map_route"]]
@@ -279,6 +293,30 @@ def test_moontide_riverside_lodge_replaces_rhino_post_stay():
     assert "videos" not in moontide
     for photo in moontide["images"]:
         assert Path(photo).exists(), f"Missing Moontide Riverside Lodge photo: {photo}"
+
+
+def test_cove_view_bnb_is_top_stay_with_photos():
+    data = load_data()
+    stay = next((item for item in data["stays"] if item["name"] == "Cove View B&B"), None)
+    activity_names = [item["name"] for item in data.get("activities", [])]
+
+    assert stay is not None
+    assert "Cove View B&B" not in activity_names
+    assert stay["location"] == "Cove Rock / East London"
+    assert stay["why"] == "Ruhige Unterkunft mit schönem Meerblick, gemütlichem Zimmer und Balkon — perfekt als entspannter Küstenstopp bei East London."
+    assert stay["tip"] == ""
+    assert stay["link"] == "https://maps.app.goo.gl/8DVGaHocwoEVTHNf8"
+    assert stay["region"] == "Eastern Cape / Addo"
+    assert stay["kind"] == "stay"
+    assert -34 <= stay["lat"] <= -33
+    assert 27 <= stay["lon"] <= 28
+    assert stay["images"] == [
+        "assets/cove-view-bnb/cove-view-bnb-01.jpg",
+        "assets/cove-view-bnb/cove-view-bnb-02.jpg",
+        "assets/cove-view-bnb/cove-view-bnb-03.jpg",
+    ]
+    for photo in stay["images"]:
+        assert Path(photo).exists(), f"Missing Cove View B&B photo: {photo}"
 
 
 def test_knysna_belle_guest_house_has_photos():

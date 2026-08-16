@@ -301,6 +301,20 @@
       ],
       "lat": -33.1482225,
       "lon": 27.7018952
+    },
+    {
+      "emoji": "🏡",
+      "name": "Cove View B&B",
+      "summary": "Ruhige Unterkunft mit schönem Meerblick bei East London.",
+      "detail": "Ruhige Unterkunft mit schönem Meerblick, gemütlichem Zimmer und Balkon — perfekt als entspannter Küstenstopp bei East London.",
+      "tags": [
+        "Unterkunft",
+        "Meerblick",
+        "East London",
+        "Küstenstopp"
+      ],
+      "lat": -33.0726461,
+      "lon": 27.8291617
     }
   ],
   "magic_place": {
@@ -528,6 +542,22 @@
         "assets/trogon-house/trogon-house-02.jpg",
         "assets/trogon-house/trogon-house-03.jpg",
         "assets/trogon-house/trogon-house-04.jpg"
+      ]
+    },
+    {
+      "name": "Cove View B&B",
+      "location": "Cove Rock / East London",
+      "why": "Ruhige Unterkunft mit schönem Meerblick, gemütlichem Zimmer und Balkon — perfekt als entspannter Küstenstopp bei East London.",
+      "tip": "",
+      "link": "https://maps.app.goo.gl/8DVGaHocwoEVTHNf8",
+      "lat": -33.0726461,
+      "lon": 27.8291617,
+      "region": "Eastern Cape / Addo",
+      "kind": "stay",
+      "images": [
+        "assets/cove-view-bnb/cove-view-bnb-01.jpg",
+        "assets/cove-view-bnb/cove-view-bnb-02.jpg",
+        "assets/cove-view-bnb/cove-view-bnb-03.jpg"
       ]
     }
   ],
@@ -1749,6 +1779,18 @@
       "name": "Kidds Beach",
       "lat": -33.1482225,
       "lon": 27.7018952,
+      "kind": "actual"
+    },
+    {
+      "name": "Cove Rock coastal link",
+      "lat": -33.0915,
+      "lon": 27.8042,
+      "kind": "actual"
+    },
+    {
+      "name": "Cove View B&B",
+      "lat": -33.0726461,
+      "lon": 27.8291617,
       "kind": "actual"
     }
   ],
