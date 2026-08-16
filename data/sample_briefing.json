@@ -288,6 +288,19 @@
       "link": "https://maps.app.goo.gl/JNZV7nbNhgyrKhBS9",
       "lat": -33.5367974,
       "lon": 26.8172736
+    },
+    {
+      "emoji": "🏖️",
+      "name": "Kidds Beach",
+      "summary": "Gemütlicher Zwischenstopp am Meer.",
+      "detail": "Gemütlicher Zwischenstopp an der felsigen Küste mit kleinen Tide Pools und ruhigem Meerblick.",
+      "tags": [
+        "Beach",
+        "Zwischenstopp",
+        "Eastern Cape"
+      ],
+      "lat": -33.1482225,
+      "lon": 27.7018952
     }
   ],
   "magic_place": {
@@ -1707,6 +1720,36 @@
       "lat": -33.5367974,
       "lon": 26.8172736,
       "kind": "actual"
+    },
+    {
+      "name": "Port Alfred east R72 link",
+      "lat": -33.5889,
+      "lon": 26.8995,
+      "kind": "actual"
+    },
+    {
+      "name": "Fish River R72 link",
+      "lat": -33.5002,
+      "lon": 27.1304,
+      "kind": "actual"
+    },
+    {
+      "name": "Hamburg R72 link",
+      "lat": -33.2938,
+      "lon": 27.4682,
+      "kind": "actual"
+    },
+    {
+      "name": "Kidds Beach R72 link",
+      "lat": -33.1671,
+      "lon": 27.6696,
+      "kind": "actual"
+    },
+    {
+      "name": "Kidds Beach",
+      "lat": -33.1482225,
+      "lon": 27.7018952,
+      "kind": "actual"
     }
   ],
   "map_elephant_marker": {
@@ -1953,6 +1996,19 @@
         "assets/terry-fitzgerald-trailrunning/terry-fitzgerald-trailrunning-01.jpg"
       ],
       "link": "https://maps.app.goo.gl/JNZV7nbNhgyrKhBS9"
+    },
+    {
+      "name": "Kidds Beach",
+      "location": "Kidds Beach / Eastern Cape",
+      "summary": "Gemütlicher Zwischenstopp am Meer.",
+      "lat": -33.1482225,
+      "lon": 27.7018952,
+      "region": "Eastern Cape / Addo",
+      "kind": "beach",
+      "photos": [
+        "assets/kidds-beach-stop/kidds-beach-stop-01.jpg"
+      ],
+      "link": "https://maps.app.goo.gl/PnvH84JAtTFiqNQT6?g_st=ac"
     }
   ],
   "map_route_extensions": [

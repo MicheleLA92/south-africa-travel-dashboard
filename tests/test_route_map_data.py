@@ -36,6 +36,7 @@ def test_route_order_matches_actual_trip():
         "Schotia Safaris",
         "Middle Beach Kite Spot",
         "Terry Fitzgerald Trailrunning",
+        "Kidds Beach",
     ]
 
 
@@ -58,6 +59,7 @@ def test_map_route_shows_only_actual_driven_route():
         "Schotia Safaris",
         "Middle Beach Kite Spot",
         "Terry Fitzgerald Trailrunning",
+        "Kidds Beach",
     ]
 
     assert all(point["kind"] == "actual" for point in route)
@@ -222,6 +224,21 @@ def test_map_route_extends_to_terry_fitzgerald_trailrunning():
     assert kite_index < trail_index
     assert "Port Alfred R72 link" in trail_segment
     assert "Terry Fitzgerald access link" in trail_segment
+
+
+def test_map_route_extends_to_kidds_beach_stop():
+    data = load_data()
+    names = [point["name"] for point in data["map_route"]]
+
+    trail_index = names.index("Terry Fitzgerald Trailrunning")
+    beach_index = names.index("Kidds Beach")
+    beach_segment = names[trail_index:beach_index + 1]
+
+    assert trail_index < beach_index
+    assert "Port Alfred east R72 link" in beach_segment
+    assert "Fish River R72 link" in beach_segment
+    assert "Hamburg R72 link" in beach_segment
+    assert "Kidds Beach R72 link" in beach_segment
 
 
 def test_route_line_connects_cape_town_coastal_photo_stops():
@@ -808,6 +825,23 @@ def test_alexandria_dune_field_running_photo_stop_has_photos_and_running_kind():
     ]
     for photo in stop["photos"]:
         assert Path(photo).exists(), f"Missing Alexandria Dune Field Running photo: {photo}"
+
+
+def test_kidds_beach_is_beach_photo_stop_not_top_activity():
+    data = load_data()
+    name = "Kidds Beach"
+    activity_names = [item["name"] for item in data.get("activities", [])]
+    stop = next((item for item in data.get("photo_stops", []) if item["name"] == name), None)
+
+    assert name not in activity_names
+    assert stop is not None
+    assert stop["location"] == "Kidds Beach / Eastern Cape"
+    assert stop["summary"] == "Gemütlicher Zwischenstopp am Meer."
+    assert stop["kind"] == "beach"
+    assert stop["link"] == "https://maps.app.goo.gl/PnvH84JAtTFiqNQT6?g_st=ac"
+    assert stop["photos"] == ["assets/kidds-beach-stop/kidds-beach-stop-01.jpg"]
+    for photo in stop["photos"]:
+        assert Path(photo).exists(), f"Missing Kidds Beach photo: {photo}"
 
 
 def test_accommodation_photo_stops_use_stay_kind_for_map_symbol():

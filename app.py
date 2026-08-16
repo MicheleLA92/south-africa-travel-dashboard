@@ -415,6 +415,7 @@ def render_quiz_answer_summary(quiz_questions):
 
 
 PHOTO_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f4f7.png"
+BEACH_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3d6-fe0f.png"
 RESTAURANT_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f374.png"
 ACTIVITY_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f377.png"
 ART_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3a8.png"
@@ -470,6 +471,8 @@ def render_recommendation_videos(item, key_prefix):
 
 
 def photo_stop_icon_url(stop):
+    if stop.get("kind") == "beach":
+        return BEACH_MAP_ICON_URL
     if stop.get("kind") == "restaurant":
         return RESTAURANT_MAP_ICON_URL
     if stop.get("kind") == "penguin":
@@ -498,6 +501,8 @@ def photo_stop_icon_url(stop):
 
 
 def photo_stop_menu_icon(stop):
+    if stop.get("kind") == "beach":
+        return "🏖️"
     if stop.get("kind") == "restaurant":
         return "🍴"
     if stop.get("kind") == "penguin":
@@ -728,7 +733,7 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
         on_select="rerun",
         key=map_key,
     )
-    st.caption("Tatsächlich gefahrene Route · kleine Symbole: 📷 Foto · 🍴 Restaurant · 🏡 Unterkunft · 🍷 Aktivität · 🎨 Art/Decor · ⛳ Golf · 🛶 Kanufahrt · 🥾 Hiking · 🐒 Monkeyland · 🏃‍♀️ Running · 🪁 Kite fliegen · 🐘 Safari · 🐧 Pinguine. Symbol antippen, um Fotos zu öffnen.")
+    st.caption("Tatsächlich gefahrene Route · kleine Symbole: 📷 Foto · 🏖️ Beach · 🍴 Restaurant · 🏡 Unterkunft · 🍷 Aktivität · 🎨 Art/Decor · ⛳ Golf · 🛶 Kanufahrt · 🥾 Hiking · 🐒 Monkeyland · 🏃‍♀️ Running · 🪁 Kite fliegen · 🐘 Safari · 🐧 Pinguine. Symbol antippen, um Fotos zu öffnen.")
     render_made_stops_overview(photo_stops)
 
     if photo_stops:
