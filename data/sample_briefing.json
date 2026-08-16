@@ -305,8 +305,8 @@
     {
       "emoji": "🏖️",
       "name": "Cove Rock",
-      "summary": "Beach-Stopp mit Felsen, Meerblick und ruhiger Küstenstimmung.",
-      "detail": "Cove Rock bei East London: felsige Küste, weiter Meerblick und schöne ruhige Beach-Stimmung.",
+      "summary": "Beach-Stopp mit Felsen, endlosem Strand, Meerblick und ruhiger Küstenstimmung.",
+      "detail": "Cove Rock bei East London: felsige Küste, endloser Strand, weiter Meerblick und schöne ruhige Beach-Stimmung.",
       "tags": [
         "Beach",
         "Felsküste",
@@ -2075,7 +2075,7 @@
     {
       "name": "Cove Rock",
       "location": "Cove Rock / East London",
-      "summary": "Beach-Stopp mit Felsen, Meerblick und ruhiger Küstenstimmung.",
+      "summary": "Beach-Stopp mit Felsen, endlosem Strand, Meerblick und ruhiger Küstenstimmung.",
       "lat": -33.0846203,
       "lon": 27.8248325,
       "region": "Eastern Cape / Addo",

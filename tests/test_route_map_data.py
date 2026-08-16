@@ -892,7 +892,7 @@ def test_cove_rock_is_beach_photo_stop_with_photos():
 
     assert stop is not None
     assert stop["location"] == "Cove Rock / East London"
-    assert stop["summary"] == "Beach-Stopp mit Felsen, Meerblick und ruhiger Küstenstimmung."
+    assert stop["summary"] == "Beach-Stopp mit Felsen, endlosem Strand, Meerblick und ruhiger Küstenstimmung."
     assert stop["kind"] == "beach"
     assert stop["region"] == "Eastern Cape / Addo"
     assert stop["link"] == "https://maps.app.goo.gl/hFCKS6yqQuJzAmck8?g_st=ac"
