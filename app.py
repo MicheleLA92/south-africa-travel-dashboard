@@ -424,7 +424,7 @@ CANOE_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/
 HIKING_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f97e.png"
 MONKEY_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f412.png"
 RUNNING_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c3-200d-2640-fe0f.png"
-KITE_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1fa81.png"
+KITE_MAP_ICON_URL = "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2072%2072%27%3E%0A%20%20%3Cpath%20d%3D%27M36%205%20L64%2034%20L36%2054%20L8%2034%20Z%27%20fill%3D%27%23e4572e%27%20stroke%3D%27%23103f4d%27%20stroke-width%3D%274%27%20stroke-linejoin%3D%27round%27%2F%3E%0A%20%20%3Cpath%20d%3D%27M36%205%20L36%2054%20M8%2034%20L64%2034%27%20stroke%3D%27%23fffaf1%27%20stroke-width%3D%273%27%20stroke-linecap%3D%27round%27%2F%3E%0A%20%20%3Cpath%20d%3D%27M36%2054%20C33%2061%2042%2061%2039%2067%20C45%2065%2049%2069%2053%2064%27%20fill%3D%27none%27%20stroke%3D%27%23103f4d%27%20stroke-width%3D%274%27%20stroke-linecap%3D%27round%27%2F%3E%0A%3C%2Fsvg%3E"
 PENGUIN_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f427.png"
 STAY_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3e1.png"
 ELEPHANT_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f418.png"
@@ -498,6 +498,16 @@ def photo_stop_icon_url(stop):
     if stop.get("kind") == "stay":
         return STAY_MAP_ICON_URL
     return PHOTO_MAP_ICON_URL
+
+
+def photo_stop_icon_data(stop):
+    icon_size = 92 if stop.get("kind") == "kite" else 72
+    return {
+        "url": photo_stop_icon_url(stop),
+        "width": icon_size,
+        "height": icon_size,
+        "anchorY": icon_size / 2,
+    }
 
 
 def photo_stop_menu_icon(stop):
@@ -672,12 +682,7 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
             "position": [stop["lon"], stop["lat"]],
             "label_text": stop["name"],
             "photo_count": len(stop.get("photos", [])),
-            "icon_data": {
-                "url": photo_stop_icon_url(stop),
-                "width": 72,
-                "height": 72,
-                "anchorY": 36,
-            },
+            "icon_data": photo_stop_icon_data(stop),
         }
         for stop in get_photo_stop_entries(data)
         if stop.get("photos")
@@ -795,12 +800,7 @@ def render_photo_map(data, map_key="photo_map"):
             "position": [stop["lon"], stop["lat"]],
             "label_text": stop["name"],
             "photo_count": len(stop.get("photos", [])),
-            "icon_data": {
-                "url": photo_stop_icon_url(stop),
-                "width": 72,
-                "height": 72,
-                "anchorY": 36,
-            },
+            "icon_data": photo_stop_icon_data(stop),
         }
         for stop in get_photo_stop_entries(data)
         if stop.get("photos")
