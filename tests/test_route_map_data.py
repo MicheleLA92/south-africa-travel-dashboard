@@ -40,6 +40,7 @@ def test_route_order_matches_actual_trip():
         "Cove Rock",
         "Cove View B&B",
         "O. R. Tambo International Airport (JNB)",
+        "Kruger Mpumalanga International Airport (MQP)",
     ]
 
 
@@ -79,23 +80,35 @@ def test_map_route_shows_only_actual_driven_route():
     assert "Tsitsikamma" not in names
 
 
-def test_route_includes_separate_flight_to_johannesburg():
+def test_route_includes_separate_flights_to_johannesburg_and_kruger_mq():
     data = load_data()
     route_names = [stop["name"] for stop in data["route"]]
     map_route_names = [point["name"] for point in data["map_route"]]
-    flight = next((item for item in data.get("flight_routes", []) if item["name"] == "Flug East London → Johannesburg"), None)
+    east_london_flight = next((item for item in data.get("flight_routes", []) if item["name"] == "Flug East London → Johannesburg"), None)
+    kruger_flight = next((item for item in data.get("flight_routes", []) if item["name"] == "Flug Johannesburg → Kruger Mpumalanga"), None)
 
-    assert route_names[-1] == "O. R. Tambo International Airport (JNB)"
+    assert route_names[-2:] == [
+        "O. R. Tambo International Airport (JNB)",
+        "Kruger Mpumalanga International Airport (MQP)",
+    ]
     assert "O. R. Tambo International Airport (JNB)" not in map_route_names
-    assert flight is not None
-    assert flight["from"] == "Cove View B&B"
-    assert flight["to"] == "O. R. Tambo International Airport (JNB)"
-    assert [point["name"] for point in flight["points"]] == [
+    assert "Kruger Mpumalanga International Airport (MQP)" not in map_route_names
+    assert east_london_flight is not None
+    assert east_london_flight["from"] == "Cove View B&B"
+    assert east_london_flight["to"] == "O. R. Tambo International Airport (JNB)"
+    assert [point["name"] for point in east_london_flight["points"]] == [
         "Cove View B&B",
         "O. R. Tambo International Airport (JNB)",
     ]
-    assert -27 <= flight["points"][-1]["lat"] <= -25
-    assert 28 <= flight["points"][-1]["lon"] <= 29
+    assert kruger_flight is not None
+    assert kruger_flight["from"] == "O. R. Tambo International Airport (JNB)"
+    assert kruger_flight["to"] == "Kruger Mpumalanga International Airport (MQP)"
+    assert [point["name"] for point in kruger_flight["points"]] == [
+        "O. R. Tambo International Airport (JNB)",
+        "Kruger Mpumalanga International Airport (MQP)",
+    ]
+    assert -26 <= kruger_flight["points"][-1]["lat"] <= -25
+    assert 31 <= kruger_flight["points"][-1]["lon"] <= 32
 
 
 def test_map_route_includes_morning_drive_to_sedge_links():

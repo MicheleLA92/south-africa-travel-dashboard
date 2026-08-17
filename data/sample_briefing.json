@@ -343,6 +343,21 @@
       ],
       "lat": -26.1367,
       "lon": 28.2411
+    },
+    {
+      "emoji": "✈️",
+      "name": "Kruger Mpumalanga International Airport (MQP)",
+      "summary": "Weiterflug zum Kruger Mpumalanga International Airport bei Mbombela.",
+      "detail": "Weiterflug von Johannesburg / O. R. Tambo zum Kruger Mpumalanga International Airport (MQP) bei Mbombela — nächster Abschnitt Richtung Kruger-Region.",
+      "tags": [
+        "Flug",
+        "Kruger",
+        "Mbombela",
+        "Airport",
+        "MQP"
+      ],
+      "lat": -25.3832,
+      "lon": 31.1056
     }
   ],
   "magic_place": {
@@ -2221,6 +2236,23 @@
           "name": "O. R. Tambo International Airport (JNB)",
           "lat": -26.1367,
           "lon": 28.2411
+        }
+      ]
+    },
+    {
+      "name": "Flug Johannesburg → Kruger Mpumalanga",
+      "from": "O. R. Tambo International Airport (JNB)",
+      "to": "Kruger Mpumalanga International Airport (MQP)",
+      "points": [
+        {
+          "name": "O. R. Tambo International Airport (JNB)",
+          "lat": -26.1367,
+          "lon": 28.2411
+        },
+        {
+          "name": "Kruger Mpumalanga International Airport (MQP)",
+          "lat": -25.3832,
+          "lon": 31.1056
         }
       ]
     }
