@@ -950,3 +950,17 @@ def test_accommodation_photo_stops_use_stay_kind_for_map_symbol():
 
     assert marloth["kind"] == "stay"
     assert moontide["kind"] == "stay"
+
+
+def test_marloth_park_uses_eight_own_photos():
+    data = load_data()
+    stay = next(item for item in data["stays"] if item["name"] == "Unterkunft Marloth Park")
+    stop = next(item for item in data["photo_stops"] if item["name"] == "Marloth Park")
+    expected = [f"assets/marloth-park/marloth-park-{index:02d}.jpg" for index in range(1, 9)]
+
+    assert stay["image"] == expected[0]
+    assert stay["images"] == expected
+    assert stop["photos"] == expected
+    assert "Kudus direkt im Garten" in stop["summary"]
+    for photo in expected:
+        assert Path(photo).exists(), f"Missing Marloth Park own photo: {photo}"

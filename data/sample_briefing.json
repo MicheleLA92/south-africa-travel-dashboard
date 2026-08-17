@@ -528,10 +528,20 @@
     {
       "name": "Unterkunft Marloth Park",
       "location": "Marloth Park",
-      "why": "Unterkunft in Marloth Park – ideal für den Safari-Teil nahe Kruger.",
+      "why": "Ruhige Unterkunft in Marloth Park mit modernem Interior, schöner Terrasse und Natur direkt vor dem Haus.",
       "tip": "",
       "link": "",
-      "images": []
+      "images": [
+        "assets/marloth-park/marloth-park-01.jpg",
+        "assets/marloth-park/marloth-park-02.jpg",
+        "assets/marloth-park/marloth-park-03.jpg",
+        "assets/marloth-park/marloth-park-04.jpg",
+        "assets/marloth-park/marloth-park-05.jpg",
+        "assets/marloth-park/marloth-park-06.jpg",
+        "assets/marloth-park/marloth-park-07.jpg",
+        "assets/marloth-park/marloth-park-08.jpg"
+      ],
+      "image": "assets/marloth-park/marloth-park-01.jpg"
     },
     {
       "name": "Moontide Riverside Lodge",
@@ -2052,10 +2062,19 @@
       "location": "Marloth Park / Kruger",
       "lat": -25.342,
       "lon": 31.778,
-      "summary": "Unterkunft in Marloth Park — eigene Fotos folgen.",
+      "summary": "Ruhige Unterkunft in Marloth Park mit modernem Interior, Terrasse, Buschblick und Kudus direkt im Garten.",
       "region": "Marloth Park / Kruger",
       "kind": "stay",
-      "photos": []
+      "photos": [
+        "assets/marloth-park/marloth-park-01.jpg",
+        "assets/marloth-park/marloth-park-02.jpg",
+        "assets/marloth-park/marloth-park-03.jpg",
+        "assets/marloth-park/marloth-park-04.jpg",
+        "assets/marloth-park/marloth-park-05.jpg",
+        "assets/marloth-park/marloth-park-06.jpg",
+        "assets/marloth-park/marloth-park-07.jpg",
+        "assets/marloth-park/marloth-park-08.jpg"
+      ]
     },
     {
       "name": "Jeffreys Bay",
