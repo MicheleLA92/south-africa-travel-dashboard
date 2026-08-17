@@ -529,15 +529,9 @@
       "name": "Unterkunft Marloth Park",
       "location": "Marloth Park",
       "why": "Unterkunft in Marloth Park – ideal für den Safari-Teil nahe Kruger.",
-      "tip": "Via Airbnb gebucht – Link kann auf Anfrage geteilt werden.",
+      "tip": "",
       "link": "",
-      "image": "assets/marloth-park-unterkunft.jpg",
-      "images": [
-        "assets/marloth-park-unterkunft.jpg",
-        "assets/marloth-park-pool-zebra.jpg",
-        "assets/marloth-park-living-kitchen.jpg",
-        "assets/marloth-park-terrace-dinner.jpg"
-      ]
+      "images": []
     },
     {
       "name": "Moontide Riverside Lodge",
@@ -2058,15 +2052,10 @@
       "location": "Marloth Park / Kruger",
       "lat": -25.342,
       "lon": 31.778,
-      "summary": "Erster ruhiger Test-Fotostopp mit Bildern der Unterkunft.",
+      "summary": "Unterkunft in Marloth Park — eigene Fotos folgen.",
       "region": "Marloth Park / Kruger",
       "kind": "stay",
-      "photos": [
-        "assets/marloth-park-unterkunft.jpg",
-        "assets/marloth-park-pool-zebra.jpg",
-        "assets/marloth-park-living-kitchen.jpg",
-        "assets/marloth-park-terrace-dinner.jpg"
-      ]
+      "photos": []
     },
     {
       "name": "Jeffreys Bay",
