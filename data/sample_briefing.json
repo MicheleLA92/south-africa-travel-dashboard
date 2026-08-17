@@ -329,6 +329,20 @@
       ],
       "lat": -33.0726461,
       "lon": 27.8291617
+    },
+    {
+      "emoji": "✈️",
+      "name": "O. R. Tambo International Airport (JNB)",
+      "summary": "Flug nach Johannesburg zum O. R. Tambo International Airport.",
+      "detail": "Flug von East London / Cove View Richtung Johannesburg zum O. R. Tambo International Airport (JNB).",
+      "tags": [
+        "Flug",
+        "Johannesburg",
+        "Airport",
+        "JNB"
+      ],
+      "lat": -26.1367,
+      "lon": 28.2411
     }
   ],
   "magic_place": {
@@ -2188,6 +2202,25 @@
           "lat": -34.1028,
           "lon": 18.3609,
           "kind": "actual"
+        }
+      ]
+    }
+  ],
+  "flight_routes": [
+    {
+      "name": "Flug East London → Johannesburg",
+      "from": "Cove View B&B",
+      "to": "O. R. Tambo International Airport (JNB)",
+      "points": [
+        {
+          "name": "Cove View B&B",
+          "lat": -33.0726461,
+          "lon": 27.8291617
+        },
+        {
+          "name": "O. R. Tambo International Airport (JNB)",
+          "lat": -26.1367,
+          "lon": 28.2411
         }
       ]
     }

@@ -39,6 +39,7 @@ def test_route_order_matches_actual_trip():
         "Kidds Beach",
         "Cove Rock",
         "Cove View B&B",
+        "O. R. Tambo International Airport (JNB)",
     ]
 
 
@@ -76,6 +77,25 @@ def test_map_route_shows_only_actual_driven_route():
     assert "Johannesburg" not in names
     assert "Kruger National Park" not in names
     assert "Tsitsikamma" not in names
+
+
+def test_route_includes_separate_flight_to_johannesburg():
+    data = load_data()
+    route_names = [stop["name"] for stop in data["route"]]
+    map_route_names = [point["name"] for point in data["map_route"]]
+    flight = next((item for item in data.get("flight_routes", []) if item["name"] == "Flug East London → Johannesburg"), None)
+
+    assert route_names[-1] == "O. R. Tambo International Airport (JNB)"
+    assert "O. R. Tambo International Airport (JNB)" not in map_route_names
+    assert flight is not None
+    assert flight["from"] == "Cove View B&B"
+    assert flight["to"] == "O. R. Tambo International Airport (JNB)"
+    assert [point["name"] for point in flight["points"]] == [
+        "Cove View B&B",
+        "O. R. Tambo International Airport (JNB)",
+    ]
+    assert -27 <= flight["points"][-1]["lat"] <= -25
+    assert 28 <= flight["points"][-1]["lon"] <= 29
 
 
 def test_map_route_includes_morning_drive_to_sedge_links():

@@ -700,11 +700,19 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
                 "name": extension.get("name", "Zusätzliche gefahrene Stopps"),
                 "path": [[point["lon"], point["lat"]] for point in points],
             })
+    flight_route_path = [
+        {
+            "name": flight.get("name", "Flug"),
+            "path": [[point["lon"], point["lat"]] for point in flight.get("points", [])],
+        }
+        for flight in data.get("flight_routes", [])
+        if len(flight.get("points", [])) >= 2
+    ]
 
     route_map_state = st.pydeck_chart(
         pdk.Deck(
             map_style="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
-            initial_view_state=pdk.ViewState(latitude=-34.02, longitude=20.25, zoom=6.0, pitch=0),
+            initial_view_state=pdk.ViewState(latitude=-30.8, longitude=25.0, zoom=4.55, pitch=0),
             layers=[
                 pdk.Layer(
                     "PathLayer",
@@ -712,6 +720,15 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
                     get_path="path",
                     get_color=[0, 93, 115, 255],
                     width_min_pixels=4,
+                    rounded=True,
+                    pickable=True,
+                ),
+                pdk.Layer(
+                    "PathLayer",
+                    flight_route_path,
+                    get_path="path",
+                    get_color=[228, 87, 46, 230],
+                    width_min_pixels=3,
                     rounded=True,
                     pickable=True,
                 ),
@@ -743,7 +760,7 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
         on_select="rerun",
         key=map_key,
     )
-    st.caption("Tatsächlich gefahrene Route · kleine Symbole: 📷 Foto · 🏖️ Beach · 🍴 Restaurant · 🏡 Unterkunft · 🍷 Aktivität · 🎨 Art/Decor · ⛳ Golf · 🛶 Kanufahrt · 🥾 Hiking · 🐒 Monkeyland · 🏃‍♀️ Running · 🪁 Kite fliegen · 🐘 Safari · 🐧 Pinguine. Symbol antippen, um Fotos zu öffnen.")
+    st.caption("Tatsächlich gefahrene Route · orange Linie: ✈️ Flug · kleine Symbole: 📷 Foto · 🏖️ Beach · 🍴 Restaurant · 🏡 Unterkunft · 🍷 Aktivität · 🎨 Art/Decor · ⛳ Golf · 🛶 Kanufahrt · 🥾 Hiking · 🐒 Monkeyland · 🏃‍♀️ Running · 🪁 Kite fliegen · 🐘 Safari · 🐧 Pinguine. Symbol antippen, um Fotos zu öffnen.")
     render_made_stops_overview(photo_stops)
 
     if photo_stops:
