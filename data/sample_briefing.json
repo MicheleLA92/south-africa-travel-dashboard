@@ -528,7 +528,7 @@
     {
       "name": "Unterkunft Marloth Park",
       "location": "Marloth Park",
-      "why": "Ruhige Unterkunft in Marloth Park mit modernem Interior, schöner Terrasse und Natur direkt vor dem Haus.",
+      "why": "Ruhige Unterkunft in Marloth Park mit modernem Interior, schöner Terrasse, Buschblick und Kudus direkt vor dem Haus.",
       "tip": "",
       "link": "",
       "images": [
@@ -539,7 +539,8 @@
         "assets/marloth-park/marloth-park-05.jpg",
         "assets/marloth-park/marloth-park-06.jpg",
         "assets/marloth-park/marloth-park-07.jpg",
-        "assets/marloth-park/marloth-park-08.jpg"
+        "assets/marloth-park/marloth-park-08.jpg",
+        "assets/marloth-park/marloth-park-09.jpg"
       ],
       "image": "assets/marloth-park/marloth-park-01.jpg"
     },
@@ -2062,7 +2063,7 @@
       "location": "Marloth Park / Kruger",
       "lat": -25.342,
       "lon": 31.778,
-      "summary": "Ruhige Unterkunft in Marloth Park mit modernem Interior, Terrasse, Buschblick und Kudus direkt im Garten.",
+      "summary": "Ruhige Unterkunft in Marloth Park mit modernem Interior, Terrasse, Buschblick und Kudus direkt vor dem Haus.",
       "region": "Marloth Park / Kruger",
       "kind": "stay",
       "photos": [
@@ -2073,7 +2074,8 @@
         "assets/marloth-park/marloth-park-05.jpg",
         "assets/marloth-park/marloth-park-06.jpg",
         "assets/marloth-park/marloth-park-07.jpg",
-        "assets/marloth-park/marloth-park-08.jpg"
+        "assets/marloth-park/marloth-park-08.jpg",
+        "assets/marloth-park/marloth-park-09.jpg"
       ]
     },
     {
