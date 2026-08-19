@@ -358,6 +358,20 @@
       ],
       "lat": -25.3832,
       "lon": 31.1056
+    },
+    {
+      "emoji": "🏡",
+      "name": "Marloth Park",
+      "summary": "Fahrt vom Kruger Mpumalanga International Airport nach Marloth Park.",
+      "detail": "Nach dem Flug sind wir vom Kruger Mpumalanga International Airport über die Straße weiter nach Marloth Park gefahren — Unterkunft, Busch-Stimmung und Wildlife direkt vor dem Haus.",
+      "tags": [
+        "Fahrt",
+        "Marloth Park",
+        "Kruger",
+        "Unterkunft"
+      ],
+      "lat": -25.342,
+      "lon": 31.778
     }
   ],
   "magic_place": {
@@ -2246,6 +2260,51 @@
           "lat": -34.1028,
           "lon": 18.3609,
           "kind": "actual"
+        }
+      ]
+    },
+    {
+      "name": "Fahrt MQP → Marloth Park",
+      "points": [
+        {
+          "name": "Kruger Mpumalanga International Airport (MQP)",
+          "lat": -25.3832,
+          "lon": 31.1056
+        },
+        {
+          "name": "MQP R538 access road",
+          "lat": -25.4275,
+          "lon": 31.1225
+        },
+        {
+          "name": "Karino N4 east link",
+          "lat": -25.4738,
+          "lon": 31.1325
+        },
+        {
+          "name": "Kaapmuiden N4 link",
+          "lat": -25.5425,
+          "lon": 31.329
+        },
+        {
+          "name": "Malalane N4 link",
+          "lat": -25.489,
+          "lon": 31.514
+        },
+        {
+          "name": "Hectorspruit N4 link",
+          "lat": -25.433,
+          "lon": 31.682
+        },
+        {
+          "name": "Marloth Park turnoff",
+          "lat": -25.386,
+          "lon": 31.752
+        },
+        {
+          "name": "Marloth Park",
+          "lat": -25.342,
+          "lon": 31.778
         }
       ]
     }

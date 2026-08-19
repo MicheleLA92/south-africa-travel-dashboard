@@ -41,6 +41,7 @@ def test_route_order_matches_actual_trip():
         "Cove View B&B",
         "O. R. Tambo International Airport (JNB)",
         "Kruger Mpumalanga International Airport (MQP)",
+        "Marloth Park",
     ]
 
 
@@ -87,9 +88,10 @@ def test_route_includes_separate_flights_to_johannesburg_and_kruger_mq():
     east_london_flight = next((item for item in data.get("flight_routes", []) if item["name"] == "Flug East London → Johannesburg"), None)
     kruger_flight = next((item for item in data.get("flight_routes", []) if item["name"] == "Flug Johannesburg → Kruger Mpumalanga"), None)
 
-    assert route_names[-2:] == [
+    assert route_names[-3:] == [
         "O. R. Tambo International Airport (JNB)",
         "Kruger Mpumalanga International Airport (MQP)",
+        "Marloth Park",
     ]
     assert "O. R. Tambo International Airport (JNB)" not in map_route_names
     assert "Kruger Mpumalanga International Airport (MQP)" not in map_route_names
@@ -109,6 +111,23 @@ def test_route_includes_separate_flights_to_johannesburg_and_kruger_mq():
     ]
     assert -26 <= kruger_flight["points"][-1]["lat"] <= -25
     assert 31 <= kruger_flight["points"][-1]["lon"] <= 32
+
+
+def test_route_includes_driven_segment_from_mqp_to_marloth_park():
+    data = load_data()
+    extensions = data.get("map_route_extensions", [])
+    drive = next((item for item in extensions if item["name"] == "Fahrt MQP → Marloth Park"), None)
+
+    assert drive is not None
+    names = [point["name"] for point in drive["points"]]
+    assert names[0] == "Kruger Mpumalanga International Airport (MQP)"
+    assert names[-1] == "Marloth Park"
+    assert "Karino N4 east link" in names
+    assert "Malalane N4 link" in names
+    assert "Hectorspruit N4 link" in names
+    assert len(drive["points"]) >= 8
+    assert all(-26 <= point["lat"] <= -25 for point in drive["points"])
+    assert all(31 <= point["lon"] <= 32 for point in drive["points"])
 
 
 def test_map_route_includes_morning_drive_to_sedge_links():
