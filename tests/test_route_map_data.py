@@ -401,8 +401,10 @@ def test_marloth_park_experience_is_top_activity_with_photos():
     assert activity["kind"] == "wildlife"
     assert activity["lat"] != -25.342
     assert activity["lon"] != 31.778
-    assert -25.35 <= activity["lat"] <= -25.33
-    assert 31.77 <= activity["lon"] <= 31.79
+    assert activity["lat"] > -25.335
+    assert activity["lon"] > 31.79
+    assert -25.35 <= activity["lat"] <= -25.31
+    assert 31.77 <= activity["lon"] <= 31.81
     assert "Unterkunft in Marloth Park zu buchen" in activity["why"]
     assert "Tagesbesuch" in activity["why"]
     assert activity["images"] == expected
