@@ -645,6 +645,23 @@
       ]
     },
     {
+      "name": "Marloth Park erleben",
+      "location": "Marloth Park / Kruger",
+      "why": "Eine Unterkunft in Marloth Park zu buchen ist eine klare Top-Empfehlung: Wildlife direkt vor dem Haus, ruhige Busch-Stimmung und optional reicht auch schon ein Tagesbesuch, um diesen besonderen Ort zu erleben.",
+      "tip": "",
+      "link": "https://maps.app.goo.gl/QTDvBpYP75LJqQ6t5?g_st=ac",
+      "lat": -25.342,
+      "lon": 31.778,
+      "region": "Marloth Park / Kruger",
+      "kind": "wildlife",
+      "images": [
+        "assets/marloth-park-activity/marloth-park-activity-01.jpg",
+        "assets/marloth-park-activity/marloth-park-activity-02.jpg",
+        "assets/marloth-park-activity/marloth-park-activity-03.jpg",
+        "assets/marloth-park-activity/marloth-park-activity-04.jpg"
+      ]
+    },
+    {
       "name": "Franschhoek Wine Tram",
       "location": "Franschhoek",
       "why": "Weintram-Erlebnis durch Franschhoek – eine entspannte Aktivität zwischen Weinbergen, Aussicht und kleinen Stopps.",

@@ -428,6 +428,7 @@ KITE_MAP_ICON_URL = "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3
 PENGUIN_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f427.png"
 STAY_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3e1.png"
 ELEPHANT_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f418.png"
+WILDLIFE_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f993.png"
 
 
 def render_private_upload_folder():
@@ -493,6 +494,8 @@ def photo_stop_icon_url(stop):
         return KITE_MAP_ICON_URL
     if stop.get("kind") == "elephant":
         return ELEPHANT_MAP_ICON_URL
+    if stop.get("kind") == "wildlife":
+        return WILDLIFE_MAP_ICON_URL
     if stop.get("kind") == "activity":
         return ACTIVITY_MAP_ICON_URL
     if stop.get("kind") == "stay":
@@ -537,6 +540,8 @@ def photo_stop_menu_icon(stop):
         return "🪁"
     if stop.get("kind") == "elephant":
         return "🐘"
+    if stop.get("kind") == "wildlife":
+        return "🦓"
     if stop.get("kind") == "activity":
         return "🍷"
     if stop.get("kind") == "stay":
@@ -760,7 +765,7 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
         on_select="rerun",
         key=map_key,
     )
-    st.caption("Tatsächlich gefahrene Route · orange Linie: ✈️ Flug · kleine Symbole: 📷 Foto · 🏖️ Beach · 🍴 Restaurant · 🏡 Unterkunft · 🍷 Aktivität · 🎨 Art/Decor · ⛳ Golf · 🛶 Kanufahrt · 🥾 Hiking · 🐒 Monkeyland · 🏃‍♀️ Running · 🪁 Kite fliegen · 🐘 Safari · 🐧 Pinguine. Symbol antippen, um Fotos zu öffnen.")
+    st.caption("Tatsächlich gefahrene Route · orange Linie: ✈️ Flug · kleine Symbole: 📷 Foto · 🏖️ Beach · 🍴 Restaurant · 🏡 Unterkunft · 🍷 Aktivität · 🎨 Art/Decor · ⛳ Golf · 🛶 Kanufahrt · 🥾 Hiking · 🐒 Monkeyland · 🏃‍♀️ Running · 🪁 Kite fliegen · 🐘 Safari · 🦓 Wildlife · 🐧 Pinguine. Symbol antippen, um Fotos zu öffnen.")
     render_made_stops_overview(photo_stops)
 
     if photo_stops:

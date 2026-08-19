@@ -359,6 +359,24 @@ def test_cove_view_bnb_is_top_stay_with_photos():
         assert Path(photo).exists(), f"Missing Cove View B&B photo: {photo}"
 
 
+def test_marloth_park_experience_is_top_activity_with_photos():
+    data = load_data()
+    activities = data.get("activities", [])
+    activity = next((item for item in activities if item["name"] == "Marloth Park erleben"), None)
+    expected = [f"assets/marloth-park-activity/marloth-park-activity-{index:02d}.jpg" for index in range(1, 5)]
+
+    assert activity is not None
+    assert activity["location"] == "Marloth Park / Kruger"
+    assert activity["link"] == "https://maps.app.goo.gl/QTDvBpYP75LJqQ6t5?g_st=ac"
+    assert activity["region"] == "Marloth Park / Kruger"
+    assert activity["kind"] == "wildlife"
+    assert "Unterkunft in Marloth Park zu buchen" in activity["why"]
+    assert "Tagesbesuch" in activity["why"]
+    assert activity["images"] == expected
+    for photo in expected:
+        assert Path(photo).exists(), f"Missing Marloth Park activity photo: {photo}"
+
+
 def test_knysna_belle_guest_house_has_photos():
     data = load_data()
     stays = data["stays"]
