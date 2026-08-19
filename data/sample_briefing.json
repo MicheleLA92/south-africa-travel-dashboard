@@ -645,6 +645,27 @@
       ]
     },
     {
+      "name": "Kruger National Park",
+      "location": "Kruger National Park",
+      "why": "Schotia Safari bleibt die klare Empfehlung für das geführte Safari-Erlebnis. Kruger ist aber auch toll: weitläufig, wild und wunderschön für eigene Safari-Momente im Park.",
+      "tip": "",
+      "link": "https://maps.app.goo.gl/2fNoTcSUwRbR1nrAA?g_st=ac",
+      "lat": -25.245,
+      "lon": 31.94,
+      "region": "Marloth Park / Kruger",
+      "kind": "elephant",
+      "images": [
+        "assets/kruger-national-park/kruger-national-park-01.jpg",
+        "assets/kruger-national-park/kruger-national-park-02.jpg",
+        "assets/kruger-national-park/kruger-national-park-03.jpg",
+        "assets/kruger-national-park/kruger-national-park-04.jpg",
+        "assets/kruger-national-park/kruger-national-park-05.jpg",
+        "assets/kruger-national-park/kruger-national-park-06.jpg",
+        "assets/kruger-national-park/kruger-national-park-07.jpg",
+        "assets/kruger-national-park/kruger-national-park-08.jpg"
+      ]
+    },
+    {
       "name": "Middle Beach Kite Spot",
       "location": "Middle Beach, Kenton-on-Sea",
       "why": "Perfekter Strand, um den Kite fliegen zu lernen: weit, offen und ideal als entspannter Kite-/Beach-Stopp in Kenton-on-Sea.",

@@ -412,6 +412,24 @@ def test_marloth_park_experience_is_top_activity_with_photos():
         assert Path(photo).exists(), f"Missing Marloth Park activity photo: {photo}"
 
 
+def test_kruger_national_park_activity_has_photos_and_schotia_recommendation_context():
+    data = load_data()
+    activities = data.get("activities", [])
+    activity = next((item for item in activities if item["name"] == "Kruger National Park"), None)
+    expected = [f"assets/kruger-national-park/kruger-national-park-{index:02d}.jpg" for index in range(1, 9)]
+
+    assert activity is not None
+    assert activity["location"] == "Kruger National Park"
+    assert activity["link"] == "https://maps.app.goo.gl/2fNoTcSUwRbR1nrAA?g_st=ac"
+    assert activity["region"] == "Marloth Park / Kruger"
+    assert activity["kind"] == "elephant"
+    assert "Schotia Safari bleibt die klare Empfehlung" in activity["why"]
+    assert "Kruger ist aber auch toll" in activity["why"]
+    assert activity["images"] == expected
+    for photo in expected:
+        assert Path(photo).exists(), f"Missing Kruger National Park photo: {photo}"
+
+
 def test_knysna_belle_guest_house_has_photos():
     data = load_data()
     stays = data["stays"]
@@ -794,7 +812,6 @@ def test_middle_beach_kite_spot_activity_has_kite_kind():
     activity = next((item for item in activities if item["name"] == "Middle Beach Kite Spot"), None)
 
     assert activity is not None
-    assert activities[1]["name"] == "Middle Beach Kite Spot"
     assert activity["location"] == "Middle Beach, Kenton-on-Sea"
     assert activity["link"] == "https://maps.app.goo.gl/J7bQ5WHK5PGQH318A"
     assert activity["region"] == "Eastern Cape / Addo"
