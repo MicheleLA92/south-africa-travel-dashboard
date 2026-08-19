@@ -1,5 +1,15 @@
+import importlib.util
 import json
 from pathlib import Path
+
+
+def load_app_module():
+    spec = importlib.util.spec_from_file_location("travel_dashboard_app", Path("app.py"))
+    assert spec is not None
+    assert spec.loader is not None
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def load_data():
@@ -495,6 +505,20 @@ def test_restored_quiz_answers_include_known_reconstructed_answers():
     assert len(roberto_answers) == 6
     assert roberto_answers[1]["answer"] == "Nie"
     assert roberto_answers[4]["answer"] == "80"
+
+
+def test_quiz_answer_summary_keeps_each_person_even_for_duplicate_answers():
+    app = load_app_module()
+
+    data = load_data()
+    quiz_questions = data["quiz"]["questions"]
+    summary = app.summarize_quiz_results(data["restored_quiz_results"], quiz_questions)
+
+    first_question_answers = summary[0]["answers"]
+    assert "Steffi: Elefant" in first_question_answers
+    assert "Roberto: Elefant" in first_question_answers
+    assert first_question_answers.count("Roberto: Elefant") == 1
+    assert len(first_question_answers) >= 2
 
 
 def test_today_magic_place_override_points_to_existing_non_blyde_place():

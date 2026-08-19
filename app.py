@@ -656,19 +656,24 @@ def summarize_quiz_results(results, quiz_questions):
     summary = []
     for question_index, question in enumerate(quiz_questions):
         answers = []
+        seen_answers = set()
         for result in results:
+            friend_name = result.get("name") or "Unbekannt"
             result_answers = result.get("answers", [])
             for item_index, item in enumerate(result_answers):
                 same_question = item.get("question") == question["question"]
                 same_position = item_index == question_index
                 if same_question or same_position:
-                    answers.append(normalize_quiz_answer_text(item.get("answer", "")))
+                    answer = normalize_quiz_answer_text(item.get("answer", ""))
+                    answer_key = (friend_name, answer)
+                    if answer and answer_key not in seen_answers:
+                        seen_answers.add(answer_key)
+                        answers.append(f"{friend_name}: {answer}")
                     break
-        unique_answers = list(dict.fromkeys(answer for answer in answers if answer))
         summary.append(
             {
                 "question": question["question"],
-                "answers": unique_answers or ["Noch keine Antwort"],
+                "answers": answers or ["Noch keine Antwort"],
             }
         )
     return summary
