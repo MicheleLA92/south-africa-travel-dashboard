@@ -507,7 +507,7 @@ def test_restored_quiz_answers_include_known_reconstructed_answers():
     assert roberto_answers[4]["answer"] == "80"
 
 
-def test_quiz_answer_summary_keeps_each_person_even_for_duplicate_answers():
+def test_quiz_answer_summary_keeps_all_answers_without_showing_names():
     app = load_app_module()
 
     data = load_data()
@@ -515,10 +515,9 @@ def test_quiz_answer_summary_keeps_each_person_even_for_duplicate_answers():
     summary = app.summarize_quiz_results(data["restored_quiz_results"], quiz_questions)
 
     first_question_answers = summary[0]["answers"]
-    assert "Steffi: Elefant" in first_question_answers
-    assert "Roberto: Elefant" in first_question_answers
-    assert first_question_answers.count("Roberto: Elefant") == 1
-    assert len(first_question_answers) >= 2
+    assert "Elefant" in first_question_answers
+    assert first_question_answers.count("Elefant") == 2
+    assert all("Steffi:" not in answer and "Roberto:" not in answer for answer in first_question_answers)
 
 
 def test_today_magic_place_override_points_to_existing_non_blyde_place():

@@ -658,17 +658,16 @@ def summarize_quiz_results(results, quiz_questions):
         answers = []
         seen_answers = set()
         for result in results:
-            friend_name = result.get("name") or "Unbekannt"
             result_answers = result.get("answers", [])
             for item_index, item in enumerate(result_answers):
                 same_question = item.get("question") == question["question"]
                 same_position = item_index == question_index
                 if same_question or same_position:
                     answer = normalize_quiz_answer_text(item.get("answer", ""))
-                    answer_key = (friend_name, answer)
+                    answer_key = (result.get("name") or "Unbekannt", answer)
                     if answer and answer_key not in seen_answers:
                         seen_answers.add(answer_key)
-                        answers.append(f"{friend_name}: {answer}")
+                        answers.append(answer)
                     break
         summary.append(
             {
