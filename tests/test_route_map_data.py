@@ -392,7 +392,7 @@ def test_marloth_park_experience_is_top_activity_with_photos():
     data = load_data()
     activities = data.get("activities", [])
     activity = next((item for item in activities if item["name"] == "Marloth Park erleben"), None)
-    expected = [f"assets/marloth-park-activity/marloth-park-activity-{index:02d}.jpg" for index in range(1, 5)]
+    expected = [f"assets/marloth-park-activity/marloth-park-activity-{index:02d}.jpg" for index in range(1, 7)]
 
     assert activity is not None
     assert activity["location"] == "Marloth Park / Kruger"
@@ -406,6 +406,7 @@ def test_marloth_park_experience_is_top_activity_with_photos():
     assert -25.37 <= activity["lat"] <= -25.34
     assert 31.79 <= activity["lon"] <= 31.82
     assert "Unterkunft in Marloth Park zu buchen" in activity["why"]
+    assert "Giraffen am Strassenrand" in activity["why"]
     assert "Tagesbesuch" in activity["why"]
     assert activity["images"] == expected
     for photo in expected:
