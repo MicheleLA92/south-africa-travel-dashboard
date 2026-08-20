@@ -1044,15 +1044,17 @@ def test_marloth_park_accommodation_and_photo_stop_have_correct_photos():
         "assets/marloth-park/marloth-park-12.jpg",
         "assets/marloth-park/marloth-park-13.jpg",
     ]
-    photo_stop_expected = [f"assets/marloth-park/marloth-park-{index:02d}.jpg" for index in range(1, 14)]
+    photo_stop_expected = accommodation_expected
+    giraffe_photo = "assets/marloth-park/marloth-park-11.jpg"
 
     assert stay["image"] == accommodation_expected[0]
     assert stay["images"] == accommodation_expected
-    assert "assets/marloth-park/marloth-park-11.jpg" not in stay["images"]
+    assert giraffe_photo not in stay["images"]
     assert stop["photos"] == photo_stop_expected
+    assert giraffe_photo not in stop["photos"]
     assert "Pool" in stop["summary"]
     assert "Kudus direkt vor dem Haus" in stop["summary"]
-    assert "Giraffen" in stop["summary"]
+    assert "Giraffen" not in stop["summary"]
     assert "Outdoor-Dusche" in stop["summary"]
     assert "Feuerstelle" in stop["summary"]
     assert "Giraffen" not in stay["why"]
