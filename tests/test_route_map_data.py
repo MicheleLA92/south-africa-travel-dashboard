@@ -413,10 +413,11 @@ def test_marloth_park_experience_is_top_activity_with_photos():
         assert Path(photo).exists(), f"Missing Marloth Park activity photo: {photo}"
 
 
-def test_ellis_park_rugby_activity_has_no_personal_photo_and_rugby_kind():
+def test_ellis_park_rugby_activity_has_public_photos_and_no_personal_diary_photo():
     data = load_data()
     activities = data.get("activities", [])
     activity = next((item for item in activities if item["name"] == "Ellis Park Rugbyspiel"), None)
+    expected = [f"assets/ellis-park-rugby/ellis-park-rugby-{index:02d}.jpg" for index in range(1, 5)]
 
     assert activity is not None
     assert activity["location"] == "Ellis Park Stadion, Johannesburg"
@@ -425,8 +426,13 @@ def test_ellis_park_rugby_activity_has_no_personal_photo_and_rugby_kind():
     assert activity["kind"] == "rugby"
     assert "Rugbyspiel im Ellis Park" in activity["why"]
     assert "grossartige Stimmung" in activity["why"]
-    assert not activity.get("images")
-    assert not Path("assets/ellis-park-rugby/ellis-park-rugby-01.jpg").exists()
+    assert activity["image"] == expected[0]
+    assert activity["images"] == expected
+    for photo in expected:
+        assert Path(photo).exists(), f"Missing Ellis Park Rugby photo: {photo}"
+
+    # The earlier personal diary photo must stay out of the public dashboard assets.
+    assert not Path("assets/ellis-park-rugby/ellis-park-rugby-personal.jpg").exists()
 
 
 def test_kruger_national_park_activity_has_photos_and_schotia_recommendation_context():
