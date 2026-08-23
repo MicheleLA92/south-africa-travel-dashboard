@@ -676,10 +676,7 @@
       "lat": -26.1975,
       "lon": 28.0609,
       "region": "Johannesburg",
-      "kind": "rugby",
-      "images": [
-        "assets/ellis-park-rugby/ellis-park-rugby-01.jpg"
-      ]
+      "kind": "rugby"
     },
     {
       "name": "Middle Beach Kite Spot",
