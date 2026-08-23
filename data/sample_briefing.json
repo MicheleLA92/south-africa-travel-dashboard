@@ -668,6 +668,20 @@
       ]
     },
     {
+      "name": "Ellis Park Rugbyspiel",
+      "location": "Ellis Park Stadion, Johannesburg",
+      "why": "Rugbyspiel im Ellis Park: grossartige Stimmung, echtes Johannesburg-Feeling und ein besonderer Stadionmoment, den man gemeinsam einfach geniessen muss.",
+      "tip": "",
+      "link": "https://maps.app.goo.gl/JUKcAgvSRgqN2ASu9?g_st=ac",
+      "lat": -26.1975,
+      "lon": 28.0609,
+      "region": "Johannesburg",
+      "kind": "rugby",
+      "images": [
+        "assets/ellis-park-rugby/ellis-park-rugby-01.jpg"
+      ]
+    },
+    {
       "name": "Middle Beach Kite Spot",
       "location": "Middle Beach, Kenton-on-Sea",
       "why": "Perfekter Strand, um den Kite fliegen zu lernen: weit, offen und ideal als entspannter Kite-/Beach-Stopp in Kenton-on-Sea.",

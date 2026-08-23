@@ -413,6 +413,24 @@ def test_marloth_park_experience_is_top_activity_with_photos():
         assert Path(photo).exists(), f"Missing Marloth Park activity photo: {photo}"
 
 
+def test_ellis_park_rugby_activity_has_photo_and_rugby_kind():
+    data = load_data()
+    activities = data.get("activities", [])
+    activity = next((item for item in activities if item["name"] == "Ellis Park Rugbyspiel"), None)
+    expected = ["assets/ellis-park-rugby/ellis-park-rugby-01.jpg"]
+
+    assert activity is not None
+    assert activity["location"] == "Ellis Park Stadion, Johannesburg"
+    assert activity["link"] == "https://maps.app.goo.gl/JUKcAgvSRgqN2ASu9?g_st=ac"
+    assert activity["region"] == "Johannesburg"
+    assert activity["kind"] == "rugby"
+    assert "Rugbyspiel im Ellis Park" in activity["why"]
+    assert "grossartige Stimmung" in activity["why"]
+    assert activity["images"] == expected
+    for photo in expected:
+        assert Path(photo).exists(), f"Missing Ellis Park Rugby photo: {photo}"
+
+
 def test_kruger_national_park_activity_has_photos_and_schotia_recommendation_context():
     data = load_data()
     activities = data.get("activities", [])
