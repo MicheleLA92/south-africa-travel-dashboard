@@ -24,8 +24,12 @@ def test_route_stops_have_coordinates_for_map():
         assert "lon" in stop, f"{stop['name']} needs a longitude"
         assert isinstance(stop["lat"], (int, float))
         assert isinstance(stop["lon"], (int, float))
-        assert -35 <= stop["lat"] <= -22
-        assert 16 <= stop["lon"] <= 33
+        if stop["name"] == "Flughafen Zürich (ZRH)":
+            assert 47 <= stop["lat"] <= 48
+            assert 8 <= stop["lon"] <= 9
+        else:
+            assert -35 <= stop["lat"] <= -22
+            assert 16 <= stop["lon"] <= 33
 
 
 def test_route_order_matches_actual_trip():
@@ -52,6 +56,7 @@ def test_route_order_matches_actual_trip():
         "O. R. Tambo International Airport (JNB)",
         "Kruger Mpumalanga International Airport (MQP)",
         "Marloth Park",
+        "Flughafen Zürich (ZRH)",
     ]
 
 
@@ -91,17 +96,19 @@ def test_map_route_shows_only_actual_driven_route():
     assert "Tsitsikamma" not in names
 
 
-def test_route_includes_separate_flights_to_johannesburg_and_kruger_mq():
+def test_route_includes_separate_flights_to_johannesburg_kruger_and_zurich():
     data = load_data()
     route_names = [stop["name"] for stop in data["route"]]
     map_route_names = [point["name"] for point in data["map_route"]]
     east_london_flight = next((item for item in data.get("flight_routes", []) if item["name"] == "Flug East London → Johannesburg"), None)
     kruger_flight = next((item for item in data.get("flight_routes", []) if item["name"] == "Flug Johannesburg → Kruger Mpumalanga"), None)
+    zurich_flight = next((item for item in data.get("flight_routes", []) if item["name"] == "Rückflug Johannesburg → Zürich"), None)
 
-    assert route_names[-3:] == [
+    assert route_names[-4:] == [
         "O. R. Tambo International Airport (JNB)",
         "Kruger Mpumalanga International Airport (MQP)",
         "Marloth Park",
+        "Flughafen Zürich (ZRH)",
     ]
     assert "O. R. Tambo International Airport (JNB)" not in map_route_names
     assert "Kruger Mpumalanga International Airport (MQP)" not in map_route_names
@@ -121,6 +128,15 @@ def test_route_includes_separate_flights_to_johannesburg_and_kruger_mq():
     ]
     assert -26 <= kruger_flight["points"][-1]["lat"] <= -25
     assert 31 <= kruger_flight["points"][-1]["lon"] <= 32
+    assert zurich_flight is not None
+    assert zurich_flight["from"] == "O. R. Tambo International Airport (JNB)"
+    assert zurich_flight["to"] == "Flughafen Zürich (ZRH)"
+    assert [point["name"] for point in zurich_flight["points"]] == [
+        "O. R. Tambo International Airport (JNB)",
+        "Flughafen Zürich (ZRH)",
+    ]
+    assert 47 <= zurich_flight["points"][-1]["lat"] <= 48
+    assert 8 <= zurich_flight["points"][-1]["lon"] <= 9
 
 
 def test_route_includes_driven_segment_from_mqp_to_marloth_park():

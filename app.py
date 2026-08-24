@@ -430,6 +430,7 @@ STAY_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/7
 ELEPHANT_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f418.png"
 WILDLIFE_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f993.png"
 RUGBY_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f3c9.png"
+SWISS_MAP_ICON_URL = "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/72x72/1f1e8-1f1ed.png"
 
 
 def render_private_upload_folder():
@@ -689,7 +690,7 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
         {
             **stop,
             "position": [stop["lon"], stop["lat"]],
-            "label": str(index),
+            "label": stop.get("emoji", str(index)) if stop.get("name") == "Flughafen Zürich (ZRH)" else str(index),
             "photo_count": "",
         }
         for index, stop in enumerate(data["route"], start=1)
@@ -722,11 +723,20 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
         for flight in data.get("flight_routes", [])
         if len(flight.get("points", [])) >= 2
     ]
+    swiss_airport_icons = [
+        {
+            "name": stop["name"],
+            "position": [stop["lon"], stop["lat"]],
+            "icon_data": {"url": SWISS_MAP_ICON_URL, "width": 72, "height": 72, "anchorY": 36},
+        }
+        for stop in data["route"]
+        if stop.get("name") == "Flughafen Zürich (ZRH)"
+    ]
 
     route_map_state = st.pydeck_chart(
         pdk.Deck(
             map_style="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json",
-            initial_view_state=pdk.ViewState(latitude=-30.8, longitude=25.0, zoom=4.55, pitch=0),
+            initial_view_state=pdk.ViewState(latitude=9.0, longitude=18.0, zoom=1.45, pitch=0),
             layers=[
                 pdk.Layer(
                     "PathLayer",
@@ -758,6 +768,15 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
                 ),
                 pdk.Layer(
                     "IconLayer",
+                    swiss_airport_icons,
+                    get_icon="icon_data",
+                    get_position="position",
+                    get_size=1.4,
+                    size_scale=18,
+                    pickable=True,
+                ),
+                pdk.Layer(
+                    "IconLayer",
                     photo_stops,
                     get_icon="icon_data",
                     get_position="position",
@@ -774,7 +793,7 @@ def render_route_map_and_timeline(data, selected_photo_stop_name=None, map_key="
         on_select="rerun",
         key=map_key,
     )
-    st.caption("Tatsächlich gefahrene Route · orange Linie: ✈️ Flug · kleine Symbole: 📷 Foto · 🏖️ Beach · 🍴 Restaurant · 🏡 Unterkunft · 🍷 Aktivität · 🎨 Art/Decor · ⛳ Golf · 🛶 Kanufahrt · 🥾 Hiking · 🐒 Monkeyland · 🏃‍♀️ Running · 🪁 Kite fliegen · 🐘 Safari · 🦓 Wildlife · 🏉 Rugby · 🐧 Pinguine. Symbol antippen, um Fotos zu öffnen.")
+    st.caption("Tatsächlich gefahrene Route · orange Linie: ✈️ Flug/Rückflug · kleine Symbole: 📷 Foto · 🏖️ Beach · 🍴 Restaurant · 🏡 Unterkunft · 🍷 Aktivität · 🎨 Art/Decor · ⛳ Golf · 🛶 Kanufahrt · 🥾 Hiking · 🐒 Monkeyland · 🏃‍♀️ Running · 🪁 Kite fliegen · 🐘 Safari · 🦓 Wildlife · 🏉 Rugby · 🐧 Pinguine · 🇨🇭 Schweiz. Symbol antippen, um Fotos zu öffnen.")
     render_made_stops_overview(photo_stops)
 
     if photo_stops:

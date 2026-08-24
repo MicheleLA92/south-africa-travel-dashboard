@@ -372,6 +372,21 @@
       ],
       "lat": -25.342,
       "lon": 31.778
+    },
+    {
+      "emoji": "🇨🇭",
+      "name": "Flughafen Zürich (ZRH)",
+      "summary": "Rückflug von Johannesburg in die Schweiz zum Flughafen Zürich.",
+      "detail": "Rückflug von Johannesburg / O. R. Tambo zurück in die Schweiz — Ankunft am Flughafen Zürich (ZRH).",
+      "tags": [
+        "Rückflug",
+        "Schweiz",
+        "Zürich",
+        "Airport",
+        "ZRH"
+      ],
+      "lat": 47.4581,
+      "lon": 8.5555
     }
   ],
   "magic_place": {
@@ -2386,6 +2401,23 @@
           "name": "Kruger Mpumalanga International Airport (MQP)",
           "lat": -25.3832,
           "lon": 31.1056
+        }
+      ]
+    },
+    {
+      "name": "Rückflug Johannesburg → Zürich",
+      "from": "O. R. Tambo International Airport (JNB)",
+      "to": "Flughafen Zürich (ZRH)",
+      "points": [
+        {
+          "name": "O. R. Tambo International Airport (JNB)",
+          "lat": -26.1367,
+          "lon": 28.2411
+        },
+        {
+          "name": "Flughafen Zürich (ZRH)",
+          "lat": 47.4581,
+          "lon": 8.5555
         }
       ]
     }
